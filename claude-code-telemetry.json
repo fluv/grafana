@@ -1,0 +1,132 @@
+{
+  "title": "Claude Code Telemetry",
+  "uid": "claude-code-telemetry",
+  "tags": ["claude"],
+  "timezone": "browser",
+  "schemaVersion": 38,
+  "refresh": "1m",
+  "time": {"from": "now-24h", "to": "now"},
+  "panels": [
+    {
+      "id": 1,
+      "type": "stat",
+      "title": "Spend (USD)",
+      "gridPos": {"x": 0, "y": 0, "w": 4, "h": 4},
+      "datasource": {"type": "prometheus", "uid": "claude-prometheus"},
+      "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "colorMode": "background", "graphMode": "none", "textMode": "auto"},
+      "fieldConfig": {"defaults": {"unit": "currencyUSD", "decimals": 2, "color": {"mode": "thresholds"}, "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}, {"color": "yellow", "value": 1}, {"color": "red", "value": 5}]}}},
+      "targets": [{"expr": "sum(increase(claude_code_cost_usage_USD_total[$__range]))", "legendFormat": "Cost", "instant": true}]
+    },
+    {
+      "id": 2,
+      "type": "stat",
+      "title": "Cache Hit Rate",
+      "gridPos": {"x": 4, "y": 0, "w": 4, "h": 4},
+      "datasource": {"type": "prometheus", "uid": "claude-prometheus"},
+      "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "colorMode": "background", "graphMode": "none"},
+      "fieldConfig": {"defaults": {"unit": "percentunit", "decimals": 1, "color": {"mode": "thresholds"}, "thresholds": {"mode": "absolute", "steps": [{"color": "red", "value": null}, {"color": "yellow", "value": 0.7}, {"color": "green", "value": 0.85}]}}},
+      "targets": [{"expr": "sum(increase(claude_code_token_usage_tokens_total{type=\"cacheRead\"}[$__range])) / sum(increase(claude_code_token_usage_tokens_total{type=~\"input|cacheRead|cacheCreation\"}[$__range]))", "legendFormat": "Cache rate", "instant": true}]
+    },
+    {
+      "id": 3,
+      "type": "stat",
+      "title": "Sessions",
+      "gridPos": {"x": 8, "y": 0, "w": 4, "h": 4},
+      "datasource": {"type": "prometheus", "uid": "claude-prometheus"},
+      "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "colorMode": "none", "graphMode": "none"},
+      "fieldConfig": {"defaults": {"unit": "short", "decimals": 0}},
+      "targets": [{"expr": "sum(increase(claude_code_session_count_total[$__range]))", "legendFormat": "Sessions", "instant": true}]
+    },
+    {
+      "id": 4,
+      "type": "stat",
+      "title": "Commits",
+      "gridPos": {"x": 12, "y": 0, "w": 4, "h": 4},
+      "datasource": {"type": "prometheus", "uid": "claude-prometheus"},
+      "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "colorMode": "none", "graphMode": "none"},
+      "fieldConfig": {"defaults": {"unit": "short", "decimals": 0}},
+      "targets": [{"expr": "sum(increase(claude_code_commit_count_total[$__range]))", "legendFormat": "Commits", "instant": true}]
+    },
+    {
+      "id": 5,
+      "type": "stat",
+      "title": "Pull Requests",
+      "gridPos": {"x": 16, "y": 0, "w": 4, "h": 4},
+      "datasource": {"type": "prometheus", "uid": "claude-prometheus"},
+      "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "colorMode": "none", "graphMode": "none"},
+      "fieldConfig": {"defaults": {"unit": "short", "decimals": 0}},
+      "targets": [{"expr": "sum(increase(claude_code_pull_request_count_total[$__range]))", "legendFormat": "PRs", "instant": true}]
+    },
+    {
+      "id": 6,
+      "type": "stat",
+      "title": "Lines Changed",
+      "gridPos": {"x": 20, "y": 0, "w": 4, "h": 4},
+      "datasource": {"type": "prometheus", "uid": "claude-prometheus"},
+      "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "colorMode": "none", "graphMode": "none"},
+      "fieldConfig": {"defaults": {"unit": "short", "decimals": 0}},
+      "targets": [{"expr": "sum(increase(claude_code_lines_of_code_count_total[$__range]))", "legendFormat": "Lines", "instant": true}]
+    },
+    {
+      "id": 7,
+      "type": "timeseries",
+      "title": "Token Usage Rate by Type",
+      "gridPos": {"x": 0, "y": 4, "w": 24, "h": 8},
+      "datasource": {"type": "prometheus", "uid": "claude-prometheus"},
+      "options": {"tooltip": {"mode": "multi"}, "legend": {"displayMode": "table", "placement": "right", "calcs": ["sum"]}},
+      "fieldConfig": {"defaults": {"unit": "short", "custom": {"lineWidth": 2, "fillOpacity": 10}}},
+      "targets": [
+        {"expr": "sum by(type) (rate(claude_code_token_usage_tokens_total[$__rate_interval]))", "legendFormat": "{{type}}"}
+      ]
+    },
+    {
+      "id": 8,
+      "type": "timeseries",
+      "title": "Cost Rate (USD/hr)",
+      "gridPos": {"x": 0, "y": 12, "w": 12, "h": 8},
+      "datasource": {"type": "prometheus", "uid": "claude-prometheus"},
+      "options": {"tooltip": {"mode": "multi"}, "legend": {"displayMode": "table", "placement": "right", "calcs": ["sum"]}},
+      "fieldConfig": {"defaults": {"unit": "currencyUSD", "custom": {"lineWidth": 2, "fillOpacity": 10}},
+        "overrides": [{"matcher": {"id": "byFrameRefID", "options": "A"}, "properties": [{"id": "custom.transform", "value": "negative-Y"}]}]},
+      "targets": [
+        {"expr": "sum by(model) (rate(claude_code_cost_usage_USD_total[$__rate_interval])) * 3600", "legendFormat": "{{model}}"}
+      ]
+    },
+    {
+      "id": 9,
+      "type": "timeseries",
+      "title": "Active Time Rate",
+      "gridPos": {"x": 12, "y": 12, "w": 12, "h": 8},
+      "datasource": {"type": "prometheus", "uid": "claude-prometheus"},
+      "options": {"tooltip": {"mode": "multi"}, "legend": {"displayMode": "table", "placement": "right", "calcs": ["sum"]}},
+      "fieldConfig": {"defaults": {"unit": "percentunit", "custom": {"lineWidth": 2, "fillOpacity": 10}}},
+      "targets": [
+        {"expr": "sum by(type) (rate(claude_code_active_time_seconds_total[$__rate_interval]))", "legendFormat": "{{type}}"}
+      ]
+    },
+    {
+      "id": 10,
+      "type": "barchart",
+      "title": "Tokens by Model",
+      "gridPos": {"x": 0, "y": 20, "w": 12, "h": 8},
+      "datasource": {"type": "prometheus", "uid": "claude-prometheus"},
+      "options": {"orientation": "horizontal", "legend": {"displayMode": "list", "placement": "bottom"}, "tooltip": {"mode": "single"}},
+      "fieldConfig": {"defaults": {"unit": "short"}},
+      "targets": [
+        {"expr": "sum by(model) (increase(claude_code_token_usage_tokens_total[$__range]))", "legendFormat": "{{model}}", "instant": true}
+      ]
+    },
+    {
+      "id": 11,
+      "type": "barchart",
+      "title": "Tokens by Query Source",
+      "gridPos": {"x": 12, "y": 20, "w": 12, "h": 8},
+      "datasource": {"type": "prometheus", "uid": "claude-prometheus"},
+      "options": {"orientation": "horizontal", "legend": {"displayMode": "list", "placement": "bottom"}, "tooltip": {"mode": "single"}},
+      "fieldConfig": {"defaults": {"unit": "short"}},
+      "targets": [
+        {"expr": "sum by(query_source) (increase(claude_code_token_usage_tokens_total[$__range]))", "legendFormat": "{{query_source}}", "instant": true}
+      ]
+    }
+  ]
+}
