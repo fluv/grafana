@@ -953,7 +953,7 @@
           "description": "",
           "id": 25,
           "links": [],
-          "title": "Coding Activity (%)",
+          "title": "Coding Intensity (%)",
           "vizConfig": {
             "group": "timeseries",
             "kind": "VizConfig",
@@ -1025,9 +1025,9 @@
                 },
                 "legend": {
                   "calcs": [
-                    "sum"
+                    "mean"
                   ],
-                  "displayMode": "table",
+                  "displayMode": "list",
                   "placement": "bottom",
                   "showLegend": true
                 },
@@ -2607,7 +2607,7 @@
         "1d"
       ],
       "fiscalYearStartMonth": 0,
-      "from": "now-3h",
+      "from": "now-6h",
       "hideTimepicker": false,
       "timezone": "browser",
       "to": "now"
