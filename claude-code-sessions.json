@@ -7,7 +7,9 @@
   "spec": {
     "title": "Claude Code — Sessions",
     "description": "Per-session activity view. Shows session titles, turn counts, and activity patterns. Use the time range to narrow to recent sessions.",
-    "tags": ["claude"],
+    "tags": [
+      "claude"
+    ],
     "timeSettings": {
       "autoRefresh": "5m",
       "from": "now-7d",
@@ -16,7 +18,7 @@
       "hideTimepicker": false,
       "fiscalYearStartMonth": 0
     },
-    "cursorSync": 0,
+    "cursorSync": "Off",
     "liveNow": false,
     "preload": false,
     "links": [],
@@ -43,7 +45,9 @@
                       "kind": "DataQuery",
                       "group": "loki",
                       "version": "v0",
-                      "datasource": {"name": "loki"},
+                      "datasource": {
+                        "name": "loki"
+                      },
                       "spec": {
                         "expr": "count(sum by (session_id) (count_over_time({job=\"claude-transcripts\", type=\"assistant\"}[$__range])))",
                         "instant": true,
@@ -67,15 +71,31 @@
                 "graphMode": "none",
                 "justifyMode": "auto",
                 "orientation": "auto",
-                "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
                 "textMode": "auto",
                 "wideLayout": true
               },
               "fieldConfig": {
                 "defaults": {
                   "unit": "short",
-                  "color": {"mode": "thresholds"},
-                  "thresholds": {"mode": "absolute", "steps": [{"color": "blue", "value": null}]}
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "blue",
+                        "value": null
+                      }
+                    ]
+                  }
                 },
                 "overrides": []
               }
@@ -103,7 +123,9 @@
                       "kind": "DataQuery",
                       "group": "loki",
                       "version": "v0",
-                      "datasource": {"name": "loki"},
+                      "datasource": {
+                        "name": "loki"
+                      },
                       "spec": {
                         "expr": "sum(count_over_time({job=\"claude-transcripts\", type=\"assistant\"}[$__range]))",
                         "instant": true,
@@ -127,15 +149,31 @@
                 "graphMode": "none",
                 "justifyMode": "auto",
                 "orientation": "auto",
-                "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
                 "textMode": "auto",
                 "wideLayout": true
               },
               "fieldConfig": {
                 "defaults": {
                   "unit": "short",
-                  "color": {"mode": "thresholds"},
-                  "thresholds": {"mode": "absolute", "steps": [{"color": "blue", "value": null}]}
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "blue",
+                        "value": null
+                      }
+                    ]
+                  }
                 },
                 "overrides": []
               }
@@ -163,7 +201,9 @@
                       "kind": "DataQuery",
                       "group": "loki",
                       "version": "v0",
-                      "datasource": {"name": "loki"},
+                      "datasource": {
+                        "name": "loki"
+                      },
                       "spec": {
                         "expr": "sum(count_over_time({job=\"claude-transcripts\", type=\"assistant\"}[$__range])) / clamp_min(count(sum by (session_id) (count_over_time({job=\"claude-transcripts\", type=\"assistant\"}[$__range]))), 1)",
                         "instant": true,
@@ -187,7 +227,13 @@
                 "graphMode": "none",
                 "justifyMode": "auto",
                 "orientation": "auto",
-                "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
                 "textMode": "auto",
                 "wideLayout": true
               },
@@ -195,13 +241,24 @@
                 "defaults": {
                   "unit": "short",
                   "decimals": 1,
-                  "color": {"mode": "thresholds"},
+                  "color": {
+                    "mode": "thresholds"
+                  },
                   "thresholds": {
                     "mode": "absolute",
                     "steps": [
-                      {"color": "green", "value": null},
-                      {"color": "yellow", "value": 15},
-                      {"color": "red", "value": 25}
+                      {
+                        "color": "green",
+                        "value": null
+                      },
+                      {
+                        "color": "yellow",
+                        "value": 15
+                      },
+                      {
+                        "color": "red",
+                        "value": 25
+                      }
                     ]
                   }
                 },
@@ -231,7 +288,9 @@
                       "kind": "DataQuery",
                       "group": "loki",
                       "version": "v0",
-                      "datasource": {"name": "loki"},
+                      "datasource": {
+                        "name": "loki"
+                      },
                       "spec": {
                         "expr": "count(sum by (session_id) (count_over_time({job=\"claude-transcripts\", type=\"assistant\"}[$__interval])))",
                         "instant": false,
@@ -251,13 +310,24 @@
             "version": "13.0.1",
             "spec": {
               "options": {
-                "legend": {"calcs": [], "displayMode": "list", "placement": "bottom", "showLegend": false},
-                "tooltip": {"hideZeros": false, "mode": "single", "sort": "none"}
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": false
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "single",
+                  "sort": "none"
+                }
               },
               "fieldConfig": {
                 "defaults": {
                   "unit": "short",
-                  "color": {"mode": "palette-classic"},
+                  "color": {
+                    "mode": "palette-classic"
+                  },
                   "custom": {
                     "drawStyle": "bars",
                     "lineWidth": 1,
@@ -266,21 +336,40 @@
                     "spanNulls": false,
                     "showPoints": "auto",
                     "pointSize": 5,
-                    "stacking": {"mode": "none", "group": "A"},
+                    "stacking": {
+                      "mode": "none",
+                      "group": "A"
+                    },
                     "axisPlacement": "auto",
                     "axisLabel": "",
                     "axisColorMode": "text",
                     "axisBorderShow": false,
-                    "scaleDistribution": {"type": "linear"},
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
                     "axisCenteredZero": false,
-                    "hideFrom": {"legend": false, "tooltip": false, "viz": false},
-                    "thresholdsStyle": {"mode": "off"},
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    },
                     "insertNulls": false,
                     "barWidthFactor": 0.6,
                     "barAlignment": 0,
                     "lineInterpolation": "linear"
                   },
-                  "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}]}
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": null
+                      }
+                    ]
+                  }
                 },
                 "overrides": []
               }
@@ -308,7 +397,9 @@
                       "kind": "DataQuery",
                       "group": "loki",
                       "version": "v0",
-                      "datasource": {"name": "loki"},
+                      "datasource": {
+                        "name": "loki"
+                      },
                       "spec": {
                         "expr": "{job=\"claude-transcripts\", type=\"custom-title\"}",
                         "instant": false,
@@ -339,7 +430,9 @@
               },
               "fieldConfig": {
                 "defaults": {
-                  "color": {"mode": "palette-classic"},
+                  "color": {
+                    "mode": "palette-classic"
+                  },
                   "custom": {}
                 },
                 "overrides": []
@@ -368,7 +461,9 @@
                       "kind": "DataQuery",
                       "group": "loki",
                       "version": "v0",
-                      "datasource": {"name": "loki"},
+                      "datasource": {
+                        "name": "loki"
+                      },
                       "spec": {
                         "expr": "sort_desc(sum by (session_id) (count_over_time({job=\"claude-transcripts\", type=\"assistant\"}[$__range])))",
                         "instant": true,
@@ -389,26 +484,52 @@
             "spec": {
               "options": {
                 "cellHeight": "sm",
-                "footer": {"countRows": false, "enablePagination": false, "fields": "", "reducer": ["sum"], "show": false},
+                "footer": {
+                  "countRows": false,
+                  "enablePagination": false,
+                  "fields": "",
+                  "reducer": [
+                    "sum"
+                  ],
+                  "show": false
+                },
                 "frameIndex": 0,
                 "showHeader": true,
-                "sortBy": [{"desc": true, "displayName": "Value"}]
+                "sortBy": [
+                  {
+                    "desc": true,
+                    "displayName": "Value"
+                  }
+                ]
               },
               "fieldConfig": {
                 "defaults": {
                   "unit": "short",
-                  "color": {"mode": "thresholds"},
+                  "color": {
+                    "mode": "thresholds"
+                  },
                   "thresholds": {
                     "mode": "absolute",
                     "steps": [
-                      {"color": "green", "value": null},
-                      {"color": "yellow", "value": 20},
-                      {"color": "red", "value": 40}
+                      {
+                        "color": "green",
+                        "value": null
+                      },
+                      {
+                        "color": "yellow",
+                        "value": 20
+                      },
+                      {
+                        "color": "red",
+                        "value": 40
+                      }
                     ]
                   },
                   "custom": {
                     "align": "auto",
-                    "cellOptions": {"type": "color-background"},
+                    "cellOptions": {
+                      "type": "color-background"
+                    },
                     "inspect": false
                   }
                 },
@@ -438,7 +559,9 @@
                       "kind": "DataQuery",
                       "group": "loki",
                       "version": "v0",
-                      "datasource": {"name": "loki"},
+                      "datasource": {
+                        "name": "loki"
+                      },
                       "spec": {
                         "expr": "sum(count_over_time({job=\"claude-transcripts\", type=\"assistant\"}[1h]))",
                         "instant": false,
@@ -460,13 +583,24 @@
             "version": "13.0.1",
             "spec": {
               "options": {
-                "legend": {"calcs": [], "displayMode": "list", "placement": "bottom", "showLegend": false},
-                "tooltip": {"hideZeros": false, "mode": "single", "sort": "none"}
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": false
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "single",
+                  "sort": "none"
+                }
               },
               "fieldConfig": {
                 "defaults": {
                   "unit": "short",
-                  "color": {"mode": "palette-classic"},
+                  "color": {
+                    "mode": "palette-classic"
+                  },
                   "custom": {
                     "drawStyle": "bars",
                     "lineWidth": 1,
@@ -475,21 +609,40 @@
                     "spanNulls": false,
                     "showPoints": "never",
                     "pointSize": 5,
-                    "stacking": {"mode": "none", "group": "A"},
+                    "stacking": {
+                      "mode": "none",
+                      "group": "A"
+                    },
                     "axisPlacement": "auto",
                     "axisLabel": "",
                     "axisColorMode": "text",
                     "axisBorderShow": false,
-                    "scaleDistribution": {"type": "linear"},
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
                     "axisCenteredZero": false,
-                    "hideFrom": {"legend": false, "tooltip": false, "viz": false},
-                    "thresholdsStyle": {"mode": "off"},
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    },
                     "insertNulls": false,
                     "barWidthFactor": 0.6,
                     "barAlignment": 0,
                     "lineInterpolation": "linear"
                   },
-                  "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}]}
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": null
+                      }
+                    ]
+                  }
                 },
                 "overrides": []
               }
@@ -513,19 +666,55 @@
                   "items": [
                     {
                       "kind": "GridLayoutItem",
-                      "spec": {"element": {"kind": "ElementReference", "name": "panel-1"}, "height": 4, "width": 4, "x": 0, "y": 0}
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-1"
+                        },
+                        "height": 4,
+                        "width": 4,
+                        "x": 0,
+                        "y": 0
+                      }
                     },
                     {
                       "kind": "GridLayoutItem",
-                      "spec": {"element": {"kind": "ElementReference", "name": "panel-2"}, "height": 4, "width": 4, "x": 4, "y": 0}
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-2"
+                        },
+                        "height": 4,
+                        "width": 4,
+                        "x": 4,
+                        "y": 0
+                      }
                     },
                     {
                       "kind": "GridLayoutItem",
-                      "spec": {"element": {"kind": "ElementReference", "name": "panel-3"}, "height": 4, "width": 4, "x": 8, "y": 0}
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-3"
+                        },
+                        "height": 4,
+                        "width": 4,
+                        "x": 8,
+                        "y": 0
+                      }
                     },
                     {
                       "kind": "GridLayoutItem",
-                      "spec": {"element": {"kind": "ElementReference", "name": "panel-4"}, "height": 4, "width": 12, "x": 12, "y": 0}
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-4"
+                        },
+                        "height": 4,
+                        "width": 12,
+                        "x": 12,
+                        "y": 0
+                      }
                     }
                   ]
                 }
@@ -543,7 +732,16 @@
                   "items": [
                     {
                       "kind": "GridLayoutItem",
-                      "spec": {"element": {"kind": "ElementReference", "name": "panel-5"}, "height": 10, "width": 24, "x": 0, "y": 0}
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-5"
+                        },
+                        "height": 10,
+                        "width": 24,
+                        "x": 0,
+                        "y": 0
+                      }
                     }
                   ]
                 }
@@ -561,11 +759,29 @@
                   "items": [
                     {
                       "kind": "GridLayoutItem",
-                      "spec": {"element": {"kind": "ElementReference", "name": "panel-6"}, "height": 10, "width": 12, "x": 0, "y": 0}
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-6"
+                        },
+                        "height": 10,
+                        "width": 12,
+                        "x": 0,
+                        "y": 0
+                      }
                     },
                     {
                       "kind": "GridLayoutItem",
-                      "spec": {"element": {"kind": "ElementReference", "name": "panel-7"}, "height": 10, "width": 12, "x": 12, "y": 0}
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-7"
+                        },
+                        "height": 10,
+                        "width": 12,
+                        "x": 12,
+                        "y": 0
+                      }
                     }
                   ]
                 }
