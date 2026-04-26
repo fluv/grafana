@@ -937,7 +937,7 @@
                         "expr": "rate(claude_code_active_time_seconds_total[$__rate_interval])",
                         "format": "time_series",
                         "instant": false,
-                        "legendFormat": "Active hours",
+                        "legendFormat": "Utilization",
                         "range": true
                       },
                       "version": "v0"
@@ -953,7 +953,7 @@
           "description": "",
           "id": 25,
           "links": [],
-          "title": "Active Time per Day",
+          "title": "Coding Activity (%)",
           "vizConfig": {
             "group": "timeseries",
             "kind": "VizConfig",
