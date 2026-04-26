@@ -2847,8 +2847,8 @@
       {
         "current": {
           "selected": false,
-          "text": "",
-          "value": ""
+          "text": "Prometheus",
+          "value": "prometheus"
         },
         "includeAll": false,
         "name": "datasource",
