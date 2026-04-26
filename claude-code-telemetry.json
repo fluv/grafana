@@ -933,7 +933,10 @@
                       "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
-                        "expr": "increase(claude_code_active_time_seconds_total[$__interval])",
+                        "exemplar": false,
+                        "expr": "rate(claude_code_active_time_seconds_total[$__rate_interval])",
+                        "format": "time_series",
+                        "instant": false,
                         "legendFormat": "Active hours",
                         "range": true
                       },
@@ -968,7 +971,7 @@
                     "axisLabel": "",
                     "axisPlacement": "auto",
                     "barAlignment": 0,
-                    "barWidthFactor": 0.6,
+                    "barWidthFactor": 1,
                     "drawStyle": "bars",
                     "fillOpacity": 80,
                     "gradientMode": "none",
@@ -996,7 +999,7 @@
                     }
                   },
                   "decimals": 1,
-                  "max": 60,
+                  "max": 1,
                   "min": 0,
                   "thresholds": {
                     "mode": "absolute",
@@ -1011,7 +1014,7 @@
                       }
                     ]
                   },
-                  "unit": "s"
+                  "unit": "percentunit"
                 },
                 "overrides": []
               },
