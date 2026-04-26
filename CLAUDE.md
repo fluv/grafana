@@ -26,6 +26,24 @@ The CI runs the same check on every push to main — merging a broken build
 breaks the pipeline for subsequent commits. Self-merge permission does not
 override this gate: a PR that would fail CI must not be merged.
 
+## Checking sync status after merge
+
+After self-merging, verify Grafana accepted the dashboards:
+
+```bash
+curl -s http://10.43.66.208/apis/provisioning.grafana.app/v0alpha1/namespaces/default/repositories \
+  | jq '.items[0].status.sync | {state, message}'
+```
+
+`state: "success"` is clean. `state: "warning"` means partial — read `message[]`
+for the specific files that failed. Do not declare the merge done until the sync
+state is clean or the warnings are understood and intentional.
+
+Common failure modes:
+- `cursorSync` must be a string (`"Off"`, `"Crosshair"`, `"Tooltip"`), not an integer
+- A dashboard that already exists in Grafana's Postgres as "unmanaged" blocks Git
+  from taking ownership — delete it via `DELETE /api/dashboards/uid/<uid>` first
+
 ## Datasource UIDs
 
 | Datasource | UID |
