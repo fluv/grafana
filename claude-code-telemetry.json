@@ -1,684 +1,2590 @@
 {
-  "title": "Claude Code Telemetry",
-  "uid": "claude-code-telemetry",
-  "tags": ["claude"],
-  "timezone": "browser",
-  "schemaVersion": 41,
-  "refresh": "1m",
-  "time": {
-    "from": "now-7d",
-    "to": "now"
+  "apiVersion": "dashboard.grafana.app/v2",
+  "kind": "Dashboard",
+  "metadata": {
+    "name": "claude-code-telemetry"
   },
-  "panels": [
-    {
-      "id": 100,
-      "type": "row",
-      "title": "Summary KPIs",
-      "gridPos": { "x": 0, "y": 0, "w": 24, "h": 1 },
-      "collapsed": false,
-      "panels": []
-    },
-    {
-      "id": 1,
-      "type": "stat",
-      "title": "Spend (USD)",
-      "gridPos": { "x": 0, "y": 1, "w": 4, "h": 4 },
-      "datasource": { "type": "prometheus", "uid": "claude-prometheus" },
-      "options": {
-        "reduceOptions": { "calcs": ["lastNotNull"] },
-        "colorMode": "background",
-        "graphMode": "none",
-        "textMode": "auto"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "currencyUSD",
-          "decimals": 2,
-          "color": { "mode": "thresholds" },
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              { "color": "green", "value": null },
-              { "color": "yellow", "value": 1 },
-              { "color": "red", "value": 5 }
-            ]
+  "spec": {
+    "annotations": [
+      {
+        "kind": "AnnotationQuery",
+        "spec": {
+          "builtIn": true,
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations \u0026 Alerts",
+          "query": {
+            "datasource": {
+              "name": "-- Grafana --"
+            },
+            "group": "grafana",
+            "kind": "DataQuery",
+            "spec": {},
+            "version": "v0"
+          }
+        }
+      }
+    ],
+    "cursorSync": "Off",
+    "description": "",
+    "editable": true,
+    "elements": {
+      "panel-1": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "claude-prometheus"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "sum(increase(claude_code_cost_usage_USD_total[$__range]))",
+                        "instant": true,
+                        "legendFormat": "Cost"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "",
+          "id": 1,
+          "links": [],
+          "title": "Spend (USD)",
+          "vizConfig": {
+            "group": "stat",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "decimals": 2,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "yellow",
+                        "value": 1
+                      },
+                      {
+                        "color": "red",
+                        "value": 5
+                      }
+                    ]
+                  },
+                  "unit": "currencyUSD"
+                },
+                "overrides": []
+              },
+              "options": {
+                "colorMode": "background",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
+              }
+            },
+            "version": "13.0.1"
           }
         }
       },
-      "targets": [
-        {
-          "expr": "sum(increase(claude_code_cost_usage_USD_total[$__range]))",
-          "legendFormat": "Cost",
-          "instant": true
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "type": "stat",
-      "title": "Cache Hit Rate",
-      "gridPos": { "x": 4, "y": 1, "w": 4, "h": 4 },
-      "datasource": { "type": "prometheus", "uid": "claude-prometheus" },
-      "options": {
-        "reduceOptions": { "calcs": ["lastNotNull"] },
-        "colorMode": "background",
-        "graphMode": "none"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "percentunit",
-          "decimals": 1,
-          "color": { "mode": "thresholds" },
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              { "color": "red", "value": null },
-              { "color": "yellow", "value": 0.7 },
-              { "color": "green", "value": 0.85 }
-            ]
+      "panel-10": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "claude-prometheus"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "sum by(model) (increase(claude_code_token_usage_tokens_total[$__range]))",
+                        "instant": true,
+                        "legendFormat": "{{model}}"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "",
+          "id": 10,
+          "links": [],
+          "title": "Tokens by Model",
+          "vizConfig": {
+            "group": "piechart",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    }
+                  },
+                  "unit": "short"
+                },
+                "overrides": []
+              },
+              "options": {
+                "legend": {
+                  "displayMode": "table",
+                  "placement": "bottom",
+                  "showLegend": true,
+                  "values": [
+                    "value",
+                    "percent"
+                  ]
+                },
+                "pieType": "donut",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "sort": "desc",
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "single",
+                  "sort": "none"
+                }
+              }
+            },
+            "version": "13.0.1"
           }
         }
       },
-      "targets": [
-        {
-          "expr": "sum(increase(claude_code_token_usage_tokens_total{type=\"cacheRead\"}[$__range])) / sum(increase(claude_code_token_usage_tokens_total{type=~\"input|cacheRead|cacheCreation\"}[$__range]))",
-          "legendFormat": "Cache rate",
-          "instant": true
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "type": "stat",
-      "title": "Sessions",
-      "gridPos": { "x": 8, "y": 1, "w": 4, "h": 4 },
-      "datasource": { "type": "prometheus", "uid": "claude-prometheus" },
-      "options": {
-        "reduceOptions": { "calcs": ["lastNotNull"] },
-        "colorMode": "none",
-        "graphMode": "none"
-      },
-      "fieldConfig": {
-        "defaults": { "unit": "short", "decimals": 0 }
-      },
-      "targets": [
-        {
-          "expr": "sum(increase(claude_code_session_count_total[$__range]))",
-          "legendFormat": "Sessions",
-          "instant": true
-        }
-      ]
-    },
-    {
-      "id": 20,
-      "type": "stat",
-      "title": "Active Time",
-      "description": "Total active coding time over the selected range",
-      "gridPos": { "x": 12, "y": 1, "w": 4, "h": 4 },
-      "datasource": { "type": "prometheus", "uid": "claude-prometheus" },
-      "options": {
-        "reduceOptions": { "calcs": ["lastNotNull"] },
-        "colorMode": "none",
-        "graphMode": "none"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "h",
-          "decimals": 1,
-          "color": { "fixedColor": "orange", "mode": "fixed" }
-        }
-      },
-      "targets": [
-        {
-          "expr": "sum(increase(claude_code_active_time_seconds_total[$__range])) / 3600",
-          "legendFormat": "Active hours",
-          "instant": true
-        }
-      ]
-    },
-    {
-      "id": 4,
-      "type": "stat",
-      "title": "Commits",
-      "gridPos": { "x": 16, "y": 1, "w": 4, "h": 4 },
-      "datasource": { "type": "prometheus", "uid": "claude-prometheus" },
-      "options": {
-        "reduceOptions": { "calcs": ["lastNotNull"] },
-        "colorMode": "none",
-        "graphMode": "none"
-      },
-      "fieldConfig": {
-        "defaults": { "unit": "short", "decimals": 0 }
-      },
-      "targets": [
-        {
-          "expr": "sum(increase(claude_code_commit_count_total[$__range]))",
-          "legendFormat": "Commits",
-          "instant": true
-        }
-      ]
-    },
-    {
-      "id": 6,
-      "type": "stat",
-      "title": "Lines Changed",
-      "gridPos": { "x": 20, "y": 1, "w": 4, "h": 4 },
-      "datasource": { "type": "prometheus", "uid": "claude-prometheus" },
-      "options": {
-        "reduceOptions": { "calcs": ["lastNotNull"] },
-        "colorMode": "none",
-        "graphMode": "none"
-      },
-      "fieldConfig": {
-        "defaults": { "unit": "short", "decimals": 0 }
-      },
-      "targets": [
-        {
-          "expr": "sum(increase(claude_code_lines_of_code_count_total[$__range]))",
-          "legendFormat": "Lines",
-          "instant": true
-        }
-      ]
-    },
-    {
-      "id": 101,
-      "type": "row",
-      "title": "Token & Cost Rate",
-      "gridPos": { "x": 0, "y": 5, "w": 24, "h": 1 },
-      "collapsed": false,
-      "panels": []
-    },
-    {
-      "id": 7,
-      "type": "timeseries",
-      "title": "Token Usage Rate by Type",
-      "gridPos": { "x": 0, "y": 6, "w": 24, "h": 8 },
-      "datasource": { "type": "prometheus", "uid": "claude-prometheus" },
-      "options": {
-        "tooltip": { "mode": "multi", "sort": "desc" },
-        "legend": {
-          "displayMode": "table",
-          "placement": "right",
-          "calcs": ["sum"]
-        }
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short",
-          "custom": {
-            "lineWidth": 2,
-            "fillOpacity": 10,
-            "spanNulls": true
+      "panel-11": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "claude-prometheus"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "sum by(query_source) (increase(claude_code_token_usage_tokens_total[$__range]))",
+                        "instant": true,
+                        "legendFormat": "{{query_source}}"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "",
+          "id": 11,
+          "links": [],
+          "title": "Tokens by Query Source",
+          "vizConfig": {
+            "group": "piechart",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    }
+                  },
+                  "unit": "short"
+                },
+                "overrides": []
+              },
+              "options": {
+                "legend": {
+                  "displayMode": "table",
+                  "placement": "bottom",
+                  "showLegend": true,
+                  "values": [
+                    "value",
+                    "percent"
+                  ]
+                },
+                "pieType": "donut",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "sort": "desc",
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "single",
+                  "sort": "none"
+                }
+              }
+            },
+            "version": "13.0.1"
           }
         }
       },
-      "targets": [
-        {
-          "expr": "sum by(type) (rate(claude_code_token_usage_tokens_total[5m]))",
-          "legendFormat": "{{type}}"
-        }
-      ]
-    },
-    {
-      "id": 8,
-      "type": "timeseries",
-      "title": "Cost Rate (USD/hr)",
-      "gridPos": { "x": 0, "y": 14, "w": 12, "h": 8 },
-      "datasource": { "type": "prometheus", "uid": "claude-prometheus" },
-      "options": {
-        "tooltip": { "mode": "multi", "sort": "desc" },
-        "legend": {
-          "displayMode": "table",
-          "placement": "right",
-          "calcs": ["sum"]
-        }
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "currencyUSD",
-          "custom": {
-            "lineWidth": 2,
-            "fillOpacity": 10,
-            "spanNulls": true
+      "panel-2": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "claude-prometheus"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "sum(increase(claude_code_token_usage_tokens_total{type=\"cacheRead\"}[$__range])) / sum(increase(claude_code_token_usage_tokens_total{type=~\"input|cacheRead|cacheCreation\"}[$__range]))",
+                        "instant": true,
+                        "legendFormat": "Cache rate"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "",
+          "id": 2,
+          "links": [],
+          "title": "Cache Hit Rate",
+          "vizConfig": {
+            "group": "stat",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "decimals": 1,
+                  "max": 1,
+                  "min": 0,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "red",
+                        "value": 0
+                      },
+                      {
+                        "color": "yellow",
+                        "value": 0.7
+                      },
+                      {
+                        "color": "green",
+                        "value": 0.85
+                      }
+                    ]
+                  },
+                  "unit": "percentunit"
+                },
+                "overrides": []
+              },
+              "options": {
+                "colorMode": "background",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
+              }
+            },
+            "version": "13.0.1"
           }
         }
       },
-      "targets": [
-        {
-          "expr": "sum by(model) (rate(claude_code_cost_usage_USD_total[5m])) * 3600",
-          "legendFormat": "{{model}}"
-        }
-      ]
-    },
-    {
-      "id": 9,
-      "type": "timeseries",
-      "title": "Active Time Rate",
-      "description": "Seconds of active time accruing per second, by type",
-      "gridPos": { "x": 12, "y": 14, "w": 12, "h": 8 },
-      "datasource": { "type": "prometheus", "uid": "claude-prometheus" },
-      "options": {
-        "tooltip": { "mode": "multi", "sort": "desc" },
-        "legend": {
-          "displayMode": "table",
-          "placement": "right",
-          "calcs": ["sum"]
-        }
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "s",
-          "custom": {
-            "lineWidth": 2,
-            "fillOpacity": 10,
-            "spanNulls": true
+      "panel-20": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "claude-prometheus"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "sum(increase(claude_code_active_time_seconds_total[$__range])) / 3600",
+                        "instant": true,
+                        "legendFormat": "Active hours"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "Total active coding time over the selected range",
+          "id": 20,
+          "links": [],
+          "title": "Active Time",
+          "vizConfig": {
+            "group": "stat",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "fixedColor": "orange",
+                    "mode": "fixed"
+                  },
+                  "decimals": 1,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "h"
+                },
+                "overrides": []
+              },
+              "options": {
+                "colorMode": "none",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
+              }
+            },
+            "version": "13.0.1"
           }
         }
       },
-      "targets": [
-        {
-          "expr": "sum by(type) (rate(claude_code_active_time_seconds_total[5m]))",
-          "legendFormat": "{{type}}"
-        }
-      ]
-    },
-    {
-      "id": 102,
-      "type": "row",
-      "title": "Cost & Token Trends",
-      "gridPos": { "x": 0, "y": 22, "w": 24, "h": 1 },
-      "collapsed": false,
-      "panels": []
-    },
-    {
-      "id": 21,
-      "type": "timeseries",
-      "title": "Daily Cost by Model",
-      "description": "Cost accrued per model over time. Use with 7d+ range.",
-      "gridPos": { "x": 0, "y": 23, "w": 12, "h": 8 },
-      "datasource": { "type": "prometheus", "uid": "claude-prometheus" },
-      "options": {
-        "tooltip": { "mode": "multi", "sort": "desc" },
-        "legend": {
-          "displayMode": "table",
-          "placement": "bottom",
-          "calcs": ["sum"],
-          "showLegend": true
-        }
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "currencyUSD",
-          "decimals": 3,
-          "color": { "mode": "palette-classic" },
-          "custom": {
-            "drawStyle": "bars",
-            "fillOpacity": 80,
-            "barAlignment": 0,
-            "lineWidth": 1,
-            "stacking": { "group": "A", "mode": "normal" },
-            "spanNulls": false
+      "panel-21": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "claude-prometheus"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "sum by(model) (increase(claude_code_cost_usage_USD_total[$__interval]))",
+                        "legendFormat": "{{model}}"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "Cost accrued per model over time. Use with 7d+ range.",
+          "id": 21,
+          "links": [],
+          "title": "Daily Cost by Model",
+          "vizConfig": {
+            "group": "timeseries",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "bars",
+                    "fillOpacity": 80,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "showValues": false,
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "normal"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "decimals": 3,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "currencyUSD"
+                },
+                "overrides": []
+              },
+              "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
+                "legend": {
+                  "calcs": [
+                    "sum"
+                  ],
+                  "displayMode": "table",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "desc"
+                }
+              }
+            },
+            "version": "13.0.1"
           }
         }
       },
-      "targets": [
-        {
-          "expr": "sum by(model) (increase(claude_code_cost_usage_USD_total[$__interval]))",
-          "legendFormat": "{{model}}"
-        }
-      ]
-    },
-    {
-      "id": 22,
-      "type": "timeseries",
-      "title": "Daily Token Usage by Type",
-      "description": "Token consumption broken down by type (input, output, cacheRead, cacheCreation). Use with 7d+ range.",
-      "gridPos": { "x": 12, "y": 23, "w": 12, "h": 8 },
-      "datasource": { "type": "prometheus", "uid": "claude-prometheus" },
-      "options": {
-        "tooltip": { "mode": "multi", "sort": "desc" },
-        "legend": {
-          "displayMode": "table",
-          "placement": "bottom",
-          "calcs": ["sum"],
-          "showLegend": true
-        }
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short",
-          "color": { "mode": "palette-classic" },
-          "custom": {
-            "drawStyle": "bars",
-            "fillOpacity": 60,
-            "barAlignment": 0,
-            "lineWidth": 1,
-            "stacking": { "group": "A", "mode": "normal" },
-            "spanNulls": false
+      "panel-22": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "claude-prometheus"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "sum by(type) (increase(claude_code_token_usage_tokens_total[$__interval]))",
+                        "legendFormat": "{{type}}"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "Token consumption broken down by type (input, output, cacheRead, cacheCreation). Use with 7d+ range.",
+          "id": 22,
+          "links": [],
+          "title": "Daily Token Usage by Type",
+          "vizConfig": {
+            "group": "timeseries",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "bars",
+                    "fillOpacity": 60,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "showValues": false,
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "normal"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "short"
+                },
+                "overrides": []
+              },
+              "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
+                "legend": {
+                  "calcs": [
+                    "sum"
+                  ],
+                  "displayMode": "table",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "desc"
+                }
+              }
+            },
+            "version": "13.0.1"
           }
         }
       },
-      "targets": [
-        {
-          "expr": "sum by(type) (increase(claude_code_token_usage_tokens_total[$__interval]))",
-          "legendFormat": "{{type}}"
-        }
-      ]
-    },
-    {
-      "id": 103,
-      "type": "row",
-      "title": "Model Breakdown",
-      "gridPos": { "x": 0, "y": 31, "w": 24, "h": 1 },
-      "collapsed": false,
-      "panels": []
-    },
-    {
-      "id": 23,
-      "type": "piechart",
-      "title": "Cost by Model",
-      "gridPos": { "x": 0, "y": 32, "w": 8, "h": 8 },
-      "datasource": { "type": "prometheus", "uid": "claude-prometheus" },
-      "options": {
-        "pieType": "donut",
-        "legend": {
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true,
-          "values": ["value", "percent"]
-        },
-        "tooltip": { "mode": "single" }
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "currencyUSD",
-          "decimals": 3,
-          "color": { "mode": "palette-classic" }
-        }
-      },
-      "targets": [
-        {
-          "expr": "sum by(model) (increase(claude_code_cost_usage_USD_total[$__range]))",
-          "legendFormat": "{{model}}",
-          "instant": true
-        }
-      ]
-    },
-    {
-      "id": 10,
-      "type": "piechart",
-      "title": "Tokens by Model",
-      "gridPos": { "x": 8, "y": 32, "w": 8, "h": 8 },
-      "datasource": { "type": "prometheus", "uid": "claude-prometheus" },
-      "options": {
-        "pieType": "donut",
-        "legend": {
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true,
-          "values": ["value", "percent"]
-        },
-        "tooltip": { "mode": "single" }
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short",
-          "color": { "mode": "palette-classic" }
-        }
-      },
-      "targets": [
-        {
-          "expr": "sum by(model) (increase(claude_code_token_usage_tokens_total[$__range]))",
-          "legendFormat": "{{model}}",
-          "instant": true
-        }
-      ]
-    },
-    {
-      "id": 11,
-      "type": "piechart",
-      "title": "Tokens by Query Source",
-      "gridPos": { "x": 16, "y": 32, "w": 8, "h": 8 },
-      "datasource": { "type": "prometheus", "uid": "claude-prometheus" },
-      "options": {
-        "pieType": "donut",
-        "legend": {
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true,
-          "values": ["value", "percent"]
-        },
-        "tooltip": { "mode": "single" }
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short",
-          "color": { "mode": "palette-classic" }
-        }
-      },
-      "targets": [
-        {
-          "expr": "sum by(query_source) (increase(claude_code_token_usage_tokens_total[$__range]))",
-          "legendFormat": "{{query_source}}",
-          "instant": true
-        }
-      ]
-    },
-    {
-      "id": 104,
-      "type": "row",
-      "title": "Session & Activity",
-      "gridPos": { "x": 0, "y": 40, "w": 24, "h": 1 },
-      "collapsed": false,
-      "panels": []
-    },
-    {
-      "id": 24,
-      "type": "timeseries",
-      "title": "Daily Sessions",
-      "gridPos": { "x": 0, "y": 41, "w": 12, "h": 8 },
-      "datasource": { "type": "prometheus", "uid": "claude-prometheus" },
-      "options": {
-        "tooltip": { "mode": "single" },
-        "legend": { "displayMode": "table", "placement": "bottom", "calcs": ["sum"] }
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short",
-          "color": { "fixedColor": "blue", "mode": "fixed" },
-          "custom": {
-            "drawStyle": "bars",
-            "fillOpacity": 80,
-            "barAlignment": 0,
-            "lineWidth": 1,
-            "spanNulls": false
+      "panel-23": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "claude-prometheus"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "sum by(model) (increase(claude_code_cost_usage_USD_total[$__range]))",
+                        "instant": true,
+                        "legendFormat": "{{model}}"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "",
+          "id": 23,
+          "links": [],
+          "title": "Cost by Model",
+          "vizConfig": {
+            "group": "piechart",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    }
+                  },
+                  "decimals": 3,
+                  "unit": "currencyUSD"
+                },
+                "overrides": []
+              },
+              "options": {
+                "legend": {
+                  "displayMode": "table",
+                  "placement": "bottom",
+                  "showLegend": true,
+                  "values": [
+                    "value",
+                    "percent"
+                  ]
+                },
+                "pieType": "donut",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "sort": "desc",
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "single",
+                  "sort": "none"
+                }
+              }
+            },
+            "version": "13.0.1"
           }
         }
       },
-      "targets": [
-        {
-          "expr": "increase(claude_code_session_count_total[$__interval])",
-          "legendFormat": "Sessions"
-        }
-      ]
-    },
-    {
-      "id": 25,
-      "type": "timeseries",
-      "title": "Active Time per Day",
-      "gridPos": { "x": 12, "y": 41, "w": 12, "h": 8 },
-      "datasource": { "type": "prometheus", "uid": "claude-prometheus" },
-      "options": {
-        "tooltip": { "mode": "single" },
-        "legend": { "displayMode": "table", "placement": "bottom", "calcs": ["sum"] }
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "h",
-          "decimals": 1,
-          "color": { "fixedColor": "orange", "mode": "fixed" },
-          "custom": {
-            "drawStyle": "bars",
-            "fillOpacity": 80,
-            "barAlignment": 0,
-            "lineWidth": 1,
-            "spanNulls": false
+      "panel-24": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "claude-prometheus"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "increase(claude_code_session_count_total[$__interval])",
+                        "legendFormat": "Sessions"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "",
+          "id": 24,
+          "links": [],
+          "title": "Daily Sessions",
+          "vizConfig": {
+            "group": "timeseries",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "fixedColor": "blue",
+                    "mode": "fixed"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "bars",
+                    "fillOpacity": 80,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "showValues": false,
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "short"
+                },
+                "overrides": []
+              },
+              "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
+                "legend": {
+                  "calcs": [
+                    "sum"
+                  ],
+                  "displayMode": "table",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "single",
+                  "sort": "none"
+                }
+              }
+            },
+            "version": "13.0.1"
           }
         }
       },
-      "targets": [
-        {
-          "expr": "increase(claude_code_active_time_seconds_total[$__interval]) / 3600",
-          "legendFormat": "Active hours"
-        }
-      ]
-    },
-    {
-      "id": 26,
-      "type": "timeseries",
-      "title": "Lines of Code Added vs Removed",
-      "gridPos": { "x": 0, "y": 49, "w": 12, "h": 8 },
-      "datasource": { "type": "prometheus", "uid": "claude-prometheus" },
-      "options": {
-        "tooltip": { "mode": "multi", "sort": "desc" },
-        "legend": { "displayMode": "table", "placement": "bottom", "calcs": ["sum"] }
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short",
-          "color": { "mode": "palette-classic" },
-          "custom": {
-            "drawStyle": "bars",
-            "fillOpacity": 80,
-            "barAlignment": 0,
-            "lineWidth": 1,
-            "spanNulls": false
+      "panel-25": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "claude-prometheus"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "increase(claude_code_active_time_seconds_total[$__interval])",
+                        "legendFormat": "Active hours",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "",
+          "id": 25,
+          "links": [],
+          "title": "Active Time per Day",
+          "vizConfig": {
+            "group": "timeseries",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "fixedColor": "orange",
+                    "mode": "fixed"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "bars",
+                    "fillOpacity": 80,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "showValues": false,
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "decimals": 1,
+                  "max": 60,
+                  "min": 0,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "s"
+                },
+                "overrides": []
+              },
+              "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
+                "legend": {
+                  "calcs": [
+                    "sum"
+                  ],
+                  "displayMode": "table",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "single",
+                  "sort": "none"
+                }
+              }
+            },
+            "version": "13.0.1"
           }
-        },
-        "overrides": [
+        }
+      },
+      "panel-26": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "claude-prometheus"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "increase(claude_code_lines_of_code_count_total{type=\"added\"}[$__interval])",
+                        "legendFormat": "added"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "claude-prometheus"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "increase(claude_code_lines_of_code_count_total{type=\"removed\"}[$__interval])",
+                        "legendFormat": "removed"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "B"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "",
+          "id": 26,
+          "links": [],
+          "title": "Lines of Code Added vs Removed",
+          "vizConfig": {
+            "group": "timeseries",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "bars",
+                    "fillOpacity": 80,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "showValues": false,
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "short"
+                },
+                "overrides": [
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "added"
+                    },
+                    "properties": [
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "green",
+                          "mode": "fixed"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "removed"
+                    },
+                    "properties": [
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "red",
+                          "mode": "fixed"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
+                "legend": {
+                  "calcs": [
+                    "sum"
+                  ],
+                  "displayMode": "table",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "desc"
+                }
+              }
+            },
+            "version": "13.0.1"
+          }
+        }
+      },
+      "panel-27": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "claude-prometheus"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "increase(claude_code_commit_count_total[$__interval])",
+                        "legendFormat": "Commits"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "",
+          "id": 27,
+          "links": [],
+          "title": "Daily Commits",
+          "vizConfig": {
+            "group": "timeseries",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "fixedColor": "blue",
+                    "mode": "fixed"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "bars",
+                    "fillOpacity": 80,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "showValues": false,
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "short"
+                },
+                "overrides": []
+              },
+              "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
+                "legend": {
+                  "calcs": [
+                    "sum"
+                  ],
+                  "displayMode": "table",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "single",
+                  "sort": "none"
+                }
+              }
+            },
+            "version": "13.0.1"
+          }
+        }
+      },
+      "panel-28": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "claude-prometheus"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "sum(rate(claude_code_token_usage_tokens_total{type=\"cacheRead\"}[1h])) / sum(rate(claude_code_token_usage_tokens_total{type=~\"input|cacheRead|cacheCreation\"}[1h]))",
+                        "legendFormat": "Cache hit rate"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "Ratio of cache reads to total input tokens. Higher is better — indicates effective prompt caching.",
+          "id": 28,
+          "links": [],
+          "title": "Cache Hit Rate Over Time",
+          "vizConfig": {
+            "group": "timeseries",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 10,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 2,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "showValues": false,
+                    "spanNulls": true,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "decimals": 1,
+                  "max": 1,
+                  "min": 0,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "red",
+                        "value": 0
+                      },
+                      {
+                        "color": "yellow",
+                        "value": 0.7
+                      },
+                      {
+                        "color": "green",
+                        "value": 0.85
+                      }
+                    ]
+                  },
+                  "unit": "percentunit"
+                },
+                "overrides": []
+              },
+              "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "single",
+                  "sort": "none"
+                }
+              }
+            },
+            "version": "13.0.1"
+          }
+        }
+      },
+      "panel-29": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "claude-prometheus"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "sum(rate(claude_code_token_usage_tokens_total{type=\"cacheCreation\"}[1h]))",
+                        "legendFormat": "creation (cold)"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "claude-prometheus"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "sum(rate(claude_code_token_usage_tokens_total{type=\"cacheRead\"}[1h]))",
+                        "legendFormat": "read (warm)"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "B"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "Creation = cold cache (paying to write). Read = warm cache (cheap). Ideally reads \u003e\u003e creation over time.",
+          "id": 29,
+          "links": [],
+          "title": "Cache Creation vs Cache Read Tokens",
+          "vizConfig": {
+            "group": "timeseries",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 10,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 2,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "showValues": false,
+                    "spanNulls": true,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "short"
+                },
+                "overrides": []
+              },
+              "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
+                "legend": {
+                  "calcs": [
+                    "sum"
+                  ],
+                  "displayMode": "table",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "desc"
+                }
+              }
+            },
+            "version": "13.0.1"
+          }
+        }
+      },
+      "panel-3": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "claude-prometheus"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "sum(increase(claude_code_session_count_total[$__range]))",
+                        "instant": true,
+                        "legendFormat": "Sessions"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "",
+          "id": 3,
+          "links": [],
+          "title": "Sessions",
+          "vizConfig": {
+            "group": "stat",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "decimals": 0,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "short"
+                },
+                "overrides": []
+              },
+              "options": {
+                "colorMode": "none",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
+              }
+            },
+            "version": "13.0.1"
+          }
+        }
+      },
+      "panel-4": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "claude-prometheus"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "sum(increase(claude_code_commit_count_total[$__range]))",
+                        "instant": true,
+                        "legendFormat": "Commits"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "",
+          "id": 4,
+          "links": [],
+          "title": "Commits",
+          "vizConfig": {
+            "group": "stat",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "decimals": 0,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "short"
+                },
+                "overrides": []
+              },
+              "options": {
+                "colorMode": "none",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
+              }
+            },
+            "version": "13.0.1"
+          }
+        }
+      },
+      "panel-6": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "claude-prometheus"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "sum(increase(claude_code_lines_of_code_count_total[$__range]))",
+                        "instant": true,
+                        "legendFormat": "Lines"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "",
+          "id": 6,
+          "links": [],
+          "title": "Lines Changed",
+          "vizConfig": {
+            "group": "stat",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "decimals": 0,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "short"
+                },
+                "overrides": []
+              },
+              "options": {
+                "colorMode": "none",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
+              }
+            },
+            "version": "13.0.1"
+          }
+        }
+      },
+      "panel-7": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "claude-prometheus"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "sum by(type) (rate(claude_code_token_usage_tokens_total[5m]))",
+                        "legendFormat": "{{type}}"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "",
+          "id": 7,
+          "links": [],
+          "title": "Token Usage Rate by Type",
+          "vizConfig": {
+            "group": "timeseries",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 10,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 2,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "showValues": false,
+                    "spanNulls": true,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "short"
+                },
+                "overrides": []
+              },
+              "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
+                "legend": {
+                  "calcs": [
+                    "sum"
+                  ],
+                  "displayMode": "table",
+                  "placement": "right",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "desc"
+                }
+              }
+            },
+            "version": "13.0.1"
+          }
+        }
+      },
+      "panel-8": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "claude-prometheus"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "sum by(model) (rate(claude_code_cost_usage_USD_total[5m])) * 3600",
+                        "legendFormat": "{{model}}"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "",
+          "id": 8,
+          "links": [],
+          "title": "Cost Rate (USD/hr)",
+          "vizConfig": {
+            "group": "timeseries",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 10,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 2,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "showValues": false,
+                    "spanNulls": true,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "currencyUSD"
+                },
+                "overrides": []
+              },
+              "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
+                "legend": {
+                  "calcs": [
+                    "sum"
+                  ],
+                  "displayMode": "table",
+                  "placement": "right",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "desc"
+                }
+              }
+            },
+            "version": "13.0.1"
+          }
+        }
+      },
+      "panel-9": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "claude-prometheus"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "sum by(type) (rate(claude_code_active_time_seconds_total[5m]))",
+                        "legendFormat": "{{type}}"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "Seconds of active time accruing per second, by type",
+          "id": 9,
+          "links": [],
+          "title": "Active Time Rate",
+          "vizConfig": {
+            "group": "timeseries",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 10,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 2,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "showValues": false,
+                    "spanNulls": true,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "s"
+                },
+                "overrides": []
+              },
+              "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
+                "legend": {
+                  "calcs": [
+                    "sum"
+                  ],
+                  "displayMode": "table",
+                  "placement": "right",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "desc"
+                }
+              }
+            },
+            "version": "13.0.1"
+          }
+        }
+      }
+    },
+    "layout": {
+      "kind": "RowsLayout",
+      "spec": {
+        "rows": [
           {
-            "matcher": { "id": "byName", "options": "added" },
-            "properties": [{ "id": "color", "value": { "fixedColor": "green", "mode": "fixed" } }]
+            "kind": "RowsLayoutRow",
+            "spec": {
+              "collapse": false,
+              "layout": {
+                "kind": "GridLayout",
+                "spec": {
+                  "items": [
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-1"
+                        },
+                        "height": 4,
+                        "width": 4,
+                        "x": 0,
+                        "y": 0
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-2"
+                        },
+                        "height": 4,
+                        "width": 4,
+                        "x": 4,
+                        "y": 0
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-3"
+                        },
+                        "height": 4,
+                        "width": 4,
+                        "x": 8,
+                        "y": 0
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-20"
+                        },
+                        "height": 4,
+                        "width": 4,
+                        "x": 12,
+                        "y": 0
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-4"
+                        },
+                        "height": 4,
+                        "width": 4,
+                        "x": 16,
+                        "y": 0
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-6"
+                        },
+                        "height": 4,
+                        "width": 4,
+                        "x": 20,
+                        "y": 0
+                      }
+                    }
+                  ]
+                }
+              },
+              "title": "Summary KPIs"
+            }
           },
           {
-            "matcher": { "id": "byName", "options": "removed" },
-            "properties": [{ "id": "color", "value": { "fixedColor": "red", "mode": "fixed" } }]
+            "kind": "RowsLayoutRow",
+            "spec": {
+              "collapse": false,
+              "layout": {
+                "kind": "GridLayout",
+                "spec": {
+                  "items": [
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-7"
+                        },
+                        "height": 8,
+                        "width": 24,
+                        "x": 0,
+                        "y": 0
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-8"
+                        },
+                        "height": 8,
+                        "width": 12,
+                        "x": 0,
+                        "y": 8
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-9"
+                        },
+                        "height": 8,
+                        "width": 12,
+                        "x": 12,
+                        "y": 8
+                      }
+                    }
+                  ]
+                }
+              },
+              "title": "Token \u0026 Cost Rate"
+            }
+          },
+          {
+            "kind": "RowsLayoutRow",
+            "spec": {
+              "collapse": false,
+              "layout": {
+                "kind": "GridLayout",
+                "spec": {
+                  "items": [
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-21"
+                        },
+                        "height": 8,
+                        "width": 12,
+                        "x": 0,
+                        "y": 0
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-22"
+                        },
+                        "height": 8,
+                        "width": 12,
+                        "x": 12,
+                        "y": 0
+                      }
+                    }
+                  ]
+                }
+              },
+              "title": "Cost \u0026 Token Trends"
+            }
+          },
+          {
+            "kind": "RowsLayoutRow",
+            "spec": {
+              "collapse": false,
+              "layout": {
+                "kind": "GridLayout",
+                "spec": {
+                  "items": [
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-23"
+                        },
+                        "height": 8,
+                        "width": 8,
+                        "x": 0,
+                        "y": 0
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-10"
+                        },
+                        "height": 8,
+                        "width": 8,
+                        "x": 8,
+                        "y": 0
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-11"
+                        },
+                        "height": 8,
+                        "width": 8,
+                        "x": 16,
+                        "y": 0
+                      }
+                    }
+                  ]
+                }
+              },
+              "title": "Model Breakdown"
+            }
+          },
+          {
+            "kind": "RowsLayoutRow",
+            "spec": {
+              "collapse": false,
+              "layout": {
+                "kind": "GridLayout",
+                "spec": {
+                  "items": [
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-24"
+                        },
+                        "height": 8,
+                        "width": 12,
+                        "x": 0,
+                        "y": 0
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-25"
+                        },
+                        "height": 8,
+                        "width": 12,
+                        "x": 12,
+                        "y": 0
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-26"
+                        },
+                        "height": 8,
+                        "width": 12,
+                        "x": 0,
+                        "y": 8
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-27"
+                        },
+                        "height": 8,
+                        "width": 12,
+                        "x": 12,
+                        "y": 8
+                      }
+                    }
+                  ]
+                }
+              },
+              "title": "Session \u0026 Activity"
+            }
+          },
+          {
+            "kind": "RowsLayoutRow",
+            "spec": {
+              "collapse": false,
+              "layout": {
+                "kind": "GridLayout",
+                "spec": {
+                  "items": [
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-28"
+                        },
+                        "height": 8,
+                        "width": 12,
+                        "x": 0,
+                        "y": 0
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-29"
+                        },
+                        "height": 8,
+                        "width": 12,
+                        "x": 12,
+                        "y": 0
+                      }
+                    }
+                  ]
+                }
+              },
+              "title": "Cache Efficiency"
+            }
           }
         ]
-      },
-      "targets": [
-        {
-          "expr": "increase(claude_code_lines_of_code_count_total{type=\"added\"}[$__interval])",
-          "legendFormat": "added"
-        },
-        {
-          "expr": "increase(claude_code_lines_of_code_count_total{type=\"removed\"}[$__interval])",
-          "legendFormat": "removed"
-        }
-      ]
+      }
     },
-    {
-      "id": 27,
-      "type": "timeseries",
-      "title": "Daily Commits",
-      "gridPos": { "x": 12, "y": 49, "w": 12, "h": 8 },
-      "datasource": { "type": "prometheus", "uid": "claude-prometheus" },
-      "options": {
-        "tooltip": { "mode": "single" },
-        "legend": { "displayMode": "table", "placement": "bottom", "calcs": ["sum"] }
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short",
-          "color": { "fixedColor": "blue", "mode": "fixed" },
-          "custom": {
-            "drawStyle": "bars",
-            "fillOpacity": 80,
-            "barAlignment": 0,
-            "lineWidth": 1,
-            "spanNulls": false
-          }
-        }
-      },
-      "targets": [
-        {
-          "expr": "increase(claude_code_commit_count_total[$__interval])",
-          "legendFormat": "Commits"
-        }
-      ]
+    "links": [
+      {
+        "asDropdown": false,
+        "icon": "external link",
+        "includeVars": false,
+        "keepTime": false,
+        "tags": [],
+        "targetBlank": true,
+        "title": "Source (GitHub)",
+        "tooltip": "View source file in repository",
+        "type": "link",
+        "url": "https://github.com/zuzak/grafana/blob/main/claude-code-telemetry.json"
+      }
+    ],
+    "liveNow": false,
+    "preload": false,
+    "tags": [
+      "claude"
+    ],
+    "timeSettings": {
+      "autoRefresh": "1m",
+      "autoRefreshIntervals": [
+        "5s",
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ],
+      "fiscalYearStartMonth": 0,
+      "from": "now-1h",
+      "hideTimepicker": false,
+      "timezone": "browser",
+      "to": "now"
     },
-    {
-      "id": 105,
-      "type": "row",
-      "title": "Cache Efficiency",
-      "gridPos": { "x": 0, "y": 57, "w": 24, "h": 1 },
-      "collapsed": false,
-      "panels": []
-    },
-    {
-      "id": 28,
-      "type": "timeseries",
-      "title": "Cache Hit Rate Over Time",
-      "description": "Ratio of cache reads to total input tokens. Higher is better — indicates effective prompt caching.",
-      "gridPos": { "x": 0, "y": 58, "w": 12, "h": 8 },
-      "datasource": { "type": "prometheus", "uid": "claude-prometheus" },
-      "options": {
-        "tooltip": { "mode": "single" },
-        "legend": { "displayMode": "list", "placement": "bottom" }
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "percentunit",
-          "decimals": 1,
-          "min": 0,
-          "max": 1,
-          "color": { "mode": "thresholds" },
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              { "color": "red", "value": null },
-              { "color": "yellow", "value": 0.7 },
-              { "color": "green", "value": 0.85 }
-            ]
-          },
-          "custom": { "lineWidth": 2, "fillOpacity": 10, "spanNulls": true }
-        }
-      },
-      "targets": [
-        {
-          "expr": "sum(rate(claude_code_token_usage_tokens_total{type=\"cacheRead\"}[1h])) / sum(rate(claude_code_token_usage_tokens_total{type=~\"input|cacheRead|cacheCreation\"}[1h]))",
-          "legendFormat": "Cache hit rate"
-        }
-      ]
-    },
-    {
-      "id": 29,
-      "type": "timeseries",
-      "title": "Cache Creation vs Cache Read Tokens",
-      "description": "Creation = cold cache (paying to write). Read = warm cache (cheap). Ideally reads >> creation over time.",
-      "gridPos": { "x": 12, "y": 58, "w": 12, "h": 8 },
-      "datasource": { "type": "prometheus", "uid": "claude-prometheus" },
-      "options": {
-        "tooltip": { "mode": "multi", "sort": "desc" },
-        "legend": { "displayMode": "table", "placement": "bottom", "calcs": ["sum"] }
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short",
-          "color": { "mode": "palette-classic" },
-          "custom": { "lineWidth": 2, "fillOpacity": 10, "spanNulls": true }
-        }
-      },
-      "targets": [
-        {
-          "expr": "sum(rate(claude_code_token_usage_tokens_total{type=\"cacheCreation\"}[1h]))",
-          "legendFormat": "creation (cold)"
-        },
-        {
-          "expr": "sum(rate(claude_code_token_usage_tokens_total{type=\"cacheRead\"}[1h]))",
-          "legendFormat": "read (warm)"
-        }
-      ]
-    }
-  ]
+    "title": "Claude Code Telemetry",
+    "variables": []
+  }
 }
