@@ -1,0 +1,11 @@
+{
+  "apiVersion": "folder.grafana.app/v1beta1",
+  "kind": "Folder",
+  "metadata": {
+    "name": "services"
+  },
+  "spec": {
+    "title": "Services",
+    "description": "Per-service dashboards — ArgoCD, Authentik, Loki, NGINX Ingress"
+  }
+}
