@@ -21,6 +21,11 @@ Changes that need human review:
 The pre-push hook still blocks direct-to-main for all repos; the workflow is
 branch → push → `gh pr create` → `gh pr merge --merge` in the same session.
 
+Before merging, run `pre-commit run --all-files` locally and fix any failures.
+The CI runs the same check on every push to main — merging a broken build
+breaks the pipeline for subsequent commits. Self-merge permission does not
+override this gate: a PR that would fail CI must not be merged.
+
 ## Datasource UIDs
 
 | Datasource | UID |
