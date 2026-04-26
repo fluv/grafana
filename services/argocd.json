@@ -2557,9 +2557,9 @@
     "list": [
       {
         "current": {
-          "selected": true,
-          "text": "default",
-          "value": "default"
+          "selected": false,
+          "text": "Prometheus",
+          "value": "prometheus"
         },
         "label": "Data source",
         "name": "datasource",

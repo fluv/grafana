@@ -1,0 +1,11 @@
+{
+  "apiVersion": "folder.grafana.app/v1beta1",
+  "kind": "Folder",
+  "metadata": {
+    "name": "storage"
+  },
+  "spec": {
+    "title": "Storage",
+    "description": "Persistent storage — Longhorn volumes and CloudNativePG databases"
+  }
+}
