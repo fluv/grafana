@@ -24,6 +24,33 @@
             "version": "v0"
           }
         }
+      },
+      {
+        "kind": "AnnotationQuery",
+        "spec": {
+          "enable": true,
+          "hide": true,
+          "iconColor": "red",
+          "legacyOptions": {
+            "expr": "{job=\"claude-transcripts\"} | json | error=`rate_limit`",
+            "queryType": "range",
+            "titleFormat": "{{message}}"
+          },
+          "name": "New annotation",
+          "query": {
+            "datasource": {
+              "name": "loki"
+            },
+            "group": "loki",
+            "kind": "DataQuery",
+            "spec": {
+              "expr": "",
+              "interval": "",
+              "refId": "Anno"
+            },
+            "version": "v0"
+          }
+        }
       }
     ],
     "cursorSync": "Off",
@@ -2609,7 +2636,7 @@
         "1d"
       ],
       "fiscalYearStartMonth": 0,
-      "from": "now-6h",
+      "from": "now-24h",
       "hideTimepicker": false,
       "timezone": "browser",
       "to": "now"
