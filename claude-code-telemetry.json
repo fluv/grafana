@@ -934,10 +934,10 @@
                       "spec": {
                         "editorMode": "code",
                         "exemplar": false,
-                        "expr": "rate(claude_code_active_time_seconds_total[$__rate_interval])",
+                        "expr": "sum by(type) (rate(claude_code_active_time_seconds_total[$__rate_interval]))",
                         "format": "time_series",
                         "instant": false,
-                        "legendFormat": "Utilization",
+                        "legendFormat": "__auto",
                         "range": true
                       },
                       "version": "v0"
@@ -962,7 +962,7 @@
                 "defaults": {
                   "color": {
                     "fixedColor": "orange",
-                    "mode": "fixed"
+                    "mode": "palette-classic"
                   },
                   "custom": {
                     "axisBorderShow": false,
@@ -992,7 +992,7 @@
                     "spanNulls": false,
                     "stacking": {
                       "group": "A",
-                      "mode": "none"
+                      "mode": "normal"
                     },
                     "thresholdsStyle": {
                       "mode": "off"
