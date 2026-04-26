@@ -1079,8 +1079,10 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "increase(claude_code_lines_of_code_count_total{type=\"removed\"}[$__interval])",
-                        "legendFormat": "removed"
+                        "editorMode": "code",
+                        "expr": "0 - increase(claude_code_lines_of_code_count_total{type=\"removed\"}[$__interval])",
+                        "legendFormat": "removed",
+                        "range": true
                       },
                       "version": "v0"
                     },
@@ -2607,7 +2609,7 @@
         "1d"
       ],
       "fiscalYearStartMonth": 0,
-      "from": "now-6h",
+      "from": "now-1h",
       "hideTimepicker": false,
       "timezone": "browser",
       "to": "now"
