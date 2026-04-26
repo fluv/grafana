@@ -205,7 +205,7 @@
                         "name": "loki"
                       },
                       "spec": {
-                        "expr": "sum(count_over_time({job=\"claude-transcripts\", type=\"assistant\"}[$__range])) / clamp_min(count(sum by (session_id) (count_over_time({job=\"claude-transcripts\", type=\"assistant\"}[$__range]))), 1)",
+                        "expr": "avg(sum by (session_id) (count_over_time({job=\"claude-transcripts\", type=\"assistant\"}[$__range])))",
                         "instant": true,
                         "legendFormat": "Avg turns"
                       }
@@ -465,7 +465,7 @@
                         "name": "loki"
                       },
                       "spec": {
-                        "expr": "sort_desc(sum by (session_id) (count_over_time({job=\"claude-transcripts\", type=\"assistant\"}[$__range])))",
+                        "expr": "topk(100, sum by (session_id) (count_over_time({job=\"claude-transcripts\", type=\"assistant\"}[$__range])))",
                         "instant": true,
                         "legendFormat": "{{session_id}}"
                       }
@@ -474,7 +474,18 @@
                 }
               ],
               "queryOptions": {},
-              "transformations": []
+              "transformations": [
+                {
+                  "id": "organize",
+                  "options": {
+                    "excludeByName": {},
+                    "indexByName": {},
+                    "renameByName": {
+                      "Value #A": "Turns"
+                    }
+                  }
+                }
+              ]
             }
           },
           "vizConfig": {

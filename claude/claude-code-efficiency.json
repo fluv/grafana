@@ -808,7 +808,7 @@
                         "name": "loki"
                       },
                       "spec": {
-                        "expr": "sort_desc(sum by (session_id) (count_over_time({job=\"claude-transcripts\", type=\"assistant\"}[$__range])))",
+                        "expr": "topk(50, sum by (session_id) (count_over_time({job=\"claude-transcripts\", type=\"assistant\"}[$__range])))",
                         "instant": true,
                         "legendFormat": "{{session_id}}"
                       }
@@ -817,7 +817,18 @@
                 }
               ],
               "queryOptions": {},
-              "transformations": []
+              "transformations": [
+                {
+                  "id": "organize",
+                  "options": {
+                    "excludeByName": {},
+                    "indexByName": {},
+                    "renameByName": {
+                      "Value #A": "Turns"
+                    }
+                  }
+                }
+              ]
             }
           },
           "vizConfig": {
