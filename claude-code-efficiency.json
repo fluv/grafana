@@ -7,7 +7,9 @@
   "spec": {
     "title": "Claude Code — Efficiency",
     "description": "Signals for overspecification, context bloat, and session length. High Opus fraction, high input/output ratio, or many turns per session all suggest room to work leaner.",
-    "tags": ["claude"],
+    "tags": [
+      "claude"
+    ],
     "timeSettings": {
       "autoRefresh": "5m",
       "from": "now-7d",
@@ -16,7 +18,7 @@
       "hideTimepicker": false,
       "fiscalYearStartMonth": 0
     },
-    "cursorSync": 0,
+    "cursorSync": "Off",
     "liveNow": false,
     "preload": false,
     "links": [],
@@ -43,7 +45,9 @@
                       "kind": "DataQuery",
                       "group": "prometheus",
                       "version": "v0",
-                      "datasource": {"name": "claude-prometheus"},
+                      "datasource": {
+                        "name": "claude-prometheus"
+                      },
                       "spec": {
                         "expr": "sum(increase(claude_code_token_usage_tokens_total{model=~\"claude-opus.*\", query_source=\"main\"}[$__range])) / clamp_min(sum(increase(claude_code_token_usage_tokens_total{query_source=\"main\"}[$__range])), 1)",
                         "instant": true,
@@ -67,20 +71,37 @@
                 "graphMode": "none",
                 "justifyMode": "auto",
                 "orientation": "auto",
-                "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
                 "textMode": "auto",
                 "wideLayout": true
               },
               "fieldConfig": {
                 "defaults": {
                   "unit": "percentunit",
-                  "color": {"mode": "thresholds"},
+                  "color": {
+                    "mode": "thresholds"
+                  },
                   "thresholds": {
                     "mode": "absolute",
                     "steps": [
-                      {"color": "green", "value": null},
-                      {"color": "yellow", "value": 0.3},
-                      {"color": "red", "value": 0.6}
+                      {
+                        "color": "green",
+                        "value": null
+                      },
+                      {
+                        "color": "yellow",
+                        "value": 0.3
+                      },
+                      {
+                        "color": "red",
+                        "value": 0.6
+                      }
                     ]
                   }
                 },
@@ -110,7 +131,9 @@
                       "kind": "DataQuery",
                       "group": "prometheus",
                       "version": "v0",
-                      "datasource": {"name": "claude-prometheus"},
+                      "datasource": {
+                        "name": "claude-prometheus"
+                      },
                       "spec": {
                         "expr": "sum(increase(claude_code_token_usage_tokens_total{effort=\"xhigh\"}[$__range])) / clamp_min(sum(increase(claude_code_token_usage_tokens_total[$__range])), 1)",
                         "instant": true,
@@ -134,20 +157,37 @@
                 "graphMode": "none",
                 "justifyMode": "auto",
                 "orientation": "auto",
-                "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
                 "textMode": "auto",
                 "wideLayout": true
               },
               "fieldConfig": {
                 "defaults": {
                   "unit": "percentunit",
-                  "color": {"mode": "thresholds"},
+                  "color": {
+                    "mode": "thresholds"
+                  },
                   "thresholds": {
                     "mode": "absolute",
                     "steps": [
-                      {"color": "green", "value": null},
-                      {"color": "yellow", "value": 0.2},
-                      {"color": "red", "value": 0.5}
+                      {
+                        "color": "green",
+                        "value": null
+                      },
+                      {
+                        "color": "yellow",
+                        "value": 0.2
+                      },
+                      {
+                        "color": "red",
+                        "value": 0.5
+                      }
                     ]
                   }
                 },
@@ -177,7 +217,9 @@
                       "kind": "DataQuery",
                       "group": "prometheus",
                       "version": "v0",
-                      "datasource": {"name": "claude-prometheus"},
+                      "datasource": {
+                        "name": "claude-prometheus"
+                      },
                       "spec": {
                         "expr": "sum(increase(claude_code_token_usage_tokens_total{type=\"input\"}[$__range])) / clamp_min(sum(increase(claude_code_token_usage_tokens_total{type=\"output\"}[$__range])), 1)",
                         "instant": true,
@@ -201,7 +243,13 @@
                 "graphMode": "none",
                 "justifyMode": "auto",
                 "orientation": "auto",
-                "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
                 "textMode": "auto",
                 "wideLayout": true
               },
@@ -209,13 +257,24 @@
                 "defaults": {
                   "unit": "short",
                   "decimals": 1,
-                  "color": {"mode": "thresholds"},
+                  "color": {
+                    "mode": "thresholds"
+                  },
                   "thresholds": {
                     "mode": "absolute",
                     "steps": [
-                      {"color": "green", "value": null},
-                      {"color": "yellow", "value": 15},
-                      {"color": "red", "value": 30}
+                      {
+                        "color": "green",
+                        "value": null
+                      },
+                      {
+                        "color": "yellow",
+                        "value": 15
+                      },
+                      {
+                        "color": "red",
+                        "value": 30
+                      }
                     ]
                   }
                 },
@@ -245,7 +304,9 @@
                       "kind": "DataQuery",
                       "group": "prometheus",
                       "version": "v0",
-                      "datasource": {"name": "claude-prometheus"},
+                      "datasource": {
+                        "name": "claude-prometheus"
+                      },
                       "spec": {
                         "expr": "sum(increase(claude_code_token_usage_tokens_total{query_source=\"subagent\"}[$__range])) / clamp_min(sum(increase(claude_code_token_usage_tokens_total[$__range])), 1)",
                         "instant": true,
@@ -269,17 +330,30 @@
                 "graphMode": "none",
                 "justifyMode": "auto",
                 "orientation": "auto",
-                "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
                 "textMode": "auto",
                 "wideLayout": true
               },
               "fieldConfig": {
                 "defaults": {
                   "unit": "percentunit",
-                  "color": {"mode": "thresholds"},
+                  "color": {
+                    "mode": "thresholds"
+                  },
                   "thresholds": {
                     "mode": "absolute",
-                    "steps": [{"color": "blue", "value": null}]
+                    "steps": [
+                      {
+                        "color": "blue",
+                        "value": null
+                      }
+                    ]
                   }
                 },
                 "overrides": []
@@ -308,7 +382,9 @@
                       "kind": "DataQuery",
                       "group": "loki",
                       "version": "v0",
-                      "datasource": {"name": "loki"},
+                      "datasource": {
+                        "name": "loki"
+                      },
                       "spec": {
                         "expr": "sum(count_over_time({job=\"claude-transcripts\", type=\"tool_use\"}[$__range])) / clamp_min(sum(count_over_time({job=\"claude-transcripts\", type=\"assistant\"}[$__range])), 1)",
                         "instant": true,
@@ -332,7 +408,13 @@
                 "graphMode": "none",
                 "justifyMode": "auto",
                 "orientation": "auto",
-                "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
                 "textMode": "auto",
                 "wideLayout": true
               },
@@ -340,10 +422,17 @@
                 "defaults": {
                   "unit": "short",
                   "decimals": 1,
-                  "color": {"mode": "thresholds"},
+                  "color": {
+                    "mode": "thresholds"
+                  },
                   "thresholds": {
                     "mode": "absolute",
-                    "steps": [{"color": "blue", "value": null}]
+                    "steps": [
+                      {
+                        "color": "blue",
+                        "value": null
+                      }
+                    ]
                   }
                 },
                 "overrides": []
@@ -372,7 +461,9 @@
                       "kind": "DataQuery",
                       "group": "loki",
                       "version": "v0",
-                      "datasource": {"name": "loki"},
+                      "datasource": {
+                        "name": "loki"
+                      },
                       "spec": {
                         "expr": "count(sum by (session_id) (count_over_time({job=\"claude-transcripts\", type=\"assistant\"}[$__range])) > 20)",
                         "instant": true,
@@ -396,20 +487,37 @@
                 "graphMode": "none",
                 "justifyMode": "auto",
                 "orientation": "auto",
-                "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
                 "textMode": "auto",
                 "wideLayout": true
               },
               "fieldConfig": {
                 "defaults": {
                   "unit": "short",
-                  "color": {"mode": "thresholds"},
+                  "color": {
+                    "mode": "thresholds"
+                  },
                   "thresholds": {
                     "mode": "absolute",
                     "steps": [
-                      {"color": "green", "value": null},
-                      {"color": "yellow", "value": 3},
-                      {"color": "red", "value": 8}
+                      {
+                        "color": "green",
+                        "value": null
+                      },
+                      {
+                        "color": "yellow",
+                        "value": 3
+                      },
+                      {
+                        "color": "red",
+                        "value": 8
+                      }
                     ]
                   }
                 },
@@ -439,7 +547,9 @@
                       "kind": "DataQuery",
                       "group": "prometheus",
                       "version": "v0",
-                      "datasource": {"name": "claude-prometheus"},
+                      "datasource": {
+                        "name": "claude-prometheus"
+                      },
                       "spec": {
                         "expr": "sum(increase(claude_code_token_usage_tokens_total{model=~\"claude-opus.*\", query_source=\"main\"}[$__interval])) / clamp_min(sum(increase(claude_code_token_usage_tokens_total{query_source=\"main\"}[$__interval])), 1)",
                         "instant": false,
@@ -457,7 +567,9 @@
                       "kind": "DataQuery",
                       "group": "prometheus",
                       "version": "v0",
-                      "datasource": {"name": "claude-prometheus"},
+                      "datasource": {
+                        "name": "claude-prometheus"
+                      },
                       "spec": {
                         "expr": "sum(increase(claude_code_token_usage_tokens_total{effort=\"xhigh\"}[$__interval])) / clamp_min(sum(increase(claude_code_token_usage_tokens_total[$__interval])), 1)",
                         "instant": false,
@@ -477,13 +589,27 @@
             "version": "13.0.1",
             "spec": {
               "options": {
-                "legend": {"calcs": ["mean", "max"], "displayMode": "table", "placement": "bottom", "showLegend": true},
-                "tooltip": {"hideZeros": false, "mode": "multi", "sort": "desc"}
+                "legend": {
+                  "calcs": [
+                    "mean",
+                    "max"
+                  ],
+                  "displayMode": "table",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "desc"
+                }
               },
               "fieldConfig": {
                 "defaults": {
                   "unit": "percentunit",
-                  "color": {"mode": "palette-classic"},
+                  "color": {
+                    "mode": "palette-classic"
+                  },
                   "custom": {
                     "drawStyle": "line",
                     "lineWidth": 2,
@@ -492,15 +618,26 @@
                     "spanNulls": false,
                     "showPoints": "auto",
                     "pointSize": 5,
-                    "stacking": {"mode": "none", "group": "A"},
+                    "stacking": {
+                      "mode": "none",
+                      "group": "A"
+                    },
                     "axisPlacement": "auto",
                     "axisLabel": "",
                     "axisColorMode": "text",
                     "axisBorderShow": false,
-                    "scaleDistribution": {"type": "linear"},
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
                     "axisCenteredZero": false,
-                    "hideFrom": {"legend": false, "tooltip": false, "viz": false},
-                    "thresholdsStyle": {"mode": "off"},
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    },
                     "insertNulls": false,
                     "barWidthFactor": 0.6,
                     "barAlignment": 0,
@@ -508,7 +645,16 @@
                   },
                   "thresholds": {
                     "mode": "absolute",
-                    "steps": [{"color": "green", "value": null}, {"color": "red", "value": 0.5}]
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": null
+                      },
+                      {
+                        "color": "red",
+                        "value": 0.5
+                      }
+                    ]
                   }
                 },
                 "overrides": []
@@ -537,7 +683,9 @@
                       "kind": "DataQuery",
                       "group": "prometheus",
                       "version": "v0",
-                      "datasource": {"name": "claude-prometheus"},
+                      "datasource": {
+                        "name": "claude-prometheus"
+                      },
                       "spec": {
                         "expr": "sum(increase(claude_code_token_usage_tokens_total{type=\"input\"}[$__interval])) / clamp_min(sum(increase(claude_code_token_usage_tokens_total{type=\"output\"}[$__interval])), 1)",
                         "instant": false,
@@ -557,14 +705,28 @@
             "version": "13.0.1",
             "spec": {
               "options": {
-                "legend": {"calcs": ["mean", "max"], "displayMode": "list", "placement": "bottom", "showLegend": true},
-                "tooltip": {"hideZeros": false, "mode": "single", "sort": "none"}
+                "legend": {
+                  "calcs": [
+                    "mean",
+                    "max"
+                  ],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "single",
+                  "sort": "none"
+                }
               },
               "fieldConfig": {
                 "defaults": {
                   "unit": "short",
                   "decimals": 1,
-                  "color": {"mode": "palette-classic"},
+                  "color": {
+                    "mode": "palette-classic"
+                  },
                   "custom": {
                     "drawStyle": "line",
                     "lineWidth": 2,
@@ -573,15 +735,26 @@
                     "spanNulls": false,
                     "showPoints": "auto",
                     "pointSize": 5,
-                    "stacking": {"mode": "none", "group": "A"},
+                    "stacking": {
+                      "mode": "none",
+                      "group": "A"
+                    },
                     "axisPlacement": "auto",
                     "axisLabel": "",
                     "axisColorMode": "text",
                     "axisBorderShow": false,
-                    "scaleDistribution": {"type": "linear"},
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
                     "axisCenteredZero": false,
-                    "hideFrom": {"legend": false, "tooltip": false, "viz": false},
-                    "thresholdsStyle": {"mode": "line"},
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "thresholdsStyle": {
+                      "mode": "line"
+                    },
                     "insertNulls": false,
                     "barWidthFactor": 0.6,
                     "barAlignment": 0,
@@ -589,7 +762,20 @@
                   },
                   "thresholds": {
                     "mode": "absolute",
-                    "steps": [{"color": "green", "value": null}, {"color": "yellow", "value": 15}, {"color": "red", "value": 30}]
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": null
+                      },
+                      {
+                        "color": "yellow",
+                        "value": 15
+                      },
+                      {
+                        "color": "red",
+                        "value": 30
+                      }
+                    ]
                   }
                 },
                 "overrides": []
@@ -618,7 +804,9 @@
                       "kind": "DataQuery",
                       "group": "loki",
                       "version": "v0",
-                      "datasource": {"name": "loki"},
+                      "datasource": {
+                        "name": "loki"
+                      },
                       "spec": {
                         "expr": "sort_desc(sum by (session_id) (count_over_time({job=\"claude-transcripts\", type=\"assistant\"}[$__range])))",
                         "instant": true,
@@ -647,23 +835,44 @@
                 "minVizWidth": 8,
                 "namePlacement": "auto",
                 "orientation": "horizontal",
-                "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": true},
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": true
+                },
                 "showUnfilled": true,
                 "sizing": "auto",
                 "text": {},
-                "tooltip": {"hideZeros": false, "mode": "single", "sort": "none"},
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "single",
+                  "sort": "none"
+                },
                 "valueMode": "color"
               },
               "fieldConfig": {
                 "defaults": {
                   "unit": "short",
-                  "color": {"mode": "continuous-GrYlRd"},
+                  "color": {
+                    "mode": "continuous-GrYlRd"
+                  },
                   "thresholds": {
                     "mode": "absolute",
                     "steps": [
-                      {"color": "green", "value": null},
-                      {"color": "yellow", "value": 20},
-                      {"color": "red", "value": 40}
+                      {
+                        "color": "green",
+                        "value": null
+                      },
+                      {
+                        "color": "yellow",
+                        "value": 20
+                      },
+                      {
+                        "color": "red",
+                        "value": 40
+                      }
                     ]
                   }
                 },
@@ -689,27 +898,81 @@
                   "items": [
                     {
                       "kind": "GridLayoutItem",
-                      "spec": {"element": {"kind": "ElementReference", "name": "panel-1"}, "height": 4, "width": 4, "x": 0, "y": 0}
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-1"
+                        },
+                        "height": 4,
+                        "width": 4,
+                        "x": 0,
+                        "y": 0
+                      }
                     },
                     {
                       "kind": "GridLayoutItem",
-                      "spec": {"element": {"kind": "ElementReference", "name": "panel-2"}, "height": 4, "width": 4, "x": 4, "y": 0}
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-2"
+                        },
+                        "height": 4,
+                        "width": 4,
+                        "x": 4,
+                        "y": 0
+                      }
                     },
                     {
                       "kind": "GridLayoutItem",
-                      "spec": {"element": {"kind": "ElementReference", "name": "panel-3"}, "height": 4, "width": 4, "x": 8, "y": 0}
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-3"
+                        },
+                        "height": 4,
+                        "width": 4,
+                        "x": 8,
+                        "y": 0
+                      }
                     },
                     {
                       "kind": "GridLayoutItem",
-                      "spec": {"element": {"kind": "ElementReference", "name": "panel-4"}, "height": 4, "width": 4, "x": 12, "y": 0}
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-4"
+                        },
+                        "height": 4,
+                        "width": 4,
+                        "x": 12,
+                        "y": 0
+                      }
                     },
                     {
                       "kind": "GridLayoutItem",
-                      "spec": {"element": {"kind": "ElementReference", "name": "panel-5"}, "height": 4, "width": 4, "x": 16, "y": 0}
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-5"
+                        },
+                        "height": 4,
+                        "width": 4,
+                        "x": 16,
+                        "y": 0
+                      }
                     },
                     {
                       "kind": "GridLayoutItem",
-                      "spec": {"element": {"kind": "ElementReference", "name": "panel-6"}, "height": 4, "width": 4, "x": 20, "y": 0}
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-6"
+                        },
+                        "height": 4,
+                        "width": 4,
+                        "x": 20,
+                        "y": 0
+                      }
                     }
                   ]
                 }
@@ -727,11 +990,29 @@
                   "items": [
                     {
                       "kind": "GridLayoutItem",
-                      "spec": {"element": {"kind": "ElementReference", "name": "panel-7"}, "height": 8, "width": 12, "x": 0, "y": 0}
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-7"
+                        },
+                        "height": 8,
+                        "width": 12,
+                        "x": 0,
+                        "y": 0
+                      }
                     },
                     {
                       "kind": "GridLayoutItem",
-                      "spec": {"element": {"kind": "ElementReference", "name": "panel-8"}, "height": 8, "width": 12, "x": 12, "y": 0}
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-8"
+                        },
+                        "height": 8,
+                        "width": 12,
+                        "x": 12,
+                        "y": 0
+                      }
                     }
                   ]
                 }
@@ -749,7 +1030,16 @@
                   "items": [
                     {
                       "kind": "GridLayoutItem",
-                      "spec": {"element": {"kind": "ElementReference", "name": "panel-9"}, "height": 12, "width": 24, "x": 0, "y": 0}
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-9"
+                        },
+                        "height": 12,
+                        "width": 24,
+                        "x": 0,
+                        "y": 0
+                      }
                     }
                   ]
                 }
