@@ -148,6 +148,74 @@
           }
         }
       },
+      "panel-11": {
+        "kind": "Panel",
+        "spec": {
+          "id": 11,
+          "title": "5h Pace",
+          "description": "Budget used % divided by window elapsed %. 1.0 means on pace; >1.0 means you will exhaust the budget before reset. Most meaningful while a 5h window is active — when the window has already reset (resets_in_secs = 0), the value reflects the prior window's pace.",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "refId": "A",
+                    "hidden": false,
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {"name": "claude-prometheus"},
+                      "spec": {
+                        "expr": "claude_rl_5h_pct / clamp_min(claude_rl_5h_time_pct, 1)",
+                        "instant": true,
+                        "legendFormat": "pace"
+                      }
+                    }
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "stat",
+            "version": "13.0.1",
+            "spec": {
+              "options": {
+                "colorMode": "background",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+                "textMode": "auto",
+                "wideLayout": true
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "short",
+                  "decimals": 2,
+                  "color": {"mode": "thresholds"},
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {"color": "green", "value": null},
+                      {"color": "yellow", "value": 1.0},
+                      {"color": "red", "value": 1.5}
+                    ]
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
       "panel-3": {
         "kind": "Panel",
         "spec": {
@@ -205,6 +273,66 @@
                       {"color": "orange", "value": 63},
                       {"color": "red", "value": 90}
                     ]
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-12": {
+        "kind": "Panel",
+        "spec": {
+          "id": 12,
+          "title": "7d Window Elapsed",
+          "description": "Percentage of the 7-day window that has elapsed.",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "refId": "A",
+                    "hidden": false,
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {"name": "claude-prometheus"},
+                      "spec": {"expr": "claude_rl_7d_window_pct", "instant": true, "legendFormat": "7d elapsed"}
+                    }
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "stat",
+            "version": "13.0.1",
+            "spec": {
+              "options": {
+                "colorMode": "background",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+                "textMode": "auto",
+                "wideLayout": true
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "percent",
+                  "min": 0, "max": 100,
+                  "color": {"mode": "thresholds"},
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [{"color": "blue", "value": null}]
                   }
                 },
                 "overrides": []
@@ -402,12 +530,93 @@
                 "defaults": {
                   "unit": "percent",
                   "color": {"mode": "palette-classic"},
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {"color": "green", "value": null},
+                      {"color": "orange", "value": 5},
+                      {"color": "red", "value": 10}
+                    ]
+                  },
                   "custom": {
                     "drawStyle": "line",
                     "lineWidth": 2,
                     "fillOpacity": 10,
                     "gradientMode": "none",
-                    "spanNulls": false
+                    "spanNulls": false,
+                    "thresholdsStyle": {"mode": "line"}
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-13": {
+        "kind": "Panel",
+        "spec": {
+          "id": 13,
+          "title": "Context Window Over Time",
+          "description": "Context window usage % over the selected time range. Rising trend within a session indicates context accumulation; hitting 90% typically triggers compaction.",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "refId": "A",
+                    "hidden": false,
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {"name": "claude-prometheus"},
+                      "spec": {"expr": "claude_ctx_pct", "instant": false, "legendFormat": "ctx %"}
+                    }
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "timeseries",
+            "version": "13.0.1",
+            "spec": {
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {"hideZeros": false, "mode": "single", "sort": "none"}
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "percent",
+                  "min": 0, "max": 100,
+                  "color": {"mode": "thresholds"},
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {"color": "green", "value": null},
+                      {"color": "yellow", "value": 70},
+                      {"color": "red", "value": 90}
+                    ]
+                  },
+                  "custom": {
+                    "drawStyle": "line",
+                    "lineWidth": 2,
+                    "fillOpacity": 15,
+                    "gradientMode": "opacity",
+                    "spanNulls": false,
+                    "thresholdsStyle": {"mode": "line"}
                   }
                 },
                 "overrides": []
@@ -678,10 +887,12 @@
                 "kind": "GridLayout",
                 "spec": {
                   "items": [
-                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-1"}, "height": 4, "width": 6, "x": 0, "y": 0}},
-                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-2"}, "height": 4, "width": 6, "x": 6, "y": 0}},
-                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-3"}, "height": 4, "width": 6, "x": 12, "y": 0}},
-                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-4"}, "height": 4, "width": 6, "x": 18, "y": 0}}
+                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-1"},  "height": 4, "width": 4, "x": 0,  "y": 0}},
+                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-2"},  "height": 4, "width": 4, "x": 4,  "y": 0}},
+                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-11"}, "height": 4, "width": 4, "x": 8,  "y": 0}},
+                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-3"},  "height": 4, "width": 4, "x": 12, "y": 0}},
+                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-12"}, "height": 4, "width": 4, "x": 16, "y": 0}},
+                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-4"},  "height": 4, "width": 4, "x": 20, "y": 0}}
                   ]
                 }
               }
@@ -696,8 +907,9 @@
                 "kind": "GridLayout",
                 "spec": {
                   "items": [
-                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-5"}, "height": 6, "width": 12, "x": 0, "y": 0}},
-                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-6"}, "height": 6, "width": 12, "x": 12, "y": 0}}
+                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-5"},  "height": 6, "width": 8, "x": 0,  "y": 0}},
+                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-6"},  "height": 6, "width": 8, "x": 8,  "y": 0}},
+                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-13"}, "height": 6, "width": 8, "x": 16, "y": 0}}
                   ]
                 }
               }
@@ -712,9 +924,9 @@
                 "kind": "GridLayout",
                 "spec": {
                   "items": [
-                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-7"}, "height": 4, "width": 6, "x": 0, "y": 0}},
-                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-8"}, "height": 4, "width": 6, "x": 6, "y": 0}},
-                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-9"}, "height": 4, "width": 6, "x": 12, "y": 0}},
+                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-7"},  "height": 4, "width": 6, "x": 0,  "y": 0}},
+                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-8"},  "height": 4, "width": 6, "x": 6,  "y": 0}},
+                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-9"},  "height": 4, "width": 6, "x": 12, "y": 0}},
                     {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-10"}, "height": 4, "width": 6, "x": 18, "y": 0}}
                   ]
                 }
