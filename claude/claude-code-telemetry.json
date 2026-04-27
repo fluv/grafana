@@ -57,8 +57,9 @@
         "spec": {
           "enable": true,
           "hide": false,
-          "iconColor": "super-light-purple",
+          "iconColor": "#a977d9",
           "name": "Overnight working",
+          "placement": "inControlsMenu",
           "query": {
             "datasource": {
               "name": "grafana"
@@ -72,8 +73,36 @@
               "refId": "Anno",
               "timeRegion": {
                 "from": "03:00",
-                "timezone": "browser",
+                "timezone": "",
                 "to": "09:00"
+              }
+            },
+            "version": "v0"
+          }
+        }
+      },
+      {
+        "kind": "AnnotationQuery",
+        "spec": {
+          "enable": true,
+          "hide": false,
+          "iconColor": "#febfff",
+          "name": "Daytime working",
+          "query": {
+            "datasource": {
+              "name": "grafana"
+            },
+            "group": "datasource",
+            "kind": "DataQuery",
+            "spec": {
+              "expr": "",
+              "interval": "",
+              "queryType": "timeRegions",
+              "refId": "Anno",
+              "timeRegion": {
+                "from": "09:00",
+                "timezone": "",
+                "to": "16:30"
               }
             },
             "version": "v0"
