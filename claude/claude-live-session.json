@@ -9,7 +9,7 @@
     "description": "Live Claude session state scraped from claude-prometheus-exporter (port 9091 on Pi via Alloy). Shows rate-limit usage, context window, consumption rate, and session cost.",
     "tags": ["claude"],
     "timeSettings": {
-      "autoRefresh": "10s",
+      "autoRefresh": "15s",
       "from": "now-1h",
       "to": "now",
       "timezone": "browser",
