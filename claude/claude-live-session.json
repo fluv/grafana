@@ -1,339 +1,728 @@
 {
-  "title": "Claude Live Session",
-  "uid": "claude-statspane",
-  "schemaVersion": 38,
-  "refresh": "10s",
-  "time": { "from": "now-1h", "to": "now" },
-  "panels": [
-    {
-      "id": 1,
-      "type": "gauge",
-      "title": "5h Rate Limit",
-      "gridPos": { "x": 0, "y": 0, "w": 6, "h": 6 },
-      "options": {
-        "reduceOptions": { "calcs": ["lastNotNull"] },
-        "minVizWidth": 75,
-        "minVizHeight": 75,
-        "orientation": "auto",
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "percent",
-          "min": 0,
-          "max": 100,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              { "color": "green", "value": null },
-              { "color": "blue", "value": 37 },
-              { "color": "orange", "value": 63 },
-              { "color": "red", "value": 90 }
-            ]
-          },
-          "color": { "mode": "thresholds" }
-        }
-      },
-      "targets": [
-        {
-          "datasource": { "uid": "claude-prometheus" },
-          "expr": "claude_rl_5h_pct",
-          "legendFormat": "5h used"
-        }
-      ]
+  "apiVersion": "dashboard.grafana.app/v2",
+  "kind": "Dashboard",
+  "metadata": {
+    "name": "claude-live-session"
+  },
+  "spec": {
+    "title": "Claude Live Session",
+    "description": "Live Claude session state scraped from claude-prometheus-exporter (port 9091 on Pi via Alloy). Shows rate-limit usage, context window, consumption rate, and session cost.",
+    "tags": ["claude"],
+    "timeSettings": {
+      "autoRefresh": "10s",
+      "from": "now-1h",
+      "to": "now",
+      "timezone": "browser",
+      "hideTimepicker": false,
+      "fiscalYearStartMonth": 0
     },
-    {
-      "id": 2,
-      "type": "gauge",
-      "title": "5h Window Elapsed",
-      "gridPos": { "x": 6, "y": 0, "w": 6, "h": 6 },
-      "options": {
-        "reduceOptions": { "calcs": ["lastNotNull"] },
-        "orientation": "auto",
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "percent",
-          "min": 0,
-          "max": 100,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [{ "color": "blue", "value": null }]
+    "cursorSync": "Off",
+    "liveNow": false,
+    "preload": false,
+    "links": [],
+    "annotations": [],
+    "variables": [],
+    "elements": {
+      "panel-1": {
+        "kind": "Panel",
+        "spec": {
+          "id": 1,
+          "title": "5h Rate Limit",
+          "description": "Percentage of the 5-hour token budget consumed.",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "refId": "A",
+                    "hidden": false,
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {"name": "claude-prometheus"},
+                      "spec": {"expr": "claude_rl_5h_pct", "instant": true, "legendFormat": "5h used"}
+                    }
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
           },
-          "color": { "mode": "thresholds" }
-        }
-      },
-      "targets": [
-        {
-          "datasource": { "uid": "claude-prometheus" },
-          "expr": "claude_rl_5h_time_pct",
-          "legendFormat": "5h elapsed"
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "type": "gauge",
-      "title": "7d Rate Limit",
-      "gridPos": { "x": 12, "y": 0, "w": 6, "h": 6 },
-      "options": {
-        "reduceOptions": { "calcs": ["lastNotNull"] },
-        "orientation": "auto",
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "percent",
-          "min": 0,
-          "max": 100,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              { "color": "green", "value": null },
-              { "color": "blue", "value": 37 },
-              { "color": "orange", "value": 63 },
-              { "color": "red", "value": 90 }
-            ]
-          },
-          "color": { "mode": "thresholds" }
-        }
-      },
-      "targets": [
-        {
-          "datasource": { "uid": "claude-prometheus" },
-          "expr": "claude_rl_7d_pct",
-          "legendFormat": "7d used"
-        }
-      ]
-    },
-    {
-      "id": 4,
-      "type": "gauge",
-      "title": "Context Window",
-      "gridPos": { "x": 18, "y": 0, "w": 6, "h": 6 },
-      "options": {
-        "reduceOptions": { "calcs": ["lastNotNull"] },
-        "orientation": "auto",
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "percent",
-          "min": 0,
-          "max": 100,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              { "color": "green", "value": null },
-              { "color": "yellow", "value": 70 },
-              { "color": "red", "value": 90 }
-            ]
-          },
-          "color": { "mode": "thresholds" }
-        }
-      },
-      "targets": [
-        {
-          "datasource": { "uid": "claude-prometheus" },
-          "expr": "claude_ctx_pct",
-          "legendFormat": "ctx"
-        }
-      ]
-    },
-    {
-      "id": 5,
-      "type": "timeseries",
-      "title": "5h Rate Limit Trend",
-      "gridPos": { "x": 0, "y": 6, "w": 12, "h": 6 },
-      "options": {
-        "legend": { "displayMode": "list", "placement": "bottom" }
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "percent",
-          "min": 0,
-          "max": 100,
-          "color": { "mode": "palette-classic" }
-        }
-      },
-      "targets": [
-        {
-          "datasource": { "uid": "claude-prometheus" },
-          "expr": "claude_rl_5h_pct",
-          "legendFormat": "used %"
-        },
-        {
-          "datasource": { "uid": "claude-prometheus" },
-          "expr": "claude_rl_5h_time_pct",
-          "legendFormat": "elapsed %"
-        }
-      ]
-    },
-    {
-      "id": 6,
-      "type": "timeseries",
-      "title": "Consumption Rate (per 15m)",
-      "gridPos": { "x": 12, "y": 6, "w": 12, "h": 6 },
-      "options": {
-        "legend": { "displayMode": "list", "placement": "bottom" }
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "percent",
-          "color": { "mode": "palette-classic" },
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              { "color": "green", "value": null },
-              { "color": "orange", "value": 5 }
-            ]
-          },
-          "custom": {
-            "thresholdsStyle": { "mode": "line" }
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "stat",
+            "version": "13.0.1",
+            "spec": {
+              "options": {
+                "colorMode": "background",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+                "textMode": "auto",
+                "wideLayout": true
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "percent",
+                  "min": 0, "max": 100,
+                  "color": {"mode": "thresholds"},
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {"color": "green", "value": null},
+                      {"color": "blue", "value": 37},
+                      {"color": "orange", "value": 63},
+                      {"color": "red", "value": 90}
+                    ]
+                  }
+                },
+                "overrides": []
+              }
+            }
           }
         }
       },
-      "targets": [
-        {
-          "datasource": { "uid": "claude-prometheus" },
-          "expr": "claude_rl_trend_rate_per_15m",
-          "legendFormat": "rate/15m"
-        }
-      ]
-    },
-    {
-      "id": 7,
-      "type": "stat",
-      "title": "Session Cost",
-      "gridPos": { "x": 0, "y": 12, "w": 6, "h": 4 },
-      "options": {
-        "reduceOptions": { "calcs": ["lastNotNull"] },
-        "orientation": "auto",
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "currencyUSD",
-          "color": { "mode": "thresholds" },
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              { "color": "green", "value": null },
-              { "color": "yellow", "value": 5 },
-              { "color": "red", "value": 20 }
-            ]
+      "panel-2": {
+        "kind": "Panel",
+        "spec": {
+          "id": 2,
+          "title": "5h Window Elapsed",
+          "description": "Percentage of the 5-hour window that has elapsed.",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "refId": "A",
+                    "hidden": false,
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {"name": "claude-prometheus"},
+                      "spec": {"expr": "claude_rl_5h_time_pct", "instant": true, "legendFormat": "5h elapsed"}
+                    }
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "stat",
+            "version": "13.0.1",
+            "spec": {
+              "options": {
+                "colorMode": "background",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+                "textMode": "auto",
+                "wideLayout": true
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "percent",
+                  "min": 0, "max": 100,
+                  "color": {"mode": "thresholds"},
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [{"color": "blue", "value": null}]
+                  }
+                },
+                "overrides": []
+              }
+            }
           }
         }
       },
-      "targets": [
-        {
-          "datasource": { "uid": "claude-prometheus" },
-          "expr": "claude_cost_usd",
-          "legendFormat": "cost"
-        }
-      ]
-    },
-    {
-      "id": 8,
-      "type": "stat",
-      "title": "Active Sessions",
-      "gridPos": { "x": 6, "y": 12, "w": 6, "h": 4 },
-      "options": {
-        "reduceOptions": { "calcs": ["lastNotNull"] },
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "center"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short",
-          "color": { "mode": "thresholds" },
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [{ "color": "blue", "value": null }]
+      "panel-3": {
+        "kind": "Panel",
+        "spec": {
+          "id": 3,
+          "title": "7d Rate Limit",
+          "description": "Percentage of the 7-day token budget consumed.",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "refId": "A",
+                    "hidden": false,
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {"name": "claude-prometheus"},
+                      "spec": {"expr": "claude_rl_7d_pct", "instant": true, "legendFormat": "7d used"}
+                    }
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "stat",
+            "version": "13.0.1",
+            "spec": {
+              "options": {
+                "colorMode": "background",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+                "textMode": "auto",
+                "wideLayout": true
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "percent",
+                  "min": 0, "max": 100,
+                  "color": {"mode": "thresholds"},
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {"color": "green", "value": null},
+                      {"color": "blue", "value": 37},
+                      {"color": "orange", "value": 63},
+                      {"color": "red", "value": 90}
+                    ]
+                  }
+                },
+                "overrides": []
+              }
+            }
           }
         }
       },
-      "targets": [
-        {
-          "datasource": { "uid": "claude-prometheus" },
-          "expr": "claude_session_count",
-          "legendFormat": "sessions"
-        }
-      ]
-    },
-    {
-      "id": 9,
-      "type": "stat",
-      "title": "5h Resets In",
-      "gridPos": { "x": 12, "y": 12, "w": 6, "h": 4 },
-      "options": {
-        "reduceOptions": { "calcs": ["lastNotNull"] },
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "center"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "s",
-          "color": { "mode": "thresholds" },
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              { "color": "red", "value": null },
-              { "color": "orange", "value": 1800 },
-              { "color": "green", "value": 7200 }
-            ]
+      "panel-4": {
+        "kind": "Panel",
+        "spec": {
+          "id": 4,
+          "title": "Context Window",
+          "description": "Current session context window usage.",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "refId": "A",
+                    "hidden": false,
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {"name": "claude-prometheus"},
+                      "spec": {"expr": "claude_ctx_pct", "instant": true, "legendFormat": "ctx"}
+                    }
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "stat",
+            "version": "13.0.1",
+            "spec": {
+              "options": {
+                "colorMode": "background",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+                "textMode": "auto",
+                "wideLayout": true
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "percent",
+                  "min": 0, "max": 100,
+                  "color": {"mode": "thresholds"},
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {"color": "green", "value": null},
+                      {"color": "yellow", "value": 70},
+                      {"color": "red", "value": 90}
+                    ]
+                  }
+                },
+                "overrides": []
+              }
+            }
           }
         }
       },
-      "targets": [
-        {
-          "datasource": { "uid": "claude-prometheus" },
-          "expr": "claude_rl_5h_resets_in_secs",
-          "legendFormat": "resets in"
-        }
-      ]
-    },
-    {
-      "id": 10,
-      "type": "stat",
-      "title": "7d Resets In",
-      "gridPos": { "x": 18, "y": 12, "w": 6, "h": 4 },
-      "options": {
-        "reduceOptions": { "calcs": ["lastNotNull"] },
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "center"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "s",
-          "color": { "mode": "thresholds" },
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              { "color": "red", "value": null },
-              { "color": "orange", "value": 86400 },
-              { "color": "green", "value": 259200 }
-            ]
+      "panel-5": {
+        "kind": "Panel",
+        "spec": {
+          "id": 5,
+          "title": "5h Rate Limit Trend",
+          "description": "Rate limit used % vs time elapsed % over the current 5h window.",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "refId": "A",
+                    "hidden": false,
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {"name": "claude-prometheus"},
+                      "spec": {"expr": "claude_rl_5h_pct", "instant": false, "legendFormat": "used %"}
+                    }
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "refId": "B",
+                    "hidden": false,
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {"name": "claude-prometheus"},
+                      "spec": {"expr": "claude_rl_5h_time_pct", "instant": false, "legendFormat": "elapsed %"}
+                    }
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "timeseries",
+            "version": "13.0.1",
+            "spec": {
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {"hideZeros": false, "mode": "multi", "sort": "desc"}
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "percent",
+                  "min": 0, "max": 100,
+                  "color": {"mode": "palette-classic"},
+                  "custom": {
+                    "drawStyle": "line",
+                    "lineWidth": 2,
+                    "fillOpacity": 10,
+                    "gradientMode": "none",
+                    "spanNulls": false
+                  }
+                },
+                "overrides": []
+              }
+            }
           }
         }
       },
-      "targets": [
-        {
-          "datasource": { "uid": "claude-prometheus" },
-          "expr": "claude_rl_7d_resets_in_secs",
-          "legendFormat": "resets in"
+      "panel-6": {
+        "kind": "Panel",
+        "spec": {
+          "id": 6,
+          "title": "Consumption Rate (per 15m)",
+          "description": "Rate of token budget consumption per 15 minutes. Above ~5%/15m is above pace for the 5h window.",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "refId": "A",
+                    "hidden": false,
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {"name": "claude-prometheus"},
+                      "spec": {"expr": "claude_rl_trend_rate_per_15m", "instant": false, "legendFormat": "rate/15m"}
+                    }
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "timeseries",
+            "version": "13.0.1",
+            "spec": {
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {"hideZeros": false, "mode": "multi", "sort": "desc"}
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "percent",
+                  "color": {"mode": "palette-classic"},
+                  "custom": {
+                    "drawStyle": "line",
+                    "lineWidth": 2,
+                    "fillOpacity": 10,
+                    "gradientMode": "none",
+                    "spanNulls": false
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
         }
-      ]
+      },
+      "panel-7": {
+        "kind": "Panel",
+        "spec": {
+          "id": 7,
+          "title": "Session Cost",
+          "description": "Current session cost in USD.",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "refId": "A",
+                    "hidden": false,
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {"name": "claude-prometheus"},
+                      "spec": {"expr": "claude_cost_usd", "instant": true, "legendFormat": "cost"}
+                    }
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "stat",
+            "version": "13.0.1",
+            "spec": {
+              "options": {
+                "colorMode": "background",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+                "textMode": "auto",
+                "wideLayout": true
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "currencyUSD",
+                  "color": {"mode": "thresholds"},
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {"color": "green", "value": null},
+                      {"color": "yellow", "value": 5},
+                      {"color": "red", "value": 20}
+                    ]
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-8": {
+        "kind": "Panel",
+        "spec": {
+          "id": 8,
+          "title": "Active Sessions",
+          "description": "Claude sessions active in the last 5 minutes.",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "refId": "A",
+                    "hidden": false,
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {"name": "claude-prometheus"},
+                      "spec": {"expr": "claude_session_count", "instant": true, "legendFormat": "sessions"}
+                    }
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "stat",
+            "version": "13.0.1",
+            "spec": {
+              "options": {
+                "colorMode": "background",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+                "textMode": "auto",
+                "wideLayout": true
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "short",
+                  "color": {"mode": "thresholds"},
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [{"color": "blue", "value": null}]
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-9": {
+        "kind": "Panel",
+        "spec": {
+          "id": 9,
+          "title": "5h Resets In",
+          "description": "Seconds until the 5-hour rate-limit window resets.",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "refId": "A",
+                    "hidden": false,
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {"name": "claude-prometheus"},
+                      "spec": {"expr": "claude_rl_5h_resets_in_secs", "instant": true, "legendFormat": "resets in"}
+                    }
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "stat",
+            "version": "13.0.1",
+            "spec": {
+              "options": {
+                "colorMode": "background",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+                "textMode": "auto",
+                "wideLayout": true
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "s",
+                  "color": {"mode": "thresholds"},
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {"color": "red", "value": null},
+                      {"color": "orange", "value": 1800},
+                      {"color": "green", "value": 7200}
+                    ]
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-10": {
+        "kind": "Panel",
+        "spec": {
+          "id": 10,
+          "title": "7d Resets In",
+          "description": "Seconds until the 7-day rate-limit window resets.",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "refId": "A",
+                    "hidden": false,
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {"name": "claude-prometheus"},
+                      "spec": {"expr": "claude_rl_7d_resets_in_secs", "instant": true, "legendFormat": "resets in"}
+                    }
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "stat",
+            "version": "13.0.1",
+            "spec": {
+              "options": {
+                "colorMode": "background",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+                "textMode": "auto",
+                "wideLayout": true
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "s",
+                  "color": {"mode": "thresholds"},
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {"color": "red", "value": null},
+                      {"color": "orange", "value": 86400},
+                      {"color": "green", "value": 259200}
+                    ]
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      }
+    },
+    "layout": {
+      "kind": "RowsLayout",
+      "spec": {
+        "rows": [
+          {
+            "kind": "RowsLayoutRow",
+            "spec": {
+              "title": "Rate Limits",
+              "collapse": false,
+              "layout": {
+                "kind": "GridLayout",
+                "spec": {
+                  "items": [
+                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-1"}, "height": 4, "width": 6, "x": 0, "y": 0}},
+                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-2"}, "height": 4, "width": 6, "x": 6, "y": 0}},
+                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-3"}, "height": 4, "width": 6, "x": 12, "y": 0}},
+                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-4"}, "height": 4, "width": 6, "x": 18, "y": 0}}
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "kind": "RowsLayoutRow",
+            "spec": {
+              "title": "Trends",
+              "collapse": false,
+              "layout": {
+                "kind": "GridLayout",
+                "spec": {
+                  "items": [
+                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-5"}, "height": 6, "width": 12, "x": 0, "y": 0}},
+                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-6"}, "height": 6, "width": 12, "x": 12, "y": 0}}
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "kind": "RowsLayoutRow",
+            "spec": {
+              "title": "Session",
+              "collapse": false,
+              "layout": {
+                "kind": "GridLayout",
+                "spec": {
+                  "items": [
+                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-7"}, "height": 4, "width": 6, "x": 0, "y": 0}},
+                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-8"}, "height": 4, "width": 6, "x": 6, "y": 0}},
+                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-9"}, "height": 4, "width": 6, "x": 12, "y": 0}},
+                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-10"}, "height": 4, "width": 6, "x": 18, "y": 0}}
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
     }
-  ]
+  }
 }
