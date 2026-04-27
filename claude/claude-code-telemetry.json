@@ -51,6 +51,34 @@
             "version": "v0"
           }
         }
+      },
+      {
+        "kind": "AnnotationQuery",
+        "spec": {
+          "enable": true,
+          "hide": false,
+          "iconColor": "super-light-purple",
+          "name": "Overnight working",
+          "query": {
+            "datasource": {
+              "name": "grafana"
+            },
+            "group": "datasource",
+            "kind": "DataQuery",
+            "spec": {
+              "expr": "",
+              "interval": "",
+              "queryType": "timeRegions",
+              "refId": "Anno",
+              "timeRegion": {
+                "from": "03:00",
+                "timezone": "browser",
+                "to": "09:00"
+              }
+            },
+            "version": "v0"
+          }
+        }
       }
     ],
     "cursorSync": "Off",
@@ -2347,7 +2375,7 @@
         "title": "Source (GitHub)",
         "tooltip": "View source file in repository",
         "type": "link",
-        "url": "https://github.com/zuzak/grafana/blob/main/claude-code-telemetry.json"
+        "url": "https://github.com/zuzak/grafana/blob/main/claude/claude-code-telemetry.json"
       }
     ],
     "liveNow": false,
@@ -2370,7 +2398,7 @@
         "1d"
       ],
       "fiscalYearStartMonth": 0,
-      "from": "now-30m",
+      "from": "now-24h",
       "hideTimepicker": false,
       "timezone": "browser",
       "to": "now"
