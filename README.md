@@ -27,6 +27,7 @@ and Loki instances).
 | `services/authentik.json` | [goauthentik/authentik · website/static/monitoring/](https://github.com/goauthentik/authentik/blob/main/website/static/monitoring/grafana-dashboard.json) | Jens Langhammer | CC BY-SA 4.0 |
 | `services/nginx-ingress.json` | [grafana.com/dashboards/9614](https://grafana.com/grafana/dashboards/9614) · [kubernetes/ingress-nginx](https://github.com/kubernetes/ingress-nginx) | gonzalesraul | Apache-2.0 |
 | `services/loki.json` | [grafana.com/dashboards/13639](https://grafana.com/grafana/dashboards/13639) | sadlil | no license declared |
+| `services/grocy.json` | this repo | zuzak / claude-zuzak | — |
 | `claude-code-telemetry.json` | this repo | zuzak / claude-zuzak | — |
 
 ## Datasource UIDs
@@ -35,5 +36,6 @@ and Loki instances).
 |---|---|
 | Prometheus | `prometheus` |
 | Loki | `loki` |
+| Lifestyle Prometheus | `lifestyle-prometheus` |
 
 Community dashboards often hardcode author-specific UIDs. Fix before committing.
