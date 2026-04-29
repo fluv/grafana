@@ -525,11 +525,32 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
+                        "editorMode": "builder",
+                        "expr": "claude_rl_7d_pct",
+                        "instant": false,
+                        "legendFormat": "Actual 7d usage %",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "B"
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "claude-prometheus"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
                         "editorMode": "code",
-                        "exemplar": false,
-                        "expr": "claude_rl_7d_window_pct",
-                        "interval": "",
-                        "legendFormat": "Nominal usage %",
+                        "expr": "claude_rl_7d_pct",
+                        "instant": false,
+                        "legendFormat": "Actual 7d usage %",
                         "range": true
                       },
                       "version": "v0"
@@ -548,50 +569,48 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "editorMode": "builder",
-                        "expr": "claude_rl_7d_pct",
+                        "editorMode": "code",
+                        "expr": "claude_rl_5h_pct",
                         "instant": false,
-                        "legendFormat": "Actual usage %",
+                        "legendFormat": "Actual 5h %",
                         "range": true
                       },
                       "version": "v0"
                     },
-                    "refId": "B"
+                    "refId": "C"
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "claude-prometheus"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "claude_rl_5h_time_pct",
+                        "instant": false,
+                        "legendFormat": "Nominal 5h %",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "D"
                   }
                 }
               ],
               "queryOptions": {},
-              "transformations": [
-                {
-                  "group": "regression",
-                  "kind": "Transformation",
-                  "spec": {
-                    "options": {
-                      "predictionCount": 1000,
-                      "xFieldName": "Time",
-                      "yFieldName": "{__name__=\"claude_rl_7d_window_pct\", instance=\"100.102.21.87:9091\", job=\"claude-live\"}"
-                    }
-                  }
-                },
-                {
-                  "group": "regression",
-                  "kind": "Transformation",
-                  "spec": {
-                    "options": {
-                      "modelType": "polynomial",
-                      "predictionCount": 1000,
-                      "xFieldName": "Time",
-                      "yFieldName": "claude_rl_7d_pct"
-                    }
-                  }
-                }
-              ]
+              "transformations": []
             }
           },
           "description": "",
           "id": 14,
           "links": [],
-          "title": "New panel",
+          "title": "Rate limit window usage",
           "vizConfig": {
             "group": "timeseries",
             "kind": "VizConfig",
@@ -599,7 +618,7 @@
               "fieldConfig": {
                 "defaults": {
                   "color": {
-                    "mode": "palette-classic"
+                    "mode": "fixed"
                   },
                   "custom": {
                     "axisBorderShow": false,
@@ -607,11 +626,13 @@
                     "axisColorMode": "text",
                     "axisLabel": "",
                     "axisPlacement": "auto",
+                    "axisSoftMax": 100,
+                    "axisSoftMin": 0,
                     "barAlignment": 0,
                     "barWidthFactor": 0.6,
                     "drawStyle": "line",
                     "fillOpacity": 0,
-                    "gradientMode": "none",
+                    "gradientMode": "hue",
                     "hideFrom": {
                       "legend": false,
                       "tooltip": false,
@@ -653,32 +674,51 @@
                 "overrides": [
                   {
                     "matcher": {
-                      "id": "byName",
-                      "options": ""
-                    },
-                    "properties": []
-                  },
-                  {
-                    "__systemRef": "hideSeriesFrom",
-                    "matcher": {
-                      "id": "byNames",
-                      "options": {
-                        "mode": "exclude",
-                        "names": [
-                          "Actual usage %",
-                          "Nominal usage %"
-                        ],
-                        "prefix": "All except:",
-                        "readOnly": true
-                      }
+                      "id": "byRegexp",
+                      "options": "/Nominal .*/",
+                      "scope": "series"
                     },
                     "properties": [
                       {
-                        "id": "custom.hideFrom",
+                        "id": "custom.lineStyle",
                         "value": {
-                          "legend": false,
-                          "tooltip": true,
-                          "viz": true
+                          "dash": [
+                            10,
+                            10
+                          ],
+                          "fill": "dash"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byRegexp",
+                      "options": "/.*7d.*/",
+                      "scope": "series"
+                    },
+                    "properties": [
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "orange",
+                          "mode": "fixed"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byRegexp",
+                      "options": "/.*5h.*/",
+                      "scope": "series"
+                    },
+                    "properties": [
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "blue",
+                          "mode": "fixed"
                         }
                       }
                     ]
@@ -1770,10 +1810,10 @@
         "1d"
       ],
       "fiscalYearStartMonth": 0,
-      "from": "2026-04-29T16:11:27.899Z",
+      "from": "2026-04-24T23:00:00.000Z",
       "hideTimepicker": false,
       "timezone": "browser",
-      "to": "2026-04-29T20:11:27.899Z"
+      "to": "2026-05-02T22:59:59.000Z"
     },
     "title": "Claude Live Session",
     "variables": []
