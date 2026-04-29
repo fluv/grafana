@@ -548,9 +548,9 @@
                       "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
-                        "expr": "claude_rl_7d_pct",
+                        "expr": "claude_rl_7d_time_pct",
                         "instant": false,
-                        "legendFormat": "Actual 7d usage %",
+                        "legendFormat": "Nominal 7d usage %",
                         "range": true
                       },
                       "version": "v0"
