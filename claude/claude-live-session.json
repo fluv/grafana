@@ -766,9 +766,9 @@
                       "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
-                        "exemplar": true,
-                        "expr": "(claude_rl_7d_pct - claude_rl_7d_window_pct) / 100 * claude_rl_7d_resets_in_secs",
-                        "instant": true,
+                        "exemplar": false,
+                        "expr": "(time() + (claude_rl_7d_pct - claude_rl_7d_time_pct) / 100 * claude_rl_7d_resets_in_secs) * 1000",
+                        "instant": false,
                         "legendFormat": "__auto",
                         "range": true
                       },
@@ -779,7 +779,23 @@
                 }
               ],
               "queryOptions": {},
-              "transformations": []
+              "transformations": [
+                {
+                  "group": "convertFieldType",
+                  "kind": "Transformation",
+                  "spec": {
+                    "options": {
+                      "conversions": [
+                        {
+                          "destinationType": "time",
+                          "targetField": "{instance=\"100.102.21.87:9091\", job=\"claude-live\"}"
+                        }
+                      ],
+                      "fields": {}
+                    }
+                  }
+                }
+              ]
             }
           },
           "description": "",
@@ -808,7 +824,7 @@
                       }
                     ]
                   },
-                  "unit": "s"
+                  "unit": "dateTimeFromNow"
                 },
                 "overrides": []
               },
@@ -820,9 +836,9 @@
                 "percentChangeColorMode": "inverted",
                 "reduceOptions": {
                   "calcs": [
-                    "lastNotNull"
+                    "last"
                   ],
-                  "fields": "",
+                  "fields": "/^\\{instance=\"100\\.102\\.21\\.87:9091\", job=\"claude\\-live\"\\}$/",
                   "values": false
                 },
                 "showPercentChange": true,
