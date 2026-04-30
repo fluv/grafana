@@ -944,7 +944,7 @@
                     },
                     "showPoints": "auto",
                     "showValues": false,
-                    "spanNulls": false,
+                    "spanNulls": 3600000,
                     "stacking": {
                       "group": "A",
                       "mode": "none"
