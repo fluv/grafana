@@ -1056,7 +1056,7 @@
                       "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
-                        "expr": "claude_rl_5d_pct / claude_rl_5d_time_pct",
+                        "expr": "claude_rl_5h_pct / claude_rl_5h_time_pct",
                         "legendFormat": "__auto",
                         "range": true
                       },
@@ -1132,7 +1132,7 @@
                     },
                     "showPoints": "auto",
                     "showValues": false,
-                    "spanNulls": 3600000,
+                    "spanNulls": true,
                     "stacking": {
                       "group": "A",
                       "mode": "none"
