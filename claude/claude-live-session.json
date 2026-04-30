@@ -1146,11 +1146,11 @@
                     "mode": "absolute",
                     "steps": [
                       {
-                        "color": "green",
+                        "color": "light-green",
                         "value": 0
                       },
                       {
-                        "color": "red",
+                        "color": "light-red",
                         "value": 1
                       }
                     ]
@@ -2108,7 +2108,20 @@
                         "height": 4,
                         "width": 12,
                         "x": 0,
-                        "y": 8
+                        "y": 4
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-16"
+                        },
+                        "height": 4,
+                        "width": 12,
+                        "x": 12,
+                        "y": 4
                       }
                     }
                   ]
@@ -2162,19 +2175,6 @@
                         "width": 8,
                         "x": 16,
                         "y": 0
-                      }
-                    },
-                    {
-                      "kind": "GridLayoutItem",
-                      "spec": {
-                        "element": {
-                          "kind": "ElementReference",
-                          "name": "panel-16"
-                        },
-                        "height": 4,
-                        "width": 12,
-                        "x": 0,
-                        "y": 6
                       }
                     }
                   ]
