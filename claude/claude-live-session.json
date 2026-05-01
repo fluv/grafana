@@ -917,7 +917,8 @@
               "fieldConfig": {
                 "defaults": {
                   "color": {
-                    "mode": "thresholds"
+                    "mode": "thresholds",
+                    "seriesBy": "last"
                   },
                   "custom": {
                     "axisBorderShow": false,
@@ -939,6 +940,9 @@
                     },
                     "insertNulls": false,
                     "lineInterpolation": "linear",
+                    "lineStyle": {
+                      "fill": "solid"
+                    },
                     "lineWidth": 1,
                     "pointSize": 5,
                     "scaleDistribution": {
@@ -946,7 +950,7 @@
                     },
                     "showPoints": "auto",
                     "showValues": false,
-                    "spanNulls": 3600000,
+                    "spanNulls": false,
                     "stacking": {
                       "group": "A",
                       "mode": "none"
