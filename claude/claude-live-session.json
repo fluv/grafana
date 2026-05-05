@@ -646,7 +646,7 @@
                       "group": "prometheus",
                       "version": "v0",
                       "datasource": {"name": "claude-prometheus"},
-                      "spec": {"expr": "claude_cost_usd", "instant": true, "legendFormat": "cost"}
+                      "spec": {"expr": "sum(claude_session_cost_usd)", "instant": true, "legendFormat": "cost"}
                     }
                   }
                 }
