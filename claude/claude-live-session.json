@@ -1773,7 +1773,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "claude_cost_usd",
+                        "expr": "sum(claude_session_cost_usd)",
                         "instant": true,
                         "legendFormat": "cost"
                       },
