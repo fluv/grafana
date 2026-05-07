@@ -13,7 +13,7 @@
           "enable": true,
           "hide": true,
           "iconColor": "rgba(0, 211, 255, 1)",
-          "name": "Annotations \u0026 Alerts",
+          "name": "Annotations & Alerts",
           "query": {
             "datasource": {
               "name": "-- Grafana --"
@@ -1208,7 +1208,7 @@
               "transformations": []
             }
           },
-          "description": "Ratio of cache reads to total input tokens. Higher is better — indicates effective prompt caching.",
+          "description": "Ratio of cache reads to total input tokens. Higher is better \u2014 indicates effective prompt caching.",
           "id": 28,
           "links": [],
           "title": "Cache Hit Rate Over Time",
@@ -1351,7 +1351,7 @@
               "transformations": []
             }
           },
-          "description": "Creation = cold cache (paying to write). Read = warm cache (cheap). Ideally reads \u003e\u003e creation over time.",
+          "description": "Creation = cold cache (paying to write). Read = warm cache (cheap). Ideally reads >> creation over time.",
           "id": 29,
           "links": [],
           "title": "Cache Creation vs Cache Read Tokens",
@@ -2513,11 +2513,96 @@
                       },
                       {
                         "color": "red",
-                        "value": 0.20
+                        "value": 0.2
                       }
                     ]
                   },
                   "unit": "percentunit"
+                },
+                "overrides": []
+              },
+              "options": {
+                "colorMode": "background",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
+              }
+            },
+            "version": "13.0.1"
+          }
+        }
+      },
+      "panel-34": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "claude-prometheus"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "sum(increase(claude_merge_guard_blocks_total[24h]))",
+                        "instant": true,
+                        "legendFormat": "Blocks (24h)"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "Number of autonomous merge attempts blocked by gh-merge-guard in the last 24h. Should be zero in normal operation; non-zero means Claude tried to merge a vet:pending or vet:complete PR autonomously and was correctly stopped.",
+          "id": 34,
+          "links": [],
+          "title": "Merge guard blocks (24h)",
+          "vizConfig": {
+            "group": "stat",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "decimals": 0,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 1
+                      }
+                    ]
+                  },
+                  "unit": "short"
                 },
                 "overrides": []
               },
@@ -2716,7 +2801,7 @@
                   ]
                 }
               },
-              "title": "Token \u0026 Cost Rate"
+              "title": "Token & Cost Rate"
             }
           },
           {
@@ -2756,7 +2841,7 @@
                   ]
                 }
               },
-              "title": "Cost \u0026 Token Trends"
+              "title": "Cost & Token Trends"
             }
           },
           {
@@ -2849,7 +2934,7 @@
                   ]
                 }
               },
-              "title": "Session \u0026 Activity"
+              "title": "Session & Activity"
             }
           },
           {
@@ -2925,11 +3010,24 @@
                         "x": 18,
                         "y": 0
                       }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-34"
+                        },
+                        "height": 8,
+                        "width": 6,
+                        "x": 0,
+                        "y": 8
+                      }
                     }
                   ]
                 }
               },
-              "title": "Permission Hooks"
+              "title": "Hook observability"
             }
           }
         ]
