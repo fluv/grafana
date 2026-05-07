@@ -1,0 +1,931 @@
+{
+  "apiVersion": "dashboard.grafana.app/v2",
+  "kind": "Dashboard",
+  "metadata": {
+    "name": "awair"
+  },
+  "spec": {
+    "title": "Awair Air Quality",
+    "description": "Air quality metrics from three Awair Element monitors (bedroom, lounge, study) via the Lifestyle Prometheus exporter.",
+    "tags": ["awair", "air-quality", "lifestyle"],
+    "timeSettings": {
+      "autoRefresh": "1m",
+      "from": "now-24h",
+      "to": "now",
+      "timezone": "browser",
+      "hideTimepicker": false,
+      "fiscalYearStartMonth": 0
+    },
+    "cursorSync": "Crosshair",
+    "liveNow": false,
+    "preload": false,
+    "links": [],
+    "annotations": [],
+    "variables": [],
+    "elements": {
+      "panel-1": {
+        "kind": "Panel",
+        "spec": {
+          "id": 1,
+          "title": "Device status",
+          "description": "1 when the device responded to the last poll within 3× the poll interval; 0 on timeout or error.",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "refId": "A",
+                    "hidden": false,
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {"name": "Lifestyle Prometheus"},
+                      "spec": {"expr": "awair_up", "instant": true, "legendFormat": "{{location}}"}
+                    }
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "stat",
+            "version": "13.0.1",
+            "spec": {
+              "options": {
+                "colorMode": "background",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "horizontal",
+                "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+                "textMode": "auto",
+                "wideLayout": true
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "mappings": [
+                    {
+                      "type": "value",
+                      "options": {
+                        "0": {"text": "Down", "color": "red", "index": 0},
+                        "1": {"text": "Up", "color": "green", "index": 1}
+                      }
+                    }
+                  ],
+                  "color": {"mode": "thresholds"},
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {"color": "red", "value": null},
+                      {"color": "green", "value": 1}
+                    ]
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-2": {
+        "kind": "Panel",
+        "spec": {
+          "id": 2,
+          "title": "Awair Score",
+          "description": "Composite air quality score (0–100). Higher is better. Awair's proprietary weighting of CO2, VOC, PM2.5, temperature, and humidity.",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "refId": "A",
+                    "hidden": false,
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {"name": "Lifestyle Prometheus"},
+                      "spec": {"expr": "awair_score", "instant": false, "legendFormat": "{{location}}"}
+                    }
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "timeseries",
+            "version": "13.0.1",
+            "spec": {
+              "options": {
+                "legend": {"calcs": ["lastNotNull", "min"], "displayMode": "list", "placement": "bottom", "showLegend": true},
+                "tooltip": {"hideZeros": false, "mode": "multi", "sort": "desc"}
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "min": 0,
+                  "max": 100,
+                  "color": {"mode": "palette-classic"},
+                  "custom": {"drawStyle": "line", "lineWidth": 2, "fillOpacity": 10, "gradientMode": "none", "spanNulls": false}
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-3": {
+        "kind": "Panel",
+        "spec": {
+          "id": 3,
+          "title": "CO2",
+          "description": "CO2 concentration in parts per million. >1000 ppm indicates poor ventilation; >1500 ppm is noticeably stuffy.",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "refId": "A",
+                    "hidden": false,
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {"name": "Lifestyle Prometheus"},
+                      "spec": {"expr": "awair_co2_ppm", "instant": false, "legendFormat": "{{location}}"}
+                    }
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "timeseries",
+            "version": "13.0.1",
+            "spec": {
+              "options": {
+                "legend": {"calcs": ["lastNotNull", "max"], "displayMode": "list", "placement": "bottom", "showLegend": true},
+                "tooltip": {"hideZeros": false, "mode": "multi", "sort": "desc"}
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "short",
+                  "min": 0,
+                  "color": {"mode": "palette-classic"},
+                  "custom": {"drawStyle": "line", "lineWidth": 2, "fillOpacity": 10, "gradientMode": "none", "spanNulls": false},
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {"color": "green", "value": null},
+                      {"color": "yellow", "value": 1000},
+                      {"color": "orange", "value": 1500},
+                      {"color": "red", "value": 2000}
+                    ]
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-4": {
+        "kind": "Panel",
+        "spec": {
+          "id": 4,
+          "title": "VOC",
+          "description": "Total Volatile Organic Compounds in parts per billion. Elevated readings indicate off-gassing from materials, cleaning products, or cooking.",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "refId": "A",
+                    "hidden": false,
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {"name": "Lifestyle Prometheus"},
+                      "spec": {"expr": "awair_voc_ppb", "instant": false, "legendFormat": "{{location}}"}
+                    }
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "timeseries",
+            "version": "13.0.1",
+            "spec": {
+              "options": {
+                "legend": {"calcs": ["lastNotNull", "max"], "displayMode": "list", "placement": "bottom", "showLegend": true},
+                "tooltip": {"hideZeros": false, "mode": "multi", "sort": "desc"}
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "short",
+                  "min": 0,
+                  "color": {"mode": "palette-classic"},
+                  "custom": {"drawStyle": "line", "lineWidth": 2, "fillOpacity": 10, "gradientMode": "none", "spanNulls": false}
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-5": {
+        "kind": "Panel",
+        "spec": {
+          "id": 5,
+          "title": "PM2.5",
+          "description": "Fine particulate matter (µg/m³). WHO guideline: annual mean <5 µg/m³; 24h mean <15 µg/m³.",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "refId": "A",
+                    "hidden": false,
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {"name": "Lifestyle Prometheus"},
+                      "spec": {"expr": "awair_pm25_ugm3", "instant": false, "legendFormat": "{{location}}"}
+                    }
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "timeseries",
+            "version": "13.0.1",
+            "spec": {
+              "options": {
+                "legend": {"calcs": ["lastNotNull", "max"], "displayMode": "list", "placement": "bottom", "showLegend": true},
+                "tooltip": {"hideZeros": false, "mode": "multi", "sort": "desc"}
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "short",
+                  "min": 0,
+                  "color": {"mode": "palette-classic"},
+                  "custom": {"drawStyle": "line", "lineWidth": 2, "fillOpacity": 10, "gradientMode": "none", "spanNulls": false},
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {"color": "green", "value": null},
+                      {"color": "yellow", "value": 15},
+                      {"color": "orange", "value": 35},
+                      {"color": "red", "value": 55}
+                    ]
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-6": {
+        "kind": "Panel",
+        "spec": {
+          "id": 6,
+          "title": "Temperature",
+          "description": "Dry bulb temperature in °C.",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "refId": "A",
+                    "hidden": false,
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {"name": "Lifestyle Prometheus"},
+                      "spec": {"expr": "awair_temperature_celsius", "instant": false, "legendFormat": "{{location}}"}
+                    }
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "timeseries",
+            "version": "13.0.1",
+            "spec": {
+              "options": {
+                "legend": {"calcs": ["lastNotNull", "min", "max"], "displayMode": "list", "placement": "bottom", "showLegend": true},
+                "tooltip": {"hideZeros": false, "mode": "multi", "sort": "desc"}
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "celsius",
+                  "color": {"mode": "palette-classic"},
+                  "custom": {"drawStyle": "line", "lineWidth": 2, "fillOpacity": 10, "gradientMode": "none", "spanNulls": false}
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-7": {
+        "kind": "Panel",
+        "spec": {
+          "id": 7,
+          "title": "Relative Humidity",
+          "description": "Relative humidity (%). Comfort range is roughly 40–60%.",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "refId": "A",
+                    "hidden": false,
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {"name": "Lifestyle Prometheus"},
+                      "spec": {"expr": "awair_humidity_percent", "instant": false, "legendFormat": "{{location}}"}
+                    }
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "timeseries",
+            "version": "13.0.1",
+            "spec": {
+              "options": {
+                "legend": {"calcs": ["lastNotNull", "min", "max"], "displayMode": "list", "placement": "bottom", "showLegend": true},
+                "tooltip": {"hideZeros": false, "mode": "multi", "sort": "desc"}
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "percent",
+                  "min": 0,
+                  "max": 100,
+                  "color": {"mode": "palette-classic"},
+                  "custom": {"drawStyle": "line", "lineWidth": 2, "fillOpacity": 10, "gradientMode": "none", "spanNulls": false}
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-8": {
+        "kind": "Panel",
+        "spec": {
+          "id": 8,
+          "title": "Dew Point",
+          "description": "Dew point temperature (°C). A proxy for perceived humidity — above 16°C feels muggy; above 21°C is uncomfortable.",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "refId": "A",
+                    "hidden": false,
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {"name": "Lifestyle Prometheus"},
+                      "spec": {"expr": "awair_dew_point_celsius", "instant": false, "legendFormat": "{{location}}"}
+                    }
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "timeseries",
+            "version": "13.0.1",
+            "spec": {
+              "options": {
+                "legend": {"calcs": ["lastNotNull", "max"], "displayMode": "list", "placement": "bottom", "showLegend": true},
+                "tooltip": {"hideZeros": false, "mode": "multi", "sort": "desc"}
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "celsius",
+                  "color": {"mode": "palette-classic"},
+                  "custom": {"drawStyle": "line", "lineWidth": 2, "fillOpacity": 10, "gradientMode": "none", "spanNulls": false}
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-9": {
+        "kind": "Panel",
+        "spec": {
+          "id": 9,
+          "title": "Absolute Humidity",
+          "description": "Absolute humidity in g/m³ — the actual water content of the air, independent of temperature.",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "refId": "A",
+                    "hidden": false,
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {"name": "Lifestyle Prometheus"},
+                      "spec": {"expr": "awair_abs_humidity_gm3", "instant": false, "legendFormat": "{{location}}"}
+                    }
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "timeseries",
+            "version": "13.0.1",
+            "spec": {
+              "options": {
+                "legend": {"calcs": ["lastNotNull"], "displayMode": "list", "placement": "bottom", "showLegend": true},
+                "tooltip": {"hideZeros": false, "mode": "multi", "sort": "desc"}
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "short",
+                  "min": 0,
+                  "color": {"mode": "palette-classic"},
+                  "custom": {"drawStyle": "line", "lineWidth": 2, "fillOpacity": 10, "gradientMode": "none", "spanNulls": false}
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-10": {
+        "kind": "Panel",
+        "spec": {
+          "id": 10,
+          "title": "Estimated CO2 (from TVOC sensor)",
+          "description": "CO2 estimated from the TVOC sensor signal. Less accurate than the direct CO2 reading; useful when CO2 sensor is unavailable.",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "refId": "A",
+                    "hidden": false,
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {"name": "Lifestyle Prometheus"},
+                      "spec": {"expr": "awair_co2_est_ppm", "instant": false, "legendFormat": "{{location}}"}
+                    }
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "timeseries",
+            "version": "13.0.1",
+            "spec": {
+              "options": {
+                "legend": {"calcs": ["lastNotNull"], "displayMode": "list", "placement": "bottom", "showLegend": true},
+                "tooltip": {"hideZeros": false, "mode": "multi", "sort": "desc"}
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "short",
+                  "min": 0,
+                  "color": {"mode": "palette-classic"},
+                  "custom": {"drawStyle": "line", "lineWidth": 2, "fillOpacity": 10, "gradientMode": "none", "spanNulls": false}
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-11": {
+        "kind": "Panel",
+        "spec": {
+          "id": 11,
+          "title": "Estimated PM10",
+          "description": "PM10 estimated from the PM2.5 sensor. Coarse particles (2.5–10 µm); estimation accuracy is limited.",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "refId": "A",
+                    "hidden": false,
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {"name": "Lifestyle Prometheus"},
+                      "spec": {"expr": "awair_pm10_est_ugm3", "instant": false, "legendFormat": "{{location}}"}
+                    }
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "timeseries",
+            "version": "13.0.1",
+            "spec": {
+              "options": {
+                "legend": {"calcs": ["lastNotNull"], "displayMode": "list", "placement": "bottom", "showLegend": true},
+                "tooltip": {"hideZeros": false, "mode": "multi", "sort": "desc"}
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "short",
+                  "min": 0,
+                  "color": {"mode": "palette-classic"},
+                  "custom": {"drawStyle": "line", "lineWidth": 2, "fillOpacity": 10, "gradientMode": "none", "spanNulls": false}
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-12": {
+        "kind": "Panel",
+        "spec": {
+          "id": 12,
+          "title": "CO2 baseline (TVOC sensor)",
+          "description": "Internal CO2 baseline reference value from the TVOC sensor. Drifts over time as the sensor self-calibrates; stable value indicates a healthy sensor.",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "refId": "A",
+                    "hidden": false,
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {"name": "Lifestyle Prometheus"},
+                      "spec": {"expr": "awair_co2_est_baseline", "instant": false, "legendFormat": "{{location}}"}
+                    }
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "timeseries",
+            "version": "13.0.1",
+            "spec": {
+              "options": {
+                "legend": {"calcs": ["lastNotNull"], "displayMode": "list", "placement": "bottom", "showLegend": true},
+                "tooltip": {"hideZeros": false, "mode": "multi", "sort": "desc"}
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "short",
+                  "color": {"mode": "palette-classic"},
+                  "custom": {"drawStyle": "line", "lineWidth": 2, "fillOpacity": 10, "gradientMode": "none", "spanNulls": false}
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-13": {
+        "kind": "Panel",
+        "spec": {
+          "id": 13,
+          "title": "VOC baseline",
+          "description": "Internal VOC baseline reference value from the TVOC sensor. Used for self-calibration; abrupt changes may indicate a sensor reset.",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "refId": "A",
+                    "hidden": false,
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {"name": "Lifestyle Prometheus"},
+                      "spec": {"expr": "awair_voc_baseline", "instant": false, "legendFormat": "{{location}}"}
+                    }
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "timeseries",
+            "version": "13.0.1",
+            "spec": {
+              "options": {
+                "legend": {"calcs": ["lastNotNull"], "displayMode": "list", "placement": "bottom", "showLegend": true},
+                "tooltip": {"hideZeros": false, "mode": "multi", "sort": "desc"}
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "short",
+                  "color": {"mode": "palette-classic"},
+                  "custom": {"drawStyle": "line", "lineWidth": 2, "fillOpacity": 10, "gradientMode": "none", "spanNulls": false}
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-14": {
+        "kind": "Panel",
+        "spec": {
+          "id": 14,
+          "title": "VOC H2 raw signal",
+          "description": "Raw H2 signal from the TVOC sensor (SGP30). Used internally for VOC estimation; baseline shifts indicate sensor aging or environmental change.",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "refId": "A",
+                    "hidden": false,
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {"name": "Lifestyle Prometheus"},
+                      "spec": {"expr": "awair_voc_h2_raw", "instant": false, "legendFormat": "{{location}}"}
+                    }
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "timeseries",
+            "version": "13.0.1",
+            "spec": {
+              "options": {
+                "legend": {"calcs": ["lastNotNull"], "displayMode": "list", "placement": "bottom", "showLegend": true},
+                "tooltip": {"hideZeros": false, "mode": "multi", "sort": "desc"}
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "short",
+                  "color": {"mode": "palette-classic"},
+                  "custom": {"drawStyle": "line", "lineWidth": 2, "fillOpacity": 10, "gradientMode": "none", "spanNulls": false}
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-15": {
+        "kind": "Panel",
+        "spec": {
+          "id": 15,
+          "title": "VOC ethanol raw signal",
+          "description": "Raw ethanol signal from the TVOC sensor (SGP30). Used internally alongside H2 to estimate TVOC; large spikes correlate with cooking or cleaning products.",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "refId": "A",
+                    "hidden": false,
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {"name": "Lifestyle Prometheus"},
+                      "spec": {"expr": "awair_voc_ethanol_raw", "instant": false, "legendFormat": "{{location}}"}
+                    }
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "timeseries",
+            "version": "13.0.1",
+            "spec": {
+              "options": {
+                "legend": {"calcs": ["lastNotNull"], "displayMode": "list", "placement": "bottom", "showLegend": true},
+                "tooltip": {"hideZeros": false, "mode": "multi", "sort": "desc"}
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "short",
+                  "color": {"mode": "palette-classic"},
+                  "custom": {"drawStyle": "line", "lineWidth": 2, "fillOpacity": 10, "gradientMode": "none", "spanNulls": false}
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      }
+    },
+    "layout": {
+      "kind": "RowsLayout",
+      "spec": {
+        "rows": [
+          {
+            "kind": "RowsLayoutRow",
+            "spec": {
+              "title": "Status",
+              "collapse": false,
+              "layout": {
+                "kind": "GridLayout",
+                "spec": {
+                  "items": [
+                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-1"}, "height": 4, "width": 24, "x": 0, "y": 0}}
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "kind": "RowsLayoutRow",
+            "spec": {
+              "title": "Air Quality",
+              "collapse": false,
+              "layout": {
+                "kind": "GridLayout",
+                "spec": {
+                  "items": [
+                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-2"}, "height": 8, "width": 8, "x": 0,  "y": 0}},
+                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-3"}, "height": 8, "width": 8, "x": 8,  "y": 0}},
+                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-4"}, "height": 8, "width": 8, "x": 16, "y": 0}}
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "kind": "RowsLayoutRow",
+            "spec": {
+              "title": "Particulates",
+              "collapse": false,
+              "layout": {
+                "kind": "GridLayout",
+                "spec": {
+                  "items": [
+                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-5"},  "height": 8, "width": 12, "x": 0,  "y": 0}},
+                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-11"}, "height": 8, "width": 12, "x": 12, "y": 0}}
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "kind": "RowsLayoutRow",
+            "spec": {
+              "title": "Comfort",
+              "collapse": false,
+              "layout": {
+                "kind": "GridLayout",
+                "spec": {
+                  "items": [
+                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-6"}, "height": 8, "width": 8, "x": 0,  "y": 0}},
+                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-7"}, "height": 8, "width": 8, "x": 8,  "y": 0}},
+                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-8"}, "height": 8, "width": 8, "x": 16, "y": 0}}
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "kind": "RowsLayoutRow",
+            "spec": {
+              "title": "Diagnostics",
+              "collapse": true,
+              "layout": {
+                "kind": "GridLayout",
+                "spec": {
+                  "items": [
+                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-9"},  "height": 8, "width": 12, "x": 0,  "y": 0}},
+                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-10"}, "height": 8, "width": 12, "x": 12, "y": 0}},
+                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-12"}, "height": 8, "width": 12, "x": 0,  "y": 8}},
+                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-13"}, "height": 8, "width": 12, "x": 12, "y": 8}},
+                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-14"}, "height": 8, "width": 12, "x": 0,  "y": 16}},
+                    {"kind": "GridLayoutItem", "spec": {"element": {"kind": "ElementReference", "name": "panel-15"}, "height": 8, "width": 12, "x": 12, "y": 16}}
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
