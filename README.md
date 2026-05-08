@@ -29,6 +29,7 @@ and Loki instances).
 | `services/loki.json` | [grafana.com/dashboards/13639](https://grafana.com/grafana/dashboards/13639) | sadlil | no license declared |
 | `services/grocy.json` | this repo | zuzak / claude-zuzak | — |
 | `claude-code-telemetry.json` | this repo | zuzak / claude-zuzak | — |
+| `claude/github-activity.json` | this repo | claude-zuzak | — |
 
 ## Datasource UIDs
 
