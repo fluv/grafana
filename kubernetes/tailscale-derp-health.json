@@ -1,0 +1,390 @@
+{
+  "apiVersion": "dashboard.grafana.app/v1beta1",
+  "kind": "Dashboard",
+  "metadata": {
+    "name": "tailscale-derp-health"
+  },
+  "spec": {
+    "title": "Tailscale — DERP & Proxy Health",
+    "uid": "tailscale-derp-health",
+    "description": "DERP connectivity health and churn for Tailscale ingress proxy pods. Metrics require ProxyClass metrics.enable=true (kube PR #246).",
+    "tags": ["tailscale", "derp", "networking"],
+    "schemaVersion": 39,
+    "refresh": "30s",
+    "time": {
+      "from": "now-3h",
+      "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "browser",
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 1,
+    "panels": [
+      {
+        "id": 1,
+        "type": "stat",
+        "title": "Proxies up",
+        "description": "Count of Tailscale ingress proxy scrape targets currently reporting as up.",
+        "gridPos": { "x": 0, "y": 0, "w": 4, "h": 4 },
+        "datasource": { "type": "prometheus", "uid": "prometheus" },
+        "options": {
+          "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false },
+          "orientation": "auto",
+          "textMode": "auto",
+          "colorMode": "background",
+          "graphMode": "none",
+          "justifyMode": "auto"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "color": "red", "value": null },
+                { "color": "yellow", "value": 1 },
+                { "color": "green", "value": 5 }
+              ]
+            },
+            "mappings": [],
+            "color": { "mode": "thresholds" },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "targets": [
+          {
+            "datasource": { "type": "prometheus", "uid": "prometheus" },
+            "expr": "count(up{job=~\"ts_.*\"} == 1)",
+            "legendFormat": "up",
+            "refId": "A"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "type": "stat",
+        "title": "Proxies down",
+        "description": "Count of Tailscale ingress proxy scrape targets currently reporting as down (0) or missing.",
+        "gridPos": { "x": 4, "y": 0, "w": 4, "h": 4 },
+        "datasource": { "type": "prometheus", "uid": "prometheus" },
+        "options": {
+          "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false },
+          "orientation": "auto",
+          "textMode": "auto",
+          "colorMode": "background",
+          "graphMode": "none",
+          "justifyMode": "auto"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "color": "green", "value": null },
+                { "color": "yellow", "value": 1 },
+                { "color": "red", "value": 2 }
+              ]
+            },
+            "mappings": [],
+            "color": { "mode": "thresholds" },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "targets": [
+          {
+            "datasource": { "type": "prometheus", "uid": "prometheus" },
+            "expr": "count(up{job=~\"ts_.*\"} == 0) or vector(0)",
+            "legendFormat": "down",
+            "refId": "A"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "type": "stat",
+        "title": "Active DERP connections",
+        "description": "Total active DERP relay connections across all proxies.",
+        "gridPos": { "x": 8, "y": 0, "w": 4, "h": 4 },
+        "datasource": { "type": "prometheus", "uid": "prometheus" },
+        "options": {
+          "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false },
+          "orientation": "auto",
+          "textMode": "auto",
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "color": "yellow", "value": null },
+                { "color": "green", "value": 1 }
+              ]
+            },
+            "mappings": [],
+            "color": { "mode": "thresholds" },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "targets": [
+          {
+            "datasource": { "type": "prometheus", "uid": "prometheus" },
+            "expr": "sum(magicsock_num_derp_conns{job=~\"ts_.*\"})",
+            "legendFormat": "total",
+            "refId": "A"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "type": "timeseries",
+        "title": "Proxy scrape target health",
+        "description": "1 = UP (metrics reachable), 0 = DOWN (pod restarting or metrics endpoint unreachable). A drop to 0 here is the earliest observable signal of a proxy crash.",
+        "gridPos": { "x": 0, "y": 4, "w": 24, "h": 8 },
+        "datasource": { "type": "prometheus", "uid": "prometheus" },
+        "options": {
+          "tooltip": { "mode": "multi", "sort": "none" },
+          "legend": { "displayMode": "list", "placement": "bottom", "showLegend": true }
+        },
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "drawStyle": "line",
+              "lineInterpolation": "stepAfter",
+              "lineWidth": 2,
+              "fillOpacity": 20,
+              "gradientMode": "none",
+              "spanNulls": false,
+              "showPoints": "never",
+              "pointSize": 5,
+              "stacking": { "mode": "none", "group": "A" },
+              "axisPlacement": "auto",
+              "axisLabel": "",
+              "scaleDistribution": { "type": "linear" },
+              "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+              "thresholdsStyle": { "mode": "off" }
+            },
+            "color": { "mode": "palette-classic" },
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "color": "green", "value": null },
+                { "color": "red", "value": 80 }
+              ]
+            },
+            "mappings": [],
+            "max": 1,
+            "min": 0,
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "targets": [
+          {
+            "datasource": { "type": "prometheus", "uid": "prometheus" },
+            "expr": "up{job=~\"ts_.*\"}",
+            "legendFormat": "{{job}}",
+            "refId": "A"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "type": "timeseries",
+        "title": "DERP home region changes (rate)",
+        "description": "Rate of DERP home region changes per proxy. A sustained spike indicates DERP churn — the proxy is repeatedly switching between relay regions, which typically precedes CrashLoopBackOff.",
+        "gridPos": { "x": 0, "y": 12, "w": 12, "h": 8 },
+        "datasource": { "type": "prometheus", "uid": "prometheus" },
+        "options": {
+          "tooltip": { "mode": "multi", "sort": "none" },
+          "legend": { "displayMode": "list", "placement": "bottom", "showLegend": true }
+        },
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "drawStyle": "line",
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "fillOpacity": 10,
+              "gradientMode": "none",
+              "spanNulls": false,
+              "showPoints": "never",
+              "pointSize": 5,
+              "stacking": { "mode": "none", "group": "A" },
+              "axisPlacement": "auto",
+              "axisLabel": "",
+              "scaleDistribution": { "type": "linear" },
+              "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+              "thresholdsStyle": { "mode": "off" }
+            },
+            "color": { "mode": "palette-classic" },
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [{ "color": "green", "value": null }]
+            },
+            "mappings": [],
+            "unit": "ops"
+          },
+          "overrides": []
+        },
+        "targets": [
+          {
+            "datasource": { "type": "prometheus", "uid": "prometheus" },
+            "expr": "rate(derp_home_change{job=~\"ts_.*\"}[$__rate_interval])",
+            "legendFormat": "{{job}}",
+            "refId": "A"
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "type": "timeseries",
+        "title": "Active DERP connections per proxy",
+        "description": "Number of active DERP relay connections. Healthy proxies maintain 1 connection to their home region. Zero means no relay connectivity.",
+        "gridPos": { "x": 12, "y": 12, "w": 12, "h": 8 },
+        "datasource": { "type": "prometheus", "uid": "prometheus" },
+        "options": {
+          "tooltip": { "mode": "multi", "sort": "none" },
+          "legend": { "displayMode": "list", "placement": "bottom", "showLegend": true }
+        },
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "drawStyle": "line",
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "fillOpacity": 10,
+              "gradientMode": "none",
+              "spanNulls": false,
+              "showPoints": "never",
+              "pointSize": 5,
+              "stacking": { "mode": "none", "group": "A" },
+              "axisPlacement": "auto",
+              "axisLabel": "",
+              "scaleDistribution": { "type": "linear" },
+              "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+              "thresholdsStyle": { "mode": "off" }
+            },
+            "color": { "mode": "palette-classic" },
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [{ "color": "green", "value": null }]
+            },
+            "mappings": [],
+            "min": 0,
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "targets": [
+          {
+            "datasource": { "type": "prometheus", "uid": "prometheus" },
+            "expr": "magicsock_num_derp_conns{job=~\"ts_.*\"}",
+            "legendFormat": "{{job}}",
+            "refId": "A"
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "type": "timeseries",
+        "title": "DERP send errors (rate)",
+        "description": "Rate of errors when sending data through the DERP relay. Persistent errors indicate relay connectivity problems.",
+        "gridPos": { "x": 0, "y": 20, "w": 12, "h": 8 },
+        "datasource": { "type": "prometheus", "uid": "prometheus" },
+        "options": {
+          "tooltip": { "mode": "multi", "sort": "none" },
+          "legend": { "displayMode": "list", "placement": "bottom", "showLegend": true }
+        },
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "drawStyle": "line",
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "fillOpacity": 10,
+              "gradientMode": "none",
+              "spanNulls": false,
+              "showPoints": "never",
+              "pointSize": 5,
+              "stacking": { "mode": "none", "group": "A" },
+              "axisPlacement": "auto",
+              "axisLabel": "",
+              "scaleDistribution": { "type": "linear" },
+              "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+              "thresholdsStyle": { "mode": "off" }
+            },
+            "color": { "mode": "palette-classic" },
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [{ "color": "green", "value": null }]
+            },
+            "mappings": [],
+            "unit": "ops"
+          },
+          "overrides": []
+        },
+        "targets": [
+          {
+            "datasource": { "type": "prometheus", "uid": "prometheus" },
+            "expr": "rate(magicsock_send_derp_error{job=~\"ts_.*\"}[$__rate_interval])",
+            "legendFormat": "{{job}}",
+            "refId": "A"
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "type": "timeseries",
+        "title": "DERP home fallbacks (rate)",
+        "description": "Rate of fallbacks away from the home DERP region. Non-zero sustained rate indicates the home region is unreliable.",
+        "gridPos": { "x": 12, "y": 20, "w": 12, "h": 8 },
+        "datasource": { "type": "prometheus", "uid": "prometheus" },
+        "options": {
+          "tooltip": { "mode": "multi", "sort": "none" },
+          "legend": { "displayMode": "list", "placement": "bottom", "showLegend": true }
+        },
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "drawStyle": "line",
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "fillOpacity": 10,
+              "gradientMode": "none",
+              "spanNulls": false,
+              "showPoints": "never",
+              "pointSize": 5,
+              "stacking": { "mode": "none", "group": "A" },
+              "axisPlacement": "auto",
+              "axisLabel": "",
+              "scaleDistribution": { "type": "linear" },
+              "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+              "thresholdsStyle": { "mode": "off" }
+            },
+            "color": { "mode": "palette-classic" },
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [{ "color": "green", "value": null }]
+            },
+            "mappings": [],
+            "unit": "ops"
+          },
+          "overrides": []
+        },
+        "targets": [
+          {
+            "datasource": { "type": "prometheus", "uid": "prometheus" },
+            "expr": "rate(derp_home_fallback{job=~\"ts_.*\"}[$__rate_interval])",
+            "legendFormat": "{{job}}",
+            "refId": "A"
+          }
+        ]
+      }
+    ]
+  }
+}
