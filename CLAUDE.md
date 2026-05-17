@@ -39,11 +39,6 @@ curl -s http://10.43.66.208/apis/provisioning.grafana.app/v0alpha1/namespaces/de
 for the specific files that failed. Do not declare the merge done until the sync
 state is clean or the warnings are understood and intentional.
 
-Known benign warnings (ignore these):
-- `folder ".github/" is missing folder metadata file` — Grafana sees the GitHub
-  Actions directory as a potential dashboard folder. No action needed.
-- `folder ".github/workflows/" is missing folder metadata file` — same as above.
-
 Common failure modes:
 - `cursorSync` must be a string (`"Off"`, `"Crosshair"`, `"Tooltip"`), not an integer
 - A dashboard that already exists in Grafana's Postgres as "unmanaged" blocks Git
