@@ -1162,42 +1162,42 @@
                       "kind": "GridLayoutItem",
                       "spec": {
                         "element": {"kind": "ElementReference", "name": "panel-1"},
-                        "height": 4, "width": 4, "x": 0, "y": 0
+                        "height": 4, "width": 3, "x": 0, "y": 0
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
                         "element": {"kind": "ElementReference", "name": "panel-2"},
-                        "height": 4, "width": 4, "x": 4, "y": 0
+                        "height": 4, "width": 3, "x": 3, "y": 0
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
                         "element": {"kind": "ElementReference", "name": "panel-3"},
-                        "height": 4, "width": 4, "x": 8, "y": 0
+                        "height": 4, "width": 3, "x": 6, "y": 0
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
                         "element": {"kind": "ElementReference", "name": "panel-4"},
-                        "height": 4, "width": 4, "x": 12, "y": 0
+                        "height": 4, "width": 3, "x": 9, "y": 0
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
                         "element": {"kind": "ElementReference", "name": "panel-5"},
-                        "height": 4, "width": 4, "x": 16, "y": 0
+                        "height": 4, "width": 6, "x": 12, "y": 0
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
                         "element": {"kind": "ElementReference", "name": "panel-11"},
-                        "height": 4, "width": 4, "x": 20, "y": 0
+                        "height": 4, "width": 6, "x": 18, "y": 0
                       }
                     }
                   ]
