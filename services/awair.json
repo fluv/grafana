@@ -126,7 +126,7 @@
                 "wideLayout": true
               }
             },
-            "version": "13.0.1"
+            "version": "13.0.1+security-01"
           }
         }
       },
@@ -176,18 +176,62 @@
                     "mode": "palette-classic"
                   },
                   "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
                     "drawStyle": "line",
                     "fillOpacity": 10,
                     "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
                     "lineWidth": 2,
-                    "spanNulls": false
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "showValues": false,
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
                   },
                   "min": 0,
-                  "unit": "short"
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "ppm"
                 },
                 "overrides": []
               },
               "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
                 "legend": {
                   "calcs": [
                     "lastNotNull"
@@ -203,7 +247,7 @@
                 }
               }
             },
-            "version": "13.0.1"
+            "version": "13.0.1+security-01"
           }
         }
       },
@@ -324,7 +368,7 @@
                 }
               }
             },
-            "version": "13.0.1"
+            "version": "13.0.1+security-01"
           }
         }
       },
@@ -374,17 +418,61 @@
                     "mode": "palette-classic"
                   },
                   "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
                     "drawStyle": "line",
                     "fillOpacity": 10,
                     "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
                     "lineWidth": 2,
-                    "spanNulls": false
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "showValues": false,
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
                   },
                   "unit": "short"
                 },
                 "overrides": []
               },
               "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
                 "legend": {
                   "calcs": [
                     "lastNotNull"
@@ -400,7 +488,7 @@
                 }
               }
             },
-            "version": "13.0.1"
+            "version": "13.0.1+security-01"
           }
         }
       },
@@ -450,17 +538,61 @@
                     "mode": "palette-classic"
                   },
                   "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
                     "drawStyle": "line",
                     "fillOpacity": 10,
                     "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
                     "lineWidth": 2,
-                    "spanNulls": false
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "showValues": false,
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
                   },
                   "unit": "short"
                 },
                 "overrides": []
               },
               "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
                 "legend": {
                   "calcs": [
                     "lastNotNull"
@@ -476,7 +608,7 @@
                 }
               }
             },
-            "version": "13.0.1"
+            "version": "13.0.1+security-01"
           }
         }
       },
@@ -526,17 +658,61 @@
                     "mode": "palette-classic"
                   },
                   "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
                     "drawStyle": "line",
                     "fillOpacity": 10,
                     "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
                     "lineWidth": 2,
-                    "spanNulls": false
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "showValues": false,
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
                   },
                   "unit": "short"
                 },
                 "overrides": []
               },
               "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
                 "legend": {
                   "calcs": [
                     "lastNotNull"
@@ -552,7 +728,7 @@
                 }
               }
             },
-            "version": "13.0.1"
+            "version": "13.0.1+security-01"
           }
         }
       },
@@ -602,17 +778,61 @@
                     "mode": "palette-classic"
                   },
                   "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
                     "drawStyle": "line",
                     "fillOpacity": 10,
                     "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
                     "lineWidth": 2,
-                    "spanNulls": false
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "showValues": false,
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
                   },
                   "unit": "short"
                 },
                 "overrides": []
               },
               "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
                 "legend": {
                   "calcs": [
                     "lastNotNull"
@@ -628,7 +848,7 @@
                 }
               }
             },
-            "version": "13.0.1"
+            "version": "13.0.1+security-01"
           }
         }
       },
@@ -751,7 +971,7 @@
                 }
               }
             },
-            "version": "13.0.1"
+            "version": "13.0.1+security-01"
           }
         }
       },
@@ -881,7 +1101,7 @@
                 }
               }
             },
-            "version": "13.0.1"
+            "version": "13.0.1+security-01"
           }
         }
       },
@@ -1003,7 +1223,7 @@
                 }
               }
             },
-            "version": "13.0.1"
+            "version": "13.0.1+security-01"
           }
         }
       },
@@ -1133,7 +1353,7 @@
                 }
               }
             },
-            "version": "13.0.1"
+            "version": "13.0.1+security-01"
           }
         }
       },
@@ -1255,7 +1475,7 @@
                 }
               }
             },
-            "version": "13.0.1"
+            "version": "13.0.1+security-01"
           }
         }
       },
@@ -1379,7 +1599,7 @@
                 }
               }
             },
-            "version": "13.0.1"
+            "version": "13.0.1+security-01"
           }
         }
       },
@@ -1500,7 +1720,7 @@
                 }
               }
             },
-            "version": "13.0.1"
+            "version": "13.0.1+security-01"
           }
         }
       },
@@ -1550,18 +1770,62 @@
                     "mode": "palette-classic"
                   },
                   "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
                     "drawStyle": "line",
                     "fillOpacity": 10,
                     "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
                     "lineWidth": 2,
-                    "spanNulls": false
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "showValues": false,
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
                   },
                   "min": 0,
-                  "unit": "short"
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "congm3"
                 },
                 "overrides": []
               },
               "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
                 "legend": {
                   "calcs": [
                     "lastNotNull"
@@ -1577,7 +1841,7 @@
                 }
               }
             },
-            "version": "13.0.1"
+            "version": "13.0.1+security-01"
           }
         }
       }
@@ -1762,7 +2026,7 @@
           {
             "kind": "RowsLayoutRow",
             "spec": {
-              "collapse": true,
+              "collapse": false,
               "layout": {
                 "kind": "GridLayout",
                 "spec": {
@@ -1865,7 +2129,7 @@
         "title": "Source (GitHub)",
         "tooltip": "View source file in repository",
         "type": "link",
-        "url": "https://github.com/zuzak/grafana/blob/main/services/awair.json"
+        "url": "https://github.com/fluv/grafana/blob/main/services/awair.json"
       }
     ],
     "liveNow": false,
