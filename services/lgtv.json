@@ -27,7 +27,7 @@
       }
     ],
     "cursorSync": "Crosshair",
-    "description": "LG WebOS TV state metrics via SSAP WebSocket (bscpylgtv). Shows connection status, power, volume, current app, and input.",
+    "description": "LG WebOS TV state metrics via SSAP WebSocket (bscpylgtv). Shows connection status, power, volume, current app, input, usage composites, and picture settings.",
     "editable": true,
     "elements": {
       "panel-1": {
@@ -42,9 +42,7 @@
                   "spec": {
                     "hidden": false,
                     "query": {
-                      "datasource": {
-                        "name": "Lifestyle Prometheus"
-                      },
+                      "datasource": {"name": "Lifestyle Prometheus"},
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
@@ -72,22 +70,12 @@
             "spec": {
               "fieldConfig": {
                 "defaults": {
-                  "color": {
-                    "mode": "thresholds"
-                  },
+                  "color": {"mode": "thresholds"},
                   "mappings": [
                     {
                       "options": {
-                        "0": {
-                          "color": "red",
-                          "index": 0,
-                          "text": "Disconnected"
-                        },
-                        "1": {
-                          "color": "green",
-                          "index": 1,
-                          "text": "Connected"
-                        }
+                        "0": {"color": "red", "index": 0, "text": "Disconnected"},
+                        "1": {"color": "green", "index": 1, "text": "Connected"}
                       },
                       "type": "value"
                     }
@@ -107,11 +95,7 @@
                 "graphMode": "none",
                 "justifyMode": "auto",
                 "orientation": "horizontal",
-                "reduceOptions": {
-                  "calcs": ["lastNotNull"],
-                  "fields": "",
-                  "values": false
-                },
+                "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
                 "showPercentChange": false,
                 "textMode": "auto",
                 "wideLayout": true
@@ -133,9 +117,7 @@
                   "spec": {
                     "hidden": false,
                     "query": {
-                      "datasource": {
-                        "name": "Lifestyle Prometheus"
-                      },
+                      "datasource": {"name": "Lifestyle Prometheus"},
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
@@ -163,22 +145,12 @@
             "spec": {
               "fieldConfig": {
                 "defaults": {
-                  "color": {
-                    "mode": "thresholds"
-                  },
+                  "color": {"mode": "thresholds"},
                   "mappings": [
                     {
                       "options": {
-                        "0": {
-                          "color": "blue",
-                          "index": 0,
-                          "text": "Standby"
-                        },
-                        "1": {
-                          "color": "green",
-                          "index": 1,
-                          "text": "On"
-                        }
+                        "0": {"color": "blue", "index": 0, "text": "Standby"},
+                        "1": {"color": "green", "index": 1, "text": "On"}
                       },
                       "type": "value"
                     }
@@ -198,11 +170,7 @@
                 "graphMode": "none",
                 "justifyMode": "auto",
                 "orientation": "horizontal",
-                "reduceOptions": {
-                  "calcs": ["lastNotNull"],
-                  "fields": "",
-                  "values": false
-                },
+                "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
                 "showPercentChange": false,
                 "textMode": "auto",
                 "wideLayout": true
@@ -224,9 +192,7 @@
                   "spec": {
                     "hidden": false,
                     "query": {
-                      "datasource": {
-                        "name": "Lifestyle Prometheus"
-                      },
+                      "datasource": {"name": "Lifestyle Prometheus"},
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
@@ -254,9 +220,7 @@
             "spec": {
               "fieldConfig": {
                 "defaults": {
-                  "color": {
-                    "mode": "thresholds"
-                  },
+                  "color": {"mode": "thresholds"},
                   "max": 100,
                   "min": 0,
                   "thresholds": {
@@ -275,11 +239,7 @@
                 "graphMode": "area",
                 "justifyMode": "auto",
                 "orientation": "horizontal",
-                "reduceOptions": {
-                  "calcs": ["lastNotNull"],
-                  "fields": "",
-                  "values": false
-                },
+                "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
                 "showPercentChange": false,
                 "textMode": "auto",
                 "wideLayout": true
@@ -301,9 +261,7 @@
                   "spec": {
                     "hidden": false,
                     "query": {
-                      "datasource": {
-                        "name": "Lifestyle Prometheus"
-                      },
+                      "datasource": {"name": "Lifestyle Prometheus"},
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
@@ -331,22 +289,12 @@
             "spec": {
               "fieldConfig": {
                 "defaults": {
-                  "color": {
-                    "mode": "thresholds"
-                  },
+                  "color": {"mode": "thresholds"},
                   "mappings": [
                     {
                       "options": {
-                        "0": {
-                          "color": "green",
-                          "index": 0,
-                          "text": "Unmuted"
-                        },
-                        "1": {
-                          "color": "orange",
-                          "index": 1,
-                          "text": "Muted"
-                        }
+                        "0": {"color": "green", "index": 0, "text": "Unmuted"},
+                        "1": {"color": "orange", "index": 1, "text": "Muted"}
                       },
                       "type": "value"
                     }
@@ -366,11 +314,7 @@
                 "graphMode": "none",
                 "justifyMode": "auto",
                 "orientation": "horizontal",
-                "reduceOptions": {
-                  "calcs": ["lastNotNull"],
-                  "fields": "",
-                  "values": false
-                },
+                "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
                 "showPercentChange": false,
                 "textMode": "auto",
                 "wideLayout": true
@@ -392,9 +336,7 @@
                   "spec": {
                     "hidden": false,
                     "query": {
-                      "datasource": {
-                        "name": "Lifestyle Prometheus"
-                      },
+                      "datasource": {"name": "Lifestyle Prometheus"},
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
@@ -422,10 +364,7 @@
             "spec": {
               "fieldConfig": {
                 "defaults": {
-                  "color": {
-                    "mode": "fixed",
-                    "fixedColor": "text"
-                  },
+                  "color": {"mode": "fixed", "fixedColor": "text"},
                   "thresholds": {
                     "mode": "absolute",
                     "steps": [{"color": "text", "value": 0}]
@@ -438,11 +377,7 @@
                 "graphMode": "none",
                 "justifyMode": "auto",
                 "orientation": "horizontal",
-                "reduceOptions": {
-                  "calcs": ["lastNotNull"],
-                  "fields": "",
-                  "values": false
-                },
+                "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
                 "showPercentChange": false,
                 "textMode": "name",
                 "wideLayout": true
@@ -464,9 +399,7 @@
                   "spec": {
                     "hidden": false,
                     "query": {
-                      "datasource": {
-                        "name": "Lifestyle Prometheus"
-                      },
+                      "datasource": {"name": "Lifestyle Prometheus"},
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
@@ -494,10 +427,7 @@
             "spec": {
               "fieldConfig": {
                 "defaults": {
-                  "color": {
-                    "mode": "fixed",
-                    "fixedColor": "text"
-                  },
+                  "color": {"mode": "fixed", "fixedColor": "text"},
                   "thresholds": {
                     "mode": "absolute",
                     "steps": [{"color": "text", "value": 0}]
@@ -510,11 +440,7 @@
                 "graphMode": "none",
                 "justifyMode": "auto",
                 "orientation": "horizontal",
-                "reduceOptions": {
-                  "calcs": ["lastNotNull"],
-                  "fields": "",
-                  "values": false
-                },
+                "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
                 "showPercentChange": false,
                 "textMode": "name",
                 "wideLayout": true
@@ -536,9 +462,7 @@
                   "spec": {
                     "hidden": false,
                     "query": {
-                      "datasource": {
-                        "name": "Lifestyle Prometheus"
-                      },
+                      "datasource": {"name": "Lifestyle Prometheus"},
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
@@ -566,10 +490,7 @@
             "spec": {
               "fieldConfig": {
                 "defaults": {
-                  "color": {
-                    "mode": "fixed",
-                    "fixedColor": "text"
-                  },
+                  "color": {"mode": "fixed", "fixedColor": "text"},
                   "thresholds": {
                     "mode": "absolute",
                     "steps": [{"color": "text", "value": 0}]
@@ -582,11 +503,7 @@
                 "graphMode": "none",
                 "justifyMode": "auto",
                 "orientation": "horizontal",
-                "reduceOptions": {
-                  "calcs": ["lastNotNull"],
-                  "fields": "",
-                  "values": false
-                },
+                "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
                 "showPercentChange": false,
                 "textMode": "name",
                 "wideLayout": true
@@ -608,9 +525,7 @@
                   "spec": {
                     "hidden": false,
                     "query": {
-                      "datasource": {
-                        "name": "Lifestyle Prometheus"
-                      },
+                      "datasource": {"name": "Lifestyle Prometheus"},
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
@@ -638,10 +553,7 @@
             "spec": {
               "fieldConfig": {
                 "defaults": {
-                  "color": {
-                    "mode": "fixed",
-                    "fixedColor": "text"
-                  },
+                  "color": {"mode": "fixed", "fixedColor": "text"},
                   "thresholds": {
                     "mode": "absolute",
                     "steps": [{"color": "text", "value": 0}]
@@ -654,11 +566,7 @@
                 "graphMode": "none",
                 "justifyMode": "auto",
                 "orientation": "horizontal",
-                "reduceOptions": {
-                  "calcs": ["lastNotNull"],
-                  "fields": "",
-                  "values": false
-                },
+                "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
                 "showPercentChange": false,
                 "textMode": "name",
                 "wideLayout": true
@@ -680,9 +588,7 @@
                   "spec": {
                     "hidden": false,
                     "query": {
-                      "datasource": {
-                        "name": "Lifestyle Prometheus"
-                      },
+                      "datasource": {"name": "Lifestyle Prometheus"},
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
@@ -700,9 +606,7 @@
                   "spec": {
                     "hidden": false,
                     "query": {
-                      "datasource": {
-                        "name": "Lifestyle Prometheus"
-                      },
+                      "datasource": {"name": "Lifestyle Prometheus"},
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
@@ -730,9 +634,7 @@
             "spec": {
               "fieldConfig": {
                 "defaults": {
-                  "color": {
-                    "mode": "palette-classic"
-                  },
+                  "color": {"mode": "palette-classic"},
                   "custom": {
                     "drawStyle": "line",
                     "fillOpacity": 10,
@@ -784,9 +686,7 @@
                   "spec": {
                     "hidden": false,
                     "query": {
-                      "datasource": {
-                        "name": "Lifestyle Prometheus"
-                      },
+                      "datasource": {"name": "Lifestyle Prometheus"},
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
@@ -814,10 +714,7 @@
             "spec": {
               "fieldConfig": {
                 "defaults": {
-                  "color": {
-                    "mode": "fixed",
-                    "fixedColor": "text"
-                  },
+                  "color": {"mode": "fixed", "fixedColor": "text"},
                   "thresholds": {
                     "mode": "absolute",
                     "steps": [{"color": "text", "value": 0}]
@@ -830,11 +727,413 @@
                 "graphMode": "none",
                 "justifyMode": "auto",
                 "orientation": "horizontal",
-                "reduceOptions": {
-                  "calcs": ["lastNotNull"],
-                  "fields": "",
-                  "values": false
+                "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+                "showPercentChange": false,
+                "textMode": "name",
+                "wideLayout": true
+              }
+            },
+            "version": "13.0.1"
+          }
+        }
+      },
+      "panel-11": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {"name": "Lifestyle Prometheus"},
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "lgtv_channel_info",
+                        "instant": true,
+                        "legendFormat": "{{channel}}: {{program}}"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "Current live TV channel and programme name (only present when watching live TV).",
+          "id": 11,
+          "links": [],
+          "title": "Channel",
+          "vizConfig": {
+            "group": "stat",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {"mode": "fixed", "fixedColor": "text"},
+                  "noValue": "—",
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [{"color": "text", "value": 0}]
+                  }
                 },
+                "overrides": []
+              },
+              "options": {
+                "colorMode": "none",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "horizontal",
+                "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+                "showPercentChange": false,
+                "textMode": "name",
+                "wideLayout": true
+              }
+            },
+            "version": "13.0.1"
+          }
+        }
+      },
+      "panel-12": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {"name": "Lifestyle Prometheus"},
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "avg_over_time(lgtv_on[24h]) * 24",
+                        "instant": true,
+                        "legendFormat": "Watch time"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "Estimated hours the TV was on in the last 24 hours. Derived as avg(lgtv_on[24h]) × 24.",
+          "id": 12,
+          "links": [],
+          "title": "Watch time (24h)",
+          "vizConfig": {
+            "group": "stat",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {"mode": "thresholds"},
+                  "decimals": 1,
+                  "unit": "h",
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {"color": "green", "value": 0},
+                      {"color": "yellow", "value": 8},
+                      {"color": "red", "value": 16}
+                    ]
+                  }
+                },
+                "overrides": []
+              },
+              "options": {
+                "colorMode": "value",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "horizontal",
+                "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
+              }
+            },
+            "version": "13.0.1"
+          }
+        }
+      },
+      "panel-13": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {"name": "Lifestyle Prometheus"},
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "avg_over_time(lgtv_volume[1h])",
+                        "instant": true,
+                        "legendFormat": "Avg volume"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "Average volume level over the last hour (0–100). Includes zero values when TV is off.",
+          "id": 13,
+          "links": [],
+          "title": "Avg volume (1h)",
+          "vizConfig": {
+            "group": "stat",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {"mode": "thresholds"},
+                  "decimals": 1,
+                  "max": 100,
+                  "min": 0,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {"color": "green", "value": 0},
+                      {"color": "yellow", "value": 50},
+                      {"color": "red", "value": 80}
+                    ]
+                  }
+                },
+                "overrides": []
+              },
+              "options": {
+                "colorMode": "value",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "horizontal",
+                "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
+              }
+            },
+            "version": "13.0.1"
+          }
+        }
+      },
+      "panel-14": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {"name": "Lifestyle Prometheus"},
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "avg_over_time(lgtv_muted[1h]) * 100",
+                        "instant": true,
+                        "legendFormat": "Mute %"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "Fraction of the last hour that audio was muted, expressed as a percentage.",
+          "id": 14,
+          "links": [],
+          "title": "Mute fraction (1h)",
+          "vizConfig": {
+            "group": "stat",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {"mode": "thresholds"},
+                  "decimals": 1,
+                  "max": 100,
+                  "min": 0,
+                  "unit": "percent",
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {"color": "green", "value": 0},
+                      {"color": "orange", "value": 50}
+                    ]
+                  }
+                },
+                "overrides": []
+              },
+              "options": {
+                "colorMode": "value",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "horizontal",
+                "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
+              }
+            },
+            "version": "13.0.1"
+          }
+        }
+      },
+      "panel-15": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {"name": "Lifestyle Prometheus"},
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "{__name__=~\"lgtv_picture_.+\"}",
+                        "instant": true,
+                        "legendFormat": "{{__name__}}"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "All numeric picture setting values (backlight, brightness, contrast, colour, etc.).",
+          "id": 15,
+          "links": [],
+          "title": "Picture settings",
+          "vizConfig": {
+            "group": "table",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {"mode": "thresholds"},
+                  "custom": {
+                    "align": "auto",
+                    "cellOptions": {"type": "auto"},
+                    "filterable": false,
+                    "inspect": false
+                  },
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [{"color": "text", "value": 0}]
+                  }
+                },
+                "overrides": []
+              },
+              "options": {
+                "cellHeight": "sm",
+                "footer": {
+                  "countRows": false,
+                  "fields": "",
+                  "reducer": ["sum"],
+                  "show": false
+                },
+                "showHeader": true,
+                "sortBy": []
+              }
+            },
+            "version": "13.0.1"
+          }
+        }
+      },
+      "panel-16": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {"name": "Lifestyle Prometheus"},
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "lgtv_power_info",
+                        "instant": true,
+                        "legendFormat": "{{state}}"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "Raw power state string from the TV (Active, Suspend, Screen Off, etc.).",
+          "id": 16,
+          "links": [],
+          "title": "Power state (raw)",
+          "vizConfig": {
+            "group": "stat",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {"mode": "fixed", "fixedColor": "text"},
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [{"color": "text", "value": 0}]
+                  }
+                },
+                "overrides": []
+              },
+              "options": {
+                "colorMode": "none",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "horizontal",
+                "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
                 "showPercentChange": false,
                 "textMode": "name",
                 "wideLayout": true
@@ -846,77 +1145,209 @@
       }
     },
     "layout": {
-      "kind": "GridLayout",
+      "kind": "RowsLayout",
       "spec": {
-        "items": [
+        "rows": [
           {
-            "kind": "GridLayoutItem",
+            "kind": "RowsLayoutRow",
             "spec": {
-              "element": {"kind": "ElementReference", "name": "panel-1"},
-              "height": 4, "width": 4, "x": 0, "y": 0
+              "title": "Status",
+              "collapse": false,
+              "hideHeader": false,
+              "layout": {
+                "kind": "GridLayout",
+                "spec": {
+                  "items": [
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {"kind": "ElementReference", "name": "panel-1"},
+                        "height": 4, "width": 3, "x": 0, "y": 0
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {"kind": "ElementReference", "name": "panel-2"},
+                        "height": 4, "width": 3, "x": 3, "y": 0
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {"kind": "ElementReference", "name": "panel-3"},
+                        "height": 4, "width": 3, "x": 6, "y": 0
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {"kind": "ElementReference", "name": "panel-4"},
+                        "height": 4, "width": 3, "x": 9, "y": 0
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {"kind": "ElementReference", "name": "panel-5"},
+                        "height": 4, "width": 6, "x": 12, "y": 0
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {"kind": "ElementReference", "name": "panel-11"},
+                        "height": 4, "width": 6, "x": 18, "y": 0
+                      }
+                    }
+                  ]
+                }
+              }
             }
           },
           {
-            "kind": "GridLayoutItem",
+            "kind": "RowsLayoutRow",
             "spec": {
-              "element": {"kind": "ElementReference", "name": "panel-2"},
-              "height": 4, "width": 4, "x": 4, "y": 0
+              "title": "Activity",
+              "collapse": false,
+              "hideHeader": false,
+              "layout": {
+                "kind": "GridLayout",
+                "spec": {
+                  "items": [
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {"kind": "ElementReference", "name": "panel-6"},
+                        "height": 4, "width": 6, "x": 0, "y": 0
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {"kind": "ElementReference", "name": "panel-7"},
+                        "height": 4, "width": 6, "x": 6, "y": 0
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {"kind": "ElementReference", "name": "panel-8"},
+                        "height": 4, "width": 6, "x": 12, "y": 0
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {"kind": "ElementReference", "name": "panel-10"},
+                        "height": 4, "width": 6, "x": 18, "y": 0
+                      }
+                    }
+                  ]
+                }
+              }
             }
           },
           {
-            "kind": "GridLayoutItem",
+            "kind": "RowsLayoutRow",
             "spec": {
-              "element": {"kind": "ElementReference", "name": "panel-3"},
-              "height": 4, "width": 4, "x": 8, "y": 0
+              "title": "Usage",
+              "collapse": false,
+              "hideHeader": false,
+              "layout": {
+                "kind": "GridLayout",
+                "spec": {
+                  "items": [
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {"kind": "ElementReference", "name": "panel-12"},
+                        "height": 4, "width": 8, "x": 0, "y": 0
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {"kind": "ElementReference", "name": "panel-13"},
+                        "height": 4, "width": 8, "x": 8, "y": 0
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {"kind": "ElementReference", "name": "panel-14"},
+                        "height": 4, "width": 8, "x": 16, "y": 0
+                      }
+                    }
+                  ]
+                }
+              }
             }
           },
           {
-            "kind": "GridLayoutItem",
+            "kind": "RowsLayoutRow",
             "spec": {
-              "element": {"kind": "ElementReference", "name": "panel-4"},
-              "height": 4, "width": 4, "x": 12, "y": 0
+              "title": "",
+              "collapse": false,
+              "hideHeader": true,
+              "layout": {
+                "kind": "GridLayout",
+                "spec": {
+                  "items": [
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {"kind": "ElementReference", "name": "panel-9"},
+                        "height": 8, "width": 24, "x": 0, "y": 0
+                      }
+                    }
+                  ]
+                }
+              }
             }
           },
           {
-            "kind": "GridLayoutItem",
+            "kind": "RowsLayoutRow",
             "spec": {
-              "element": {"kind": "ElementReference", "name": "panel-5"},
-              "height": 4, "width": 8, "x": 16, "y": 0
+              "title": "Picture settings",
+              "collapse": true,
+              "hideHeader": false,
+              "layout": {
+                "kind": "GridLayout",
+                "spec": {
+                  "items": [
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {"kind": "ElementReference", "name": "panel-15"},
+                        "height": 6, "width": 24, "x": 0, "y": 0
+                      }
+                    }
+                  ]
+                }
+              }
             }
           },
           {
-            "kind": "GridLayoutItem",
+            "kind": "RowsLayoutRow",
             "spec": {
-              "element": {"kind": "ElementReference", "name": "panel-6"},
-              "height": 4, "width": 6, "x": 0, "y": 4
-            }
-          },
-          {
-            "kind": "GridLayoutItem",
-            "spec": {
-              "element": {"kind": "ElementReference", "name": "panel-7"},
-              "height": 4, "width": 6, "x": 6, "y": 4
-            }
-          },
-          {
-            "kind": "GridLayoutItem",
-            "spec": {
-              "element": {"kind": "ElementReference", "name": "panel-8"},
-              "height": 4, "width": 6, "x": 12, "y": 4
-            }
-          },
-          {
-            "kind": "GridLayoutItem",
-            "spec": {
-              "element": {"kind": "ElementReference", "name": "panel-10"},
-              "height": 4, "width": 6, "x": 18, "y": 4
-            }
-          },
-          {
-            "kind": "GridLayoutItem",
-            "spec": {
-              "element": {"kind": "ElementReference", "name": "panel-9"},
-              "height": 8, "width": 24, "x": 0, "y": 8
+              "title": "Raw state",
+              "collapse": true,
+              "hideHeader": false,
+              "layout": {
+                "kind": "GridLayout",
+                "spec": {
+                  "items": [
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {"kind": "ElementReference", "name": "panel-16"},
+                        "height": 4, "width": 12, "x": 0, "y": 0
+                      }
+                    }
+                  ]
+                }
+              }
             }
           }
         ]
