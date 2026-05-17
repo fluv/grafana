@@ -1,0 +1,11 @@
+{
+  "apiVersion": "folder.grafana.app/v1beta1",
+  "kind": "Folder",
+  "metadata": {
+    "name": "github-ci-workflows"
+  },
+  "spec": {
+    "title": "GitHub CI / workflows",
+    "description": "GitHub Actions workflow definitions — not a dashboard folder"
+  }
+}
