@@ -910,7 +910,7 @@
           "description": "",
           "id": 16,
           "links": [],
-          "title": "New panel",
+          "title": "Temp/RH",
           "vizConfig": {
             "group": "ventura-psychrometric-panel",
             "kind": "VizConfig",
@@ -1996,19 +1996,6 @@
                         "x": 0,
                         "y": 0
                       }
-                    },
-                    {
-                      "kind": "GridLayoutItem",
-                      "spec": {
-                        "element": {
-                          "kind": "ElementReference",
-                          "name": "panel-16"
-                        },
-                        "height": 8,
-                        "width": 12,
-                        "x": 0,
-                        "y": 4
-                      }
                     }
                   ]
                 }
@@ -2122,10 +2109,10 @@
                       "spec": {
                         "element": {
                           "kind": "ElementReference",
-                          "name": "panel-6"
+                          "name": "panel-16"
                         },
-                        "height": 8,
-                        "width": 8,
+                        "height": 16,
+                        "width": 12,
                         "x": 0,
                         "y": 0
                       }
@@ -2139,7 +2126,7 @@
                         },
                         "height": 8,
                         "width": 8,
-                        "x": 8,
+                        "x": 12,
                         "y": 0
                       }
                     },
@@ -2150,10 +2137,23 @@
                           "kind": "ElementReference",
                           "name": "panel-8"
                         },
+                        "height": 16,
+                        "width": 4,
+                        "x": 20,
+                        "y": 0
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-6"
+                        },
                         "height": 8,
                         "width": 8,
-                        "x": 16,
-                        "y": 0
+                        "x": 12,
+                        "y": 8
                       }
                     }
                   ]
