@@ -2034,10 +2034,10 @@
               "transformations": []
             }
           },
-          "description": "Fraction of the last 24h each room read CO2 above its own 6h-rolling baseline, expressed as hours. Proxy for time spent in the room — blind to uninstrumented rooms, confounded by a second occupant.",
+          "description": "Per room, the hours in the last 24h that CO2 read above that room's own 6h-rolling baseline. Each tile is independent and bounded at 24h — do not sum across rooms: CO2 lingers after you leave, so several rooms read occupied at once and the total exceeds wall-clock time. Proxy for time spent in the room — blind to uninstrumented rooms, confounded by a second occupant.",
           "id": 17,
           "links": [],
-          "title": "Time occupied (last 24h)",
+          "title": "Room-hours occupied (last 24h)",
           "vizConfig": {
             "group": "stat",
             "kind": "VizConfig",
