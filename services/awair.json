@@ -126,7 +126,7 @@
                 "wideLayout": true
               }
             },
-            "version": "13.0.2"
+            "version": "13.1.0"
           }
         }
       },
@@ -237,6 +237,8 @@
                     "lastNotNull"
                   ],
                   "displayMode": "list",
+                  "enableFacetedFilter": false,
+                  "overflow": "ellipsis",
                   "placement": "bottom",
                   "showLegend": true
                 },
@@ -247,7 +249,7 @@
                 }
               }
             },
-            "version": "13.0.2"
+            "version": "13.1.0"
           }
         }
       },
@@ -358,6 +360,8 @@
                     "lastNotNull"
                   ],
                   "displayMode": "list",
+                  "enableFacetedFilter": false,
+                  "overflow": "ellipsis",
                   "placement": "bottom",
                   "showLegend": true
                 },
@@ -368,7 +372,7 @@
                 }
               }
             },
-            "version": "13.0.2"
+            "version": "13.1.0"
           }
         }
       },
@@ -478,6 +482,8 @@
                     "lastNotNull"
                   ],
                   "displayMode": "list",
+                  "enableFacetedFilter": false,
+                  "overflow": "ellipsis",
                   "placement": "bottom",
                   "showLegend": true
                 },
@@ -488,7 +494,7 @@
                 }
               }
             },
-            "version": "13.0.2"
+            "version": "13.1.0"
           }
         }
       },
@@ -598,6 +604,8 @@
                     "lastNotNull"
                   ],
                   "displayMode": "list",
+                  "enableFacetedFilter": false,
+                  "overflow": "ellipsis",
                   "placement": "bottom",
                   "showLegend": true
                 },
@@ -608,7 +616,7 @@
                 }
               }
             },
-            "version": "13.0.2"
+            "version": "13.1.0"
           }
         }
       },
@@ -718,6 +726,8 @@
                     "lastNotNull"
                   ],
                   "displayMode": "list",
+                  "enableFacetedFilter": false,
+                  "overflow": "ellipsis",
                   "placement": "bottom",
                   "showLegend": true
                 },
@@ -728,7 +738,7 @@
                 }
               }
             },
-            "version": "13.0.1+security-01"
+            "version": "13.1.0"
           }
         }
       },
@@ -838,6 +848,8 @@
                     "lastNotNull"
                   ],
                   "displayMode": "list",
+                  "enableFacetedFilter": false,
+                  "overflow": "ellipsis",
                   "placement": "bottom",
                   "showLegend": true
                 },
@@ -848,7 +860,7 @@
                 }
               }
             },
-            "version": "13.0.1+security-01"
+            "version": "13.1.0"
           }
         }
       },
@@ -1087,6 +1099,8 @@
                     "min"
                   ],
                   "displayMode": "list",
+                  "enableFacetedFilter": false,
+                  "overflow": "ellipsis",
                   "placement": "bottom",
                   "showLegend": true
                 },
@@ -1097,7 +1111,7 @@
                 }
               }
             },
-            "version": "13.0.2"
+            "version": "13.1.0"
           }
         }
       },
@@ -1177,7 +1191,7 @@
                       "mode": "none"
                     },
                     "thresholdsStyle": {
-                      "mode": "off"
+                      "mode": "area"
                     }
                   },
                   "min": 400,
@@ -1185,20 +1199,16 @@
                     "mode": "absolute",
                     "steps": [
                       {
-                        "color": "green",
+                        "color": "text",
                         "value": 0
                       },
                       {
-                        "color": "yellow",
-                        "value": 1000
+                        "color": "transparent",
+                        "value": 400
                       },
                       {
-                        "color": "orange",
-                        "value": 1500
-                      },
-                      {
-                        "color": "red",
-                        "value": 2000
+                        "color": "text",
+                        "value": 5000
                       }
                     ]
                   },
@@ -1217,6 +1227,8 @@
                     "max"
                   ],
                   "displayMode": "list",
+                  "enableFacetedFilter": false,
+                  "overflow": "ellipsis",
                   "placement": "bottom",
                   "showLegend": true
                 },
@@ -1227,7 +1239,7 @@
                 }
               }
             },
-            "version": "13.0.2"
+            "version": "13.1.0"
           }
         }
       },
@@ -1307,7 +1319,7 @@
                       "mode": "none"
                     },
                     "thresholdsStyle": {
-                      "mode": "off"
+                      "mode": "area"
                     }
                   },
                   "min": 0,
@@ -1315,18 +1327,29 @@
                     "mode": "absolute",
                     "steps": [
                       {
-                        "color": "green",
+                        "color": "text",
                         "value": 0
                       },
                       {
-                        "color": "red",
-                        "value": 80
+                        "color": "transparent",
+                        "value": 20
+                      },
+                      {
+                        "color": "text",
+                        "value": 36000
                       }
                     ]
                   },
                   "unit": "conppb"
                 },
-                "overrides": []
+                "overrides": [
+                  {
+                    "matcher": {
+                      "id": "byFrameRefID"
+                    },
+                    "properties": []
+                  }
+                ]
               },
               "options": {
                 "annotations": {
@@ -1339,6 +1362,8 @@
                     "max"
                   ],
                   "displayMode": "list",
+                  "enableFacetedFilter": false,
+                  "overflow": "ellipsis",
                   "placement": "bottom",
                   "showLegend": true
                 },
@@ -1349,7 +1374,7 @@
                 }
               }
             },
-            "version": "13.0.2"
+            "version": "13.1.0"
           }
         }
       },
@@ -1437,20 +1462,12 @@
                     "mode": "absolute",
                     "steps": [
                       {
-                        "color": "green",
+                        "color": "transparent",
                         "value": 0
                       },
                       {
-                        "color": "yellow",
-                        "value": 15
-                      },
-                      {
-                        "color": "orange",
-                        "value": 35
-                      },
-                      {
-                        "color": "red",
-                        "value": 55
+                        "color": "text",
+                        "value": 1000
                       }
                     ]
                   },
@@ -1469,6 +1486,8 @@
                     "max"
                   ],
                   "displayMode": "list",
+                  "enableFacetedFilter": false,
+                  "overflow": "ellipsis",
                   "placement": "bottom",
                   "showLegend": true
                 },
@@ -1479,7 +1498,7 @@
                 }
               }
             },
-            "version": "13.0.2"
+            "version": "13.1.0"
           }
         }
       },
@@ -1566,12 +1585,16 @@
                     "mode": "absolute",
                     "steps": [
                       {
-                        "color": "green",
+                        "color": "text",
                         "value": 0
                       },
                       {
-                        "color": "red",
-                        "value": 80
+                        "color": "transparent",
+                        "value": 0
+                      },
+                      {
+                        "color": "text",
+                        "value": 90
                       }
                     ]
                   },
@@ -1591,6 +1614,8 @@
                     "max"
                   ],
                   "displayMode": "list",
+                  "enableFacetedFilter": false,
+                  "overflow": "ellipsis",
                   "placement": "bottom",
                   "showLegend": true
                 },
@@ -1601,7 +1626,7 @@
                 }
               }
             },
-            "version": "13.0.2"
+            "version": "13.1.0"
           }
         }
       },
@@ -1690,12 +1715,12 @@
                     "mode": "absolute",
                     "steps": [
                       {
-                        "color": "green",
+                        "color": "transparent",
                         "value": 0
                       },
                       {
-                        "color": "red",
-                        "value": 80
+                        "color": "text",
+                        "value": 100
                       }
                     ]
                   },
@@ -1715,6 +1740,8 @@
                     "max"
                   ],
                   "displayMode": "list",
+                  "enableFacetedFilter": false,
+                  "overflow": "ellipsis",
                   "placement": "bottom",
                   "showLegend": true
                 },
@@ -1725,7 +1752,7 @@
                 }
               }
             },
-            "version": "13.0.2"
+            "version": "13.1.0"
           }
         }
       },
@@ -1836,6 +1863,8 @@
                     "max"
                   ],
                   "displayMode": "list",
+                  "enableFacetedFilter": false,
+                  "overflow": "ellipsis",
                   "placement": "bottom",
                   "showLegend": true
                 },
@@ -1846,7 +1875,7 @@
                 }
               }
             },
-            "version": "13.0.2"
+            "version": "13.1.0"
           }
         }
       },
@@ -1957,6 +1986,8 @@
                     "lastNotNull"
                   ],
                   "displayMode": "list",
+                  "enableFacetedFilter": false,
+                  "overflow": "ellipsis",
                   "placement": "bottom",
                   "showLegend": true
                 },
@@ -1967,7 +1998,7 @@
                 }
               }
             },
-            "version": "13.0.2"
+            "version": "13.1.0"
           }
         }
       }
@@ -2293,7 +2324,7 @@
         "1d"
       ],
       "fiscalYearStartMonth": 0,
-      "from": "now-3h",
+      "from": "now-1h",
       "hideTimepicker": false,
       "timezone": "browser",
       "to": "now"
