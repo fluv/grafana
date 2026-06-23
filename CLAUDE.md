@@ -50,6 +50,7 @@ Common failure modes:
 |---|---|
 | Prometheus | `prometheus` |
 | Loki | `loki` |
+| Tempo | `tempo` |
 
 Community dashboards often hardcode UIDs from the author's instance. Check and
 fix before committing (see README for per-file notes).
