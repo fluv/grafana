@@ -30,6 +30,7 @@ and Loki instances).
 | `services/grocy.json` | this repo | zuzak / claude-zuzak | — |
 | `claude-code-telemetry.json` | this repo | zuzak / claude-zuzak | — |
 | `claude/github-activity.json` | this repo | claude-zuzak | — |
+| `services/meaco.json` | this repo | claude-zuzak | — |
 
 ## Datasource UIDs
 
