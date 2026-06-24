@@ -2272,6 +2272,14 @@
                       {
                         "id": "custom.lineWidth",
                         "value": 2
+                      },
+                      {
+                        "id": "custom.spanNulls",
+                        "value": false
+                      },
+                      {
+                        "id": "custom.showPoints",
+                        "value": "never"
                       }
                     ]
                   }
