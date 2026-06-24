@@ -48,7 +48,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "awair_up",
+                        "expr": "max by (location) (awair_up)",
                         "instant": true,
                         "legendFormat": "{{location}}"
                       },
@@ -148,7 +148,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "awair_co2_est_ppm",
+                        "expr": "avg by (location) (awair_co2_est_ppm)",
                         "instant": false,
                         "legendFormat": "{{location}}"
                       },
@@ -271,7 +271,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "awair_pm10_est_ugm3",
+                        "expr": "avg by (location) (awair_pm10_est_ugm3)",
                         "instant": false,
                         "legendFormat": "{{location}}"
                       },
@@ -394,7 +394,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "awair_co2_est_baseline",
+                        "expr": "avg by (location) (awair_co2_est_baseline)",
                         "instant": false,
                         "legendFormat": "{{location}}"
                       },
@@ -516,7 +516,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "awair_voc_baseline",
+                        "expr": "avg by (location) (awair_voc_baseline)",
                         "instant": false,
                         "legendFormat": "{{location}}"
                       },
@@ -638,7 +638,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "awair_voc_h2_raw",
+                        "expr": "avg by (location) (awair_voc_h2_raw)",
                         "instant": false,
                         "legendFormat": "{{location}}"
                       },
@@ -760,7 +760,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "awair_voc_ethanol_raw",
+                        "expr": "avg by (location) (awair_voc_ethanol_raw)",
                         "instant": false,
                         "legendFormat": "{{location}}"
                       },
@@ -883,7 +883,7 @@
                       "kind": "DataQuery",
                       "spec": {
                         "editorMode": "builder",
-                        "expr": "awair_temperature_celsius",
+                        "expr": "avg by (location) (awair_temperature_celsius)",
                         "legendFormat": "{{location}} temp",
                         "range": true
                       },
@@ -904,7 +904,7 @@
                       "kind": "DataQuery",
                       "spec": {
                         "editorMode": "builder",
-                        "expr": "awair_humidity_percent",
+                        "expr": "avg by (location) (awair_humidity_percent)",
                         "instant": false,
                         "legendFormat": "{{location}} RH",
                         "range": true
@@ -926,7 +926,7 @@
                       "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
-                        "expr": "weather_humidity_percent",
+                        "expr": "avg (weather_humidity_percent)",
                         "instant": false,
                         "legendFormat": "weather rh",
                         "range": true
@@ -948,7 +948,7 @@
                       "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
-                        "expr": "weather_temperature_celsius",
+                        "expr": "avg (weather_temperature_celsius)",
                         "instant": false,
                         "legendFormat": "weather cel",
                         "range": true
@@ -1063,7 +1063,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "24 * avg_over_time((awair_co2_ppm - min_over_time(awair_co2_ppm[6h]) \u003e bool 60)[24h:5m])",
+                        "expr": "24 * max by (location) (avg_over_time((awair_co2_ppm - min_over_time(awair_co2_ppm[6h]) \u003e bool 60)[24h:5m]))",
                         "instant": true,
                         "legendFormat": "{{location}}"
                       },
@@ -1143,7 +1143,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "awair_co2_ppm - min_over_time(awair_co2_ppm[6h]) \u003e bool 60",
+                        "expr": "max by (location) (awair_co2_ppm - min_over_time(awair_co2_ppm[6h]) \u003e bool 60)",
                         "instant": false,
                         "legendFormat": "{{location}}"
                       },
@@ -1261,7 +1261,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "awair_humidity_percent \u003e bool 60",
+                        "expr": "max by (location) (awair_humidity_percent \u003e bool 60)",
                         "instant": true,
                         "legendFormat": "{{location}}"
                       },
@@ -1361,7 +1361,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "awair_score",
+                        "expr": "avg by (location) (awair_score)",
                         "instant": false,
                         "legendFormat": "{{location}}"
                       },
@@ -1486,7 +1486,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "awair_co2_ppm",
+                        "expr": "avg by (location) (awair_co2_ppm)",
                         "instant": false,
                         "legendFormat": "{{location}}"
                       },
@@ -1614,7 +1614,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "awair_voc_ppb",
+                        "expr": "avg by (location) (awair_voc_ppb)",
                         "instant": false,
                         "legendFormat": "{{location}}"
                       },
@@ -1749,7 +1749,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "awair_pm25_ugm3",
+                        "expr": "avg by (location) (awair_pm25_ugm3)",
                         "instant": false,
                         "legendFormat": "{{location}}"
                       },
@@ -1873,7 +1873,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "awair_temperature_celsius",
+                        "expr": "avg by (location) (awair_temperature_celsius)",
                         "instant": false,
                         "legendFormat": "{{location}}"
                       },
@@ -1894,7 +1894,7 @@
                       "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
-                        "expr": "weather_temperature_celsius",
+                        "expr": "avg (weather_temperature_celsius)",
                         "instant": false,
                         "legendFormat": "outside",
                         "range": true
@@ -2070,7 +2070,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "awair_humidity_percent",
+                        "expr": "avg by (location) (awair_humidity_percent)",
                         "instant": false,
                         "legendFormat": "{{location}}"
                       },
@@ -2091,7 +2091,7 @@
                       "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
-                        "expr": "weather_humidity_percent",
+                        "expr": "avg (weather_humidity_percent)",
                         "instant": false,
                         "legendFormat": "outside",
                         "range": true
@@ -2268,7 +2268,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "awair_dew_point_celsius",
+                        "expr": "avg by (location) (awair_dew_point_celsius)",
                         "instant": false,
                         "legendFormat": "{{location}}"
                       },
@@ -2289,7 +2289,7 @@
                       "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
-                        "expr": "weather_dew_point_celsius",
+                        "expr": "avg (weather_dew_point_celsius)",
                         "instant": false,
                         "legendFormat": "outside",
                         "range": true
@@ -2432,7 +2432,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "awair_abs_humidity_gm3",
+                        "expr": "avg by (location) (awair_abs_humidity_gm3)",
                         "instant": false,
                         "legendFormat": "{{location}}"
                       },
