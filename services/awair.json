@@ -2100,13 +2100,35 @@
                     },
                     "refId": "B"
                   }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "Lifestyle Prometheus"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "meaco_target_humidity_percent and on () (meaco_power_on == 1)",
+                        "instant": false,
+                        "legendFormat": "dehumidifier target",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "C"
+                  }
                 }
               ],
               "queryOptions": {},
               "transformations": []
             }
           },
-          "description": "Relative humidity (%). Comfort range is roughly 40–60%.",
+          "description": "Relative humidity (%). Comfort range is roughly 40–60%. The dashed blue \"dehumidifier target\" line appears only while the Meaco dehumidifier is running — its presence means the unit is on, and room RH trending down toward it shows it is working.",
           "id": 7,
           "links": [],
           "title": "Relative Humidity",
@@ -2217,6 +2239,39 @@
                           ],
                           "fill": "dash"
                         }
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byFrameRefID",
+                      "options": "C"
+                    },
+                    "properties": [
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "blue",
+                          "mode": "fixed"
+                        }
+                      },
+                      {
+                        "id": "custom.lineInterpolation",
+                        "value": "stepAfter"
+                      },
+                      {
+                        "id": "custom.lineStyle",
+                        "value": {
+                          "dash": [
+                            4,
+                            4
+                          ],
+                          "fill": "dash"
+                        }
+                      },
+                      {
+                        "id": "custom.lineWidth",
+                        "value": 2
                       }
                     ]
                   }
