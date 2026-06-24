@@ -913,6 +913,50 @@
                     },
                     "refId": "B"
                   }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "lifestyle-prometheus"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "weather_humidity_percent",
+                        "instant": false,
+                        "legendFormat": "weather rh",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "C"
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "lifestyle-prometheus"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "weather_temperature_celsius",
+                        "instant": false,
+                        "legendFormat": "weather cel",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "D"
+                  }
                 }
               ],
               "queryOptions": {},
@@ -933,7 +977,7 @@
               },
               "options": {
                 "altitude": 67,
-                "count": 3,
+                "count": 4,
                 "dbMax": 35,
                 "dbMin": 10,
                 "dpMax": 35,
@@ -979,6 +1023,17 @@
                     "pointRadius": 1,
                     "relHumType": "percent",
                     "seriesName": "lounge"
+                  },
+                  "3": {
+                    "advanced": false,
+                    "dryBulb": "weather cel",
+                    "gradient": "Bee",
+                    "line": true,
+                    "measurement": "dbrh",
+                    "other": "weather rh",
+                    "pointRadius": 5,
+                    "relHumType": "percent",
+                    "seriesName": "outside"
                   }
                 },
                 "showAxisNames": true,
