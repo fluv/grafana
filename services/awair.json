@@ -2113,7 +2113,7 @@
                       "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
-                        "expr": "meaco_target_humidity_percent and on () (meaco_power_on == 1)",
+                        "expr": "meaco_target_humidity_percent and on () (meaco_mode_info{mode!=\"purify\"} ==\n  1)",
                         "instant": false,
                         "legendFormat": "dehumidifier target",
                         "range": true
