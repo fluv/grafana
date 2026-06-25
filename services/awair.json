@@ -2124,6 +2124,27 @@
                     },
                     "refId": "C"
                   }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "lifestyle-prometheus"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "meaco_current_humidity_percent",
+                        "legendFormat": "dehumidifier",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "D"
+                  }
                 }
               ],
               "queryOptions": {},
@@ -2977,7 +2998,7 @@
         "1d"
       ],
       "fiscalYearStartMonth": 0,
-      "from": "now-6h",
+      "from": "now-3h",
       "hideTimepicker": false,
       "timezone": "browser",
       "to": "now"
