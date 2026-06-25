@@ -2303,6 +2303,22 @@
                       {
                         "id": "custom.showPoints",
                         "value": "never"
+                      },
+                      {
+                        "id": "custom.fillBelowTo",
+                        "value": "meaco_current_humidity_percent"
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byFrameRefID",
+                      "options": "D"
+                    },
+                    "properties": [
+                      {
+                        "id": "custom.fillBelowTo",
+                        "value": "meaco_target_humidity_percent"
                       }
                     ]
                   }
