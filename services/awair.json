@@ -2115,7 +2115,7 @@
                       "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
-                        "expr": "meaco_target_humidity_percent and on () (meaco_mode_info{mode!=\"purify\"} ==\n  1)",
+                        "expr": "avg (meaco_target_humidity_percent) and on () (meaco_mode_info{mode!=\"purify\"} ==\n  1)",
                         "instant": false,
                         "legendFormat": "dehumidifier target",
                         "range": true
@@ -2137,7 +2137,7 @@
                       "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
-                        "expr": "meaco_current_humidity_percent",
+                        "expr": "avg(meaco_current_humidity_percent)",
                         "legendFormat": "dehumidifier",
                         "range": true
                       },
@@ -3013,7 +3013,7 @@
         "1d"
       ],
       "fiscalYearStartMonth": 0,
-      "from": "now-3h",
+      "from": "now-24h",
       "hideTimepicker": false,
       "timezone": "browser",
       "to": "now"
