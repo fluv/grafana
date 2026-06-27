@@ -2331,9 +2331,8 @@
                 },
                 "legend": {
                   "calcs": [
-                    "lastNotNull",
-                    "min",
-                    "max"
+                    "firstNotNull",
+                    "lastNotNull"
                   ],
                   "displayMode": "list",
                   "enableFacetedFilter": false,
