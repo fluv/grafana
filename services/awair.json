@@ -1006,7 +1006,7 @@
                   "1": {
                     "advanced": false,
                     "dryBulb": "study temp",
-                    "gradient": "Mint",
+                    "gradient": "Dirt",
                     "line": true,
                     "measurement": "dbrh",
                     "other": "study RH",
@@ -1017,7 +1017,7 @@
                   "2": {
                     "advanced": false,
                     "dryBulb": "lounge temp",
-                    "gradient": "Magma",
+                    "gradient": "Lime",
                     "line": true,
                     "measurement": "dbrh",
                     "other": "lounge RH",
@@ -1034,7 +1034,7 @@
                     "other": "weather rh",
                     "pointRadius": 5,
                     "relHumType": "percent",
-                    "seriesName": "outside"
+                    "seriesName": "weather"
                   }
                 },
                 "showAxisNames": true,
@@ -1898,7 +1898,7 @@
                         "editorMode": "code",
                         "expr": "avg (weather_temperature_celsius)",
                         "instant": false,
-                        "legendFormat": "outside",
+                        "legendFormat": "weather",
                         "range": true
                       },
                       "version": "v0"
@@ -2095,7 +2095,7 @@
                         "editorMode": "code",
                         "expr": "avg (weather_humidity_percent)",
                         "instant": false,
-                        "legendFormat": "outside",
+                        "legendFormat": "weather",
                         "range": true
                       },
                       "version": "v0"
@@ -2392,7 +2392,7 @@
                         "editorMode": "code",
                         "expr": "avg (weather_dew_point_celsius)",
                         "instant": false,
-                        "legendFormat": "outside",
+                        "legendFormat": "weather",
                         "range": true
                       },
                       "version": "v0"
@@ -2779,8 +2779,21 @@
                           "name": "panel-16"
                         },
                         "height": 16,
-                        "width": 12,
+                        "width": 11,
                         "x": 0,
+                        "y": 0
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-8"
+                        },
+                        "height": 16,
+                        "width": 5,
+                        "x": 11,
                         "y": 0
                       }
                     },
@@ -2793,20 +2806,7 @@
                         },
                         "height": 8,
                         "width": 8,
-                        "x": 12,
-                        "y": 0
-                      }
-                    },
-                    {
-                      "kind": "GridLayoutItem",
-                      "spec": {
-                        "element": {
-                          "kind": "ElementReference",
-                          "name": "panel-8"
-                        },
-                        "height": 16,
-                        "width": 4,
-                        "x": 20,
+                        "x": 16,
                         "y": 0
                       }
                     },
@@ -2819,7 +2819,7 @@
                         },
                         "height": 8,
                         "width": 8,
-                        "x": 12,
+                        "x": 16,
                         "y": 8
                       }
                     }
