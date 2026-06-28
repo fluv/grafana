@@ -1362,7 +1362,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "avg by (location) (awair_dew_point_celsius) - scalar(avg(weather_dew_point_celsius))",
+                        "expr": "avg by (location) (awair_dew_point_celsius) - on() group_left() avg(weather_dew_point_celsius)",
                         "instant": false,
                         "legendFormat": "{{location}}"
                       },
