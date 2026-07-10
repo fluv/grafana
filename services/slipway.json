@@ -90,7 +90,7 @@
               },
               "options": {
                 "colorMode": "none",
-                "graphMode": "area",
+                "graphMode": "none",
                 "justifyMode": "auto",
                 "orientation": "horizontal",
                 "percentChangeColorMode": "standard",
