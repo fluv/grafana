@@ -31,6 +31,7 @@ and Loki instances).
 | `claude-code-telemetry.json` | this repo | zuzak / claude-zuzak | — |
 | `claude/github-activity.json` | this repo | claude-zuzak | — |
 | `services/meaco.json` | this repo | claude-zuzak | — |
+| `kubernetes/cert-manager.json` | this repo | claude-zuzak | — |
 
 ## Datasource UIDs
 
