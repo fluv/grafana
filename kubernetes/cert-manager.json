@@ -1,0 +1,433 @@
+{
+  "apiVersion": "dashboard.grafana.app/v1beta1",
+  "kind": "Dashboard",
+  "metadata": {
+    "name": "cert-manager"
+  },
+  "spec": {
+    "title": "cert-manager — Certificate Expiry",
+    "uid": "cert-manager",
+    "description": "Certificate expiry across the cluster, from cert-manager's own metrics. The two alerting thresholds here match the CertManagerCertificateExpiring (14 days) and CertManagerCertificateExpired rules. Note that the certificate's real namespace is the exported_namespace label; namespace is always cert-manager.",
+    "tags": ["cert-manager", "tls", "certificates", "kubernetes"],
+    "schemaVersion": 39,
+    "refresh": "1m",
+    "time": {
+      "from": "now-30d",
+      "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "browser",
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 1,
+    "panels": [
+      {
+        "id": 1,
+        "type": "stat",
+        "title": "Certificates tracked",
+        "description": "Number of Certificate resources cert-manager is currently tracking. A drop here means cert-manager stopped seeing a Certificate, not that it was renewed.",
+        "gridPos": { "x": 0, "y": 0, "w": 6, "h": 4 },
+        "datasource": { "type": "prometheus", "uid": "prometheus" },
+        "options": {
+          "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false },
+          "orientation": "auto",
+          "textMode": "auto",
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "color": "red", "value": null },
+                { "color": "green", "value": 1 }
+              ]
+            },
+            "mappings": [],
+            "color": { "mode": "thresholds" },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "targets": [
+          {
+            "datasource": { "type": "prometheus", "uid": "prometheus" },
+            "expr": "count(certmanager_certificate_expiration_timestamp_seconds) or vector(0)",
+            "legendFormat": "certificates",
+            "refId": "A"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "type": "stat",
+        "title": "Expiring within 14 days",
+        "description": "Certificates whose notAfter is less than 14 days away. This mirrors the CertManagerCertificateExpiring alert — anything above zero is a renewal that has not completed and needs investigating.",
+        "gridPos": { "x": 6, "y": 0, "w": 6, "h": 4 },
+        "datasource": { "type": "prometheus", "uid": "prometheus" },
+        "options": {
+          "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false },
+          "orientation": "auto",
+          "textMode": "auto",
+          "colorMode": "background",
+          "graphMode": "none",
+          "justifyMode": "auto"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "color": "green", "value": null },
+                { "color": "yellow", "value": 1 },
+                { "color": "red", "value": 5 }
+              ]
+            },
+            "mappings": [],
+            "color": { "mode": "thresholds" },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "targets": [
+          {
+            "datasource": { "type": "prometheus", "uid": "prometheus" },
+            "expr": "count((certmanager_certificate_expiration_timestamp_seconds - time()) < 1209600) or vector(0)",
+            "legendFormat": "expiring",
+            "refId": "A"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "type": "stat",
+        "title": "Expired",
+        "description": "Certificates already past their notAfter date. Any non-zero value means TLS validation is failing for whatever that certificate serves. Mirrors the CertManagerCertificateExpired alert.",
+        "gridPos": { "x": 12, "y": 0, "w": 6, "h": 4 },
+        "datasource": { "type": "prometheus", "uid": "prometheus" },
+        "options": {
+          "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false },
+          "orientation": "auto",
+          "textMode": "auto",
+          "colorMode": "background",
+          "graphMode": "none",
+          "justifyMode": "auto"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "color": "green", "value": null },
+                { "color": "red", "value": 1 }
+              ]
+            },
+            "mappings": [],
+            "color": { "mode": "thresholds" },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "targets": [
+          {
+            "datasource": { "type": "prometheus", "uid": "prometheus" },
+            "expr": "count((certmanager_certificate_expiration_timestamp_seconds - time()) < 0) or vector(0)",
+            "legendFormat": "expired",
+            "refId": "A"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "type": "stat",
+        "title": "Not ready",
+        "description": "Certificates whose Ready condition is not True. A certificate can be unexpired and still not ready — the challenge never completed, so the secret holds stale or missing material.",
+        "gridPos": { "x": 18, "y": 0, "w": 6, "h": 4 },
+        "datasource": { "type": "prometheus", "uid": "prometheus" },
+        "options": {
+          "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false },
+          "orientation": "auto",
+          "textMode": "auto",
+          "colorMode": "background",
+          "graphMode": "none",
+          "justifyMode": "auto"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "color": "green", "value": null },
+                { "color": "red", "value": 1 }
+              ]
+            },
+            "mappings": [],
+            "color": { "mode": "thresholds" },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "targets": [
+          {
+            "datasource": { "type": "prometheus", "uid": "prometheus" },
+            "expr": "count(certmanager_certificate_ready_status{condition=\"True\"} == 0) or vector(0)",
+            "legendFormat": "not ready",
+            "refId": "A"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "type": "timeseries",
+        "title": "Days until expiry",
+        "description": "Every tracked certificate, in days remaining. A sawtooth is healthy — it is the renewal resetting the clock. A line falling through the dashed 14-day marker without jumping back up is a renewal that has stalled. Lines below zero are already expired.",
+        "gridPos": { "x": 0, "y": 4, "w": 24, "h": 9 },
+        "datasource": { "type": "prometheus", "uid": "prometheus" },
+        "options": {
+          "tooltip": { "mode": "multi", "sort": "desc" },
+          "legend": { "displayMode": "table", "placement": "right", "showLegend": true, "calcs": ["min", "lastNotNull"] }
+        },
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "drawStyle": "line",
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "spanNulls": false,
+              "showPoints": "never",
+              "pointSize": 5,
+              "stacking": { "mode": "none", "group": "A" },
+              "axisPlacement": "auto",
+              "axisLabel": "days",
+              "scaleDistribution": { "type": "linear" },
+              "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+              "thresholdsStyle": { "mode": "dashed" }
+            },
+            "color": { "mode": "palette-classic" },
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "color": "red", "value": null },
+                { "color": "yellow", "value": 0 },
+                { "color": "green", "value": 14 }
+              ]
+            },
+            "mappings": [],
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "targets": [
+          {
+            "datasource": { "type": "prometheus", "uid": "prometheus" },
+            "expr": "(certmanager_certificate_expiration_timestamp_seconds - time()) / 86400",
+            "legendFormat": "{{exported_namespace}}/{{name}}",
+            "refId": "A"
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "type": "table",
+        "title": "Expiring and expired certificates",
+        "description": "Every certificate sorted by time remaining, soonest first. Anything in the top rows with a red or yellow cell is the renewal backlog — check the Order and Challenge for that certificate name.",
+        "gridPos": { "x": 0, "y": 13, "w": 14, "h": 9 },
+        "datasource": { "type": "prometheus", "uid": "prometheus" },
+        "options": {
+          "showHeader": true,
+          "cellHeight": "sm",
+          "footer": { "show": false, "reducer": ["sum"], "countRows": false, "fields": "" },
+          "sortBy": [{ "desc": false, "displayName": "Days remaining" }]
+        },
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "align": "auto",
+              "cellOptions": { "type": "color-text" },
+              "inspect": false
+            },
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "color": "red", "value": null },
+                { "color": "yellow", "value": 0 },
+                { "color": "green", "value": 14 }
+              ]
+            },
+            "mappings": [],
+            "unit": "short"
+          },
+          "overrides": [
+            {
+              "matcher": { "id": "byName", "options": "Days remaining" },
+              "properties": [{ "id": "unit", "value": "short" }]
+            }
+          ]
+        },
+        "targets": [
+          {
+            "datasource": { "type": "prometheus", "uid": "prometheus" },
+            "expr": "(certmanager_certificate_expiration_timestamp_seconds - time()) / 86400",
+            "format": "table",
+            "instant": true,
+            "range": false,
+            "refId": "A"
+          }
+        ],
+        "transformations": [
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": {
+                "Time": true,
+                "__name__": true,
+                "container": true,
+                "endpoint": true,
+                "instance": true,
+                "issuer_group": true,
+                "issuer_kind": true,
+                "job": true,
+                "namespace": true,
+                "pod": true,
+                "service": true
+              },
+              "indexByName": {
+                "exported_namespace": 0,
+                "name": 1,
+                "issuer_name": 2,
+                "Value": 3
+              },
+              "renameByName": {
+                "exported_namespace": "Namespace",
+                "name": "Certificate",
+                "issuer_name": "Issuer",
+                "Value": "Days remaining"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "type": "table",
+        "title": "Soonest expiry by namespace",
+        "description": "The certificate closest to expiry in each namespace, in days. This is the per-namespace rollup — if a namespace is yellow or red here, at least one certificate in it is approaching or past its renewal window.",
+        "gridPos": { "x": 14, "y": 13, "w": 10, "h": 9 },
+        "datasource": { "type": "prometheus", "uid": "prometheus" },
+        "options": {
+          "showHeader": true,
+          "cellHeight": "sm",
+          "footer": { "show": false, "reducer": ["sum"], "countRows": false, "fields": "" },
+          "sortBy": [{ "desc": false, "displayName": "Soonest expiry (days)" }]
+        },
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "align": "auto",
+              "cellOptions": { "type": "color-text" },
+              "inspect": false
+            },
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "color": "red", "value": null },
+                { "color": "yellow", "value": 0 },
+                { "color": "green", "value": 14 }
+              ]
+            },
+            "mappings": [],
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "targets": [
+          {
+            "datasource": { "type": "prometheus", "uid": "prometheus" },
+            "expr": "min by (exported_namespace) ((certmanager_certificate_expiration_timestamp_seconds - time()) / 86400)",
+            "format": "table",
+            "instant": true,
+            "range": false,
+            "refId": "A"
+          }
+        ],
+        "transformations": [
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": {
+                "Time": true,
+                "__name__": true,
+                "container": true,
+                "endpoint": true,
+                "instance": true,
+                "job": true,
+                "namespace": true,
+                "pod": true,
+                "service": true
+              },
+              "indexByName": {
+                "exported_namespace": 0,
+                "Value": 1
+              },
+              "renameByName": {
+                "exported_namespace": "Namespace",
+                "Value": "Soonest expiry (days)"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "type": "timeseries",
+        "title": "ACME client requests by status",
+        "description": "Rate of ACME requests cert-manager makes to Let's Encrypt, split by HTTP status. This is the renewal path itself — the August 2026 outage was an HTTP-01 challenge that could not complete because port 80 was closed (fluv/kube#814). A 4xx rate rising while renewals stall is that failure recurring; a flat zero line means no renewal has been attempted.",
+        "gridPos": { "x": 0, "y": 22, "w": 24, "h": 8 },
+        "datasource": { "type": "prometheus", "uid": "prometheus" },
+        "options": {
+          "tooltip": { "mode": "multi", "sort": "desc" },
+          "legend": { "displayMode": "table", "placement": "right", "showLegend": true, "calcs": ["max", "lastNotNull"] }
+        },
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "drawStyle": "line",
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "fillOpacity": 10,
+              "gradientMode": "none",
+              "spanNulls": false,
+              "showPoints": "never",
+              "pointSize": 5,
+              "stacking": { "mode": "none", "group": "A" },
+              "axisPlacement": "auto",
+              "axisLabel": "",
+              "scaleDistribution": { "type": "linear" },
+              "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+              "thresholdsStyle": { "mode": "off" }
+            },
+            "color": { "mode": "palette-classic" },
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [{ "color": "green", "value": null }]
+            },
+            "mappings": [],
+            "unit": "ops"
+          },
+          "overrides": []
+        },
+        "targets": [
+          {
+            "datasource": { "type": "prometheus", "uid": "prometheus" },
+            "expr": "sum by (status) (rate(certmanager_http_acme_client_request_count[$__rate_interval]))",
+            "legendFormat": "{{status}}",
+            "refId": "A"
+          }
+        ]
+      }
+    ]
+  }
+}
